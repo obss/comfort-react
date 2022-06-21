@@ -14,6 +14,13 @@ const Settings = (props) => {
                     <SettingsOutlined />
                 </Button>
             </span>
+            <Tooltip placement="bottom" title="View on GitHub">
+                <span className={'githubIcon'}>
+                    <a href={'https://github.com/obss/comfort-react'} target="_blank" rel="noreferrer">
+                        <img src={process.env.PUBLIC_URL + '/github.png'} alt="github_icon" />
+                    </a>
+                </span>
+            </Tooltip>
             <Tooltip placement="bottom" title="View on npmjs">
                 <span className={'npmIcon'}>
                     <a href={'https://www.npmjs.com/package/comfort-react'} target="_blank" rel="noreferrer">

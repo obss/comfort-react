@@ -52,6 +52,12 @@ const Installation = () => {
                 </a>
             </div>
 
+            <div className="outsideUrlSpan">
+                <a href={'https://github.com/obss/comfort-react'} target="_blank" rel="noreferrer">
+                    View on GitHub
+                </a>
+            </div>
+
             <div className="installButtonsDiv">
                 <Tooltip open={npmCopied} placement="top" title="copied!">
                     <Button variant="outlined" onClick={handleNpmCopy}>

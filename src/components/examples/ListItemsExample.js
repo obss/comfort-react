@@ -356,13 +356,6 @@ const ListItemsExample = () => {
 
     return (
         <Container>
-            <Box p={2}>
-                <span className="pageCodeUrlSpan">
-                    <a href={'components/examples/ListItemsExample.js'} target="_blank" rel="noreferrer">
-                        View on Bitbucket
-                    </a>
-                </span>
-            </Box>
             <Grid
                 container
                 spacing={0}
