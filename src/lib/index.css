@@ -1,0 +1,99 @@
+.ComfortIconButton:focus {
+    outline: none;
+}
+
+button.ComfortButton {
+    text-transform: none;
+}
+
+.ComfortTransferList {
+    width: fit-content;
+}
+
+p.ComfortTransferListHeader {
+    font-weight: bold;
+}
+
+.ComfortTransferListPaper {
+    width: fit-content;
+    height: 230px;
+    overflow: auto;
+}
+
+.ComfortPhoneInput .special-label {
+    cursor: default;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.ComfortPhoneInput .react-tel-input {
+    width: 400px;
+    max-width: 90vw;
+}
+
+.ComfortPhoneInput.fullWidth .react-tel-input {
+    width: 100%;
+}
+
+.ComfortPhoneInput .react-tel-input .form-control {
+    width: 100%;
+    height: 56px;
+    padding: 16.5px 14px 16.5px 58px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+}
+
+.ComfortPhoneInput .react-tel-input .form-control:disabled {
+    opacity: 1;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0.38);
+    cursor: default;
+}
+
+.ComfortPhoneInput.disabled .selected-flag {
+    cursor: default;
+}
+
+.ComfortPhoneInput.disabled {
+    pointer-events: none;
+}
+
+.ComfortPhoneInput.disabled .special-label {
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.ComfortTableTitle {
+    flex: 1 1 100%;
+}
+
+.ComfortTable {
+    width: 100%;
+}
+
+.ComfortTable__paper {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+td.ComfortTableLoadingColumn {
+    text-align: center;
+}
+
+.ComfortTable .MuiTablePagination-actions .MuiIconButton-root:focus {
+    outline: none;
+}
+
+.ComfortDialog .ComfortDialogTitle {
+    padding: 16px;
+}
+
+.ComfortDialog .ComfortDialogCloseButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.ComfortDialogDraggableTitle {
+    cursor: move;
+}

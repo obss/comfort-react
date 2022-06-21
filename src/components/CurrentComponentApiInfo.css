@@ -1,0 +1,9 @@
+.moreInformationLink{
+    text-decoration: underline;
+    color: #395ac2;
+}
+
+.moreInformationLink:hover{
+    text-decoration: underline;
+    color: #395ac2;
+}

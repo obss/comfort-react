@@ -1,0 +1,12 @@
+.exampleStyle {
+    color: red !important;
+    font-weight: bolder !important;
+}
+
+.exampleLimitStyle {
+    color: royalblue;
+    background-color: grey;
+    border-radius: 20px;
+    padding-inline: 5px;
+    width: fit-content;
+}

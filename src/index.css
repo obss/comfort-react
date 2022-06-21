@@ -1,0 +1,15 @@
+
+.side-navigation-panel
+    .side-navigation-panel-select
+    .side-navigation-panel-select-wrap
+    .side-navigation-panel-select-option {
+    padding: 0.75rem 0.2rem !important;
+}
+
+.side-navigation-panel
+    .side-navigation-panel-select
+    .side-navigation-panel-select-inner
+    .side-navigation-panel-select-inner-wrap
+    .side-navigation-panel-select-inner-option {
+    padding: 0.5rem 0.8rem !important;
+}

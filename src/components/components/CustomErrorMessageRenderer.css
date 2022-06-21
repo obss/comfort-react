@@ -1,0 +1,23 @@
+.CustomErrorMessage {
+    font-size: larger;
+}
+
+.CustomErrorMessageIcon{
+    min-width: 20px;
+    margin-right: 5px;
+    animation-name: erroriconanimation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes erroriconanimation {
+    from {
+        color: black;
+        font-size: 12px;
+    }
+    to {
+        color: red;
+        font-size: 17px;
+    }
+  }

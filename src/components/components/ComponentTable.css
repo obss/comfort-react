@@ -1,0 +1,22 @@
+.exampleTableStyle {
+    border: 3px solid red !important;
+}
+
+.custom-table-loading-component {
+    color: black;
+    animation-name: exampleanimation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    font-size: larger;
+}
+
+@keyframes exampleanimation {
+    from {
+        color: black;
+        font-size: larger;
+    }
+    to {
+        color: red;
+        font-size: xx-large;
+    }
+  }
