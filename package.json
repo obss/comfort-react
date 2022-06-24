@@ -1,6 +1,6 @@
 {
   "name": "comfort-react",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Comfort react infrastructure",
   "keywords": [
     "comfort",
@@ -38,7 +38,6 @@
     "react-draggable": "4.4.5"
   },
   "dependencies": {
-    "nanoid": "4.0.0",
     "notistack": "2.0.4",
     "numeral": "2.0.6",
     "prop-types": "15.8.1",
