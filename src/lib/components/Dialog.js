@@ -3,14 +3,14 @@ import { Box, Dialog as MuiDialog, DialogActions, DialogContent, DialogTitle, Gr
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 import { Close } from '@mui/icons-material';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import { IconButton } from '../index';
 import '../styles/Dialog.css';
 import { getClassName } from '../utils/ClassNameUtils';
 
 const Dialog = (props) => {
     const { id, draggable, className, title, actions, children, hideCloseButton, onClose, ...rest } = props;
-    const [draggableHandleId] = useState(`draggable-title-${uuidv4()}`);
+    const [draggableHandleId] = useState(`draggable-title-${nanoid()}`);
     const _className = getClassName([className, 'ComfortDialog']);
     const _titleClassName = getClassName([draggable ? 'ComfortDialogDraggableTitle' : '', 'ComfortDialogTitle']);
 
