@@ -7,7 +7,7 @@ import { IconButton } from '../index';
 import '../styles/Dialog.css';
 import { getClassName } from '../utils/ClassNameUtils';
 
-const getUniqueId = () => `${performance.now()}${Math.random().toString().slice(5)}`.replace('.', '');
+const getUniqueId = () => `${Math.random().toString().slice(5)}`.replace('.', '');
 
 const Dialog = (props) => {
     const { id, draggable, className, title, actions, children, hideCloseButton, onClose, ...rest } = props;
