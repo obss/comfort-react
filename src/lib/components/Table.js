@@ -256,6 +256,7 @@ const Table = (props) => {
         hideColumnFiltering = false,
         columnFilteringTitle,
         dontWrapWithPaper,
+        fillEmptyRows = false,
         ...rest
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -406,7 +407,7 @@ const Table = (props) => {
     });
 
     const emptyRowJsx =
-        emptyRows > 0 ? (
+        fillEmptyRows && emptyRows > 0 ? (
             <TableRow
                 style={{
                     height: rowHeight * emptyRows,

@@ -122,6 +122,7 @@ const ComponentTable = () => {
     const [sortConfig, setSortConfig] = useState([{ key: 'calories', order: 'asc' }]);
     const [finalDefinitions, setFinalDefinitions] = useState(definitions);
     const [dontWrapWithPaper, setDontWrapWithPaper] = useState(false);
+    const [fillEmptyRows, setFillEmptyRows] = useState(false);
 
     useEffect(() => {
         const definitionsWithButtons = [...definitions];
@@ -204,6 +205,7 @@ const ComponentTable = () => {
             loading={selectedLoading}
             loadingComponent={selectedCustomLoading ? customLoadingComponent : undefined}
             dontWrapWithPaper={dontWrapWithPaper}
+            fillEmptyRows={fillEmptyRows}
         />
     );
 
@@ -378,6 +380,17 @@ const ComponentTable = () => {
                             value={dontWrapWithPaper}
                             onChange={(newValue) => {
                                 setDontWrapWithPaper(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'fillEmptyRows'}
+                            value={fillEmptyRows}
+                            onChange={(newValue) => {
+                                setFillEmptyRows(newValue);
                             }}
                         />
                     </FormGroup>
@@ -622,6 +635,12 @@ const TableApiInfo = [
         name: 'dontWrapWithPaper',
         type: 'Bool',
         defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'fillEmptyRows',
+        type: 'Bool',
+        defaultValue: 'false',
         description: '',
     },
 ];
