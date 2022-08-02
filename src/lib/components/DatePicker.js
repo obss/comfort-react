@@ -95,6 +95,7 @@ const DatePicker = ({
             inputFormat={_inputFormat}
             okText={_okText}
             cancelText={_cancelText}
+            key={_inputFormat} // to force re-render after language change (mui date input bug)
             {...rest}
         />
     );
