@@ -32,6 +32,7 @@ const PhoneInput = ({
         'ComfortPhoneInput',
         fullWidth ? 'fullWidth' : '',
         disabled ? 'disabled' : '',
+        errorMessage ? 'hasError' : '',
     ]);
 
     const handleOnChange = (inputValue, data) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Box, Dialog, DialogTitle, Divider, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Dialog, DialogTitle, Toolbar } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -203,11 +203,6 @@ const Main = () => {
 
     const dialogContent = (
         <div className={'providerDialogContent'}>
-            <Divider variant={'middle'}>
-                <Typography gutterBottom variant="h5">
-                    Validation
-                </Typography>
-            </Divider>
             <Autocomplete
                 value={currentSettings.lang}
                 onChange={(newValue) => {
@@ -338,22 +333,22 @@ const Main = () => {
                     </AppBar>
                 </Box>
                 <MainDrawer anchor={anchor} open={anchor} toggleDrawer={toggleDrawer} />
-                <Dialog open={settingsDialogOpen} onClose={() => setSettingsDialogOpen(false)}>
-                    <DialogTitle>
-                        <ExampleUsageWrapper
-                            header="Edit ComfortReactProvider Props"
-                            codeUrl="components/Main.js"
-                            wrapperClassName="modalHeaderWrapper"
-                        />
-                    </DialogTitle>
-                    {dialogContent}
-                </Dialog>
                 <ComfortReactProvider
                     lang={currentSettings.lang}
                     reactValidatableFormProps={reactValidatableFormProps}
                     notistackProviderProps={notistackProviderProps}
                     useApiProps={useApiProps}
                 >
+                    <Dialog open={settingsDialogOpen} onClose={() => setSettingsDialogOpen(false)}>
+                        <DialogTitle>
+                            <ExampleUsageWrapper
+                                header="Edit ComfortReactProvider Props"
+                                codeUrl="components/Main.js"
+                                wrapperClassName="modalHeaderWrapper"
+                            />
+                        </DialogTitle>
+                        {dialogContent}
+                    </Dialog>
                     <BodyWrapper>
                         <div className="flex">
                             <Routes

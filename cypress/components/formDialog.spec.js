@@ -1,7 +1,7 @@
 import { mount } from '@cypress/react';
 import { ComfortReactProvider, FormDialog, TextField } from '../../src/lib/index';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { LocalizationProvider } from '@mui/lab';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 describe('FormDialog tests', () => {
     it('mount test', () => {

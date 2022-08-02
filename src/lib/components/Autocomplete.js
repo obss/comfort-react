@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TextField from './TextField';
 import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
+import useTranslation from '../hooks/useTranslation';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -34,6 +35,7 @@ const Autocomplete = ({
     getSelectedObjectCallback,
     sortAlphabetically = false,
     loading = false,
+    loadingText,
     disabled = false,
     onInputChange,
     onInputRemove,
@@ -41,8 +43,10 @@ const Autocomplete = ({
     renderErrorMessage,
     ...rest
 }) => {
+    const { getLocalizedMessage } = useTranslation();
     const [sortedOptions, setSortedOptions] = useState(options);
     const _className = getClassName([className, 'ComfortAutocomplete']);
+    const _loadingText = loadingText || getLocalizedMessage('AUTOCOMPLETE_LOADING_TEXT');
 
     useEffect(() => {
         if (sortAlphabetically) {
@@ -168,6 +172,7 @@ const Autocomplete = ({
             renderOption={valueKey ? complexRenderOption : primitiveRenderOption}
             options={sortedOptions}
             loading={loading}
+            loadingText={_loadingText}
             {...rest}
         />
     );
@@ -192,6 +197,7 @@ Autocomplete.propTypes = {
     getSelectedObjectCallback: PropTypes.func,
     sortAlphabetically: PropTypes.bool,
     loading: PropTypes.bool,
+    loadingText: PropTypes.node,
     disabled: PropTypes.bool,
     onInputChange: PropTypes.func,
     onInputRemove: PropTypes.func,

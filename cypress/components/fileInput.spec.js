@@ -1,16 +1,29 @@
 import { mount } from '@cypress/react';
-import { FileInput, Button } from '../../src/lib';
+import { ComfortReactProvider, FileInput } from '../../src/lib';
+import { SnackbarProvider } from 'notistack';
 
 describe('FileInput Tests', () => {
     it('mount test', () => {
-        mount(<FileInput id={'dropzone'} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.get('#dropzone').should('exist');
     });
     it('drop test', () => {
         const handleDrop = (files) => {
             expect(files).length(1);
         };
-        mount(<FileInput id={'dropzone'} onDrop={handleDrop} setValue={() => null} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} onChange={handleDrop} setValue={() => null} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzone').upload(content, 'sample-image.jpeg');
         });
@@ -22,68 +35,85 @@ describe('FileInput Tests', () => {
         const handleDropImage = (files) => {
             expect(files).length(1);
         };
-        mount(<FileInput id={'dropzone'} onDrop={handleDropVideo} accept={'video/*'} setValue={() => null} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} onChange={handleDropVideo} accept={'video/*'} setValue={() => null} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzone').upload(content, 'sample-image.jpeg');
         });
-        mount(<FileInput id={'dropzone'} onDrop={handleDropImage} accept={'image/*'} setValue={() => null} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} onChange={handleDropImage} accept={'image/*'} setValue={() => null} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzone').upload(content, 'sample-image.jpeg');
         });
     });
     it('custom description test', () => {
-        mount(<FileInput id={'dropzone'} />);
-        cy.get('#dropzone').contains('Drag and drop some files here, or click to select files');
-        mount(<FileInput id={'dropzone'} description={'Custom Description'} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
+        cy.get('#dropzone').contains('Dosyaları buraya sürükleyip bırakın veya dosyaları seçmek için tıklayın');
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} description={'Custom Description'} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.get('#dropzone').contains('Custom Description');
-    });
-    it('button operations test', () => {
-        mount(<FileInput id={'dropzone'} />);
-        cy.get('#dropzone button').should('not.exist');
-        mount(<FileInput id={'dropzone'} buttonOperations={<Button> Operation Button </Button>} />);
-        cy.get('#dropzone button').should('exist');
     });
     it('disabled test', () => {
         const handleDrop = (files) => {
             expect(files).length(1);
         };
-        mount(<FileInput id={'dropzone'} onDrop={handleDrop} setValue={() => null} disabled={false} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} onChange={handleDrop} setValue={() => null} disabled={false} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzone').upload(content, 'sample-image.jpeg');
-            cy.get('#dropzone button').should('exist');
+            cy.get('#dropzone .ComfortFileInputDropzoneSection__Disabled').should('not.exist');
         });
-        mount(<FileInput id={'dropzoneDisabled'} onDrop={handleDrop} setValue={() => null} disabled={true} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzoneDisabled'} onChange={handleDrop} setValue={() => null} disabled={true} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzoneDisabled').upload(content, 'sample-image.jpeg');
-            cy.get('#dropzone button').should('not.exist');
+            cy.get('#dropzoneDisabled .ComfortFileInputDropzoneSection__Disabled').should('exist');
         });
     });
-    it('preview test', () => {
+    it('upload item test', () => {
         const handleDrop = (files) => {
             expect(files).length(1);
         };
-        mount(<FileInput id={'dropzone'} onDrop={handleDrop} setValue={() => null} />);
+        mount(
+            <SnackbarProvider>
+                <ComfortReactProvider>
+                    <FileInput id={'dropzone'} onChange={handleDrop} setValue={() => null} maxFiles={2} />
+                </ComfortReactProvider>
+            </SnackbarProvider>
+        );
         cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
             cy.get('#dropzone').upload(content, 'sample-image.jpeg');
-            cy.get('.MuiListItem-root > .MuiPaper-root').should('not.exist');
-        });
-        mount(<FileInput id={'dropzone'} onDrop={handleDrop} setValue={() => null} />);
-        cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
-            cy.get('#dropzone').upload(content, 'sample-image.jpeg');
-            cy.get('.MuiSwitch-input').click();
-            cy.get('.MuiListItem-root > .MuiPaper-root').should('exist');
-        });
-    });
-    it('remove item test', () => {
-        const handleDrop = (files) => {
-            expect(files).length(1);
-        };
-        mount(<FileInput id={'dropzone'} onDrop={handleDrop} setValue={() => null} />);
-        cy.fixture('../support/files/sample-image.jpeg', 'base64').then((content) => {
-            cy.get('#dropzone').upload(content, 'sample-image.jpeg');
-            cy.get('#dropzone button').should('exist');
-            cy.get('#dropzone button').click();
-            cy.get('#dropzone button').should('not.exist');
         });
     });
 });

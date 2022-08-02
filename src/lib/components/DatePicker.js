@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { DatePicker as MuiDatePicker } from '@mui/lab';
+import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
 import PropTypes from 'prop-types';
 import TextField from './TextField';
 import { getClassName } from '../utils/ClassNameUtils';

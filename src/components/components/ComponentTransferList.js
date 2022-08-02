@@ -216,7 +216,7 @@ const ComponentTransferList = () => {
                 <Grid item xs={12} sm={6}>
                     <FormGroup>
                         <Checkbox
-                            label={'sort alphabetically'}
+                            label={'sortAlphabetically'}
                             value={selectedSortAlphabetically}
                             onChange={(newValue) => {
                                 setSelectedSortAlphabetically(newValue);

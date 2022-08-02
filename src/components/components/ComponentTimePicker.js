@@ -48,7 +48,7 @@ const ComponentTimePicker = () => {
             value={!enableUseValidatableForm ? value : getValue('val')}
             onChange={!enableUseValidatableForm ? handleChange : null}
             onBlur={selectedBlur ? (!enableUseValidatableForm ? handleBlur : null) : null}
-            error={enableUseValidatableForm ? !!getError('val') : null}
+            errorMessage={enableUseValidatableForm ? getError('val') : errorMessage}
             setPathValue={enableUseValidatableForm ? setPathValue : null}
             setPathIsBlurred={enableUseValidatableForm ? setPathIsBlurred : null}
             variant={selectedVariant}
@@ -57,7 +57,6 @@ const ComponentTimePicker = () => {
             InputProps={{
                 style: selectedInputStyle ? INPUT_STYLE : null,
             }}
-            errorMessage={errorMessage}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
         />
     );

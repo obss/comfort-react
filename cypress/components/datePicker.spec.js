@@ -1,7 +1,7 @@
 import { mount, mountHook } from '@cypress/react';
-import { ComfortReactProvider, DatePicker } from "../../src/lib";
-import { LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { ComfortReactProvider, DatePicker } from '../../src/lib';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { useState } from 'react';
 
 describe('DatePicker tests', () => {
@@ -117,27 +117,5 @@ describe('DatePicker tests', () => {
         cy.get('.MuiFilledInput-root > input').should('have.css', 'border-color', 'rgba(0, 0, 0, 0.87)');
         cy.get('.MuiFilledInput-root > input').should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
         cy.get('.MuiFilledInput-root > input').should('have.class', 'MuiFilledInput-input');
-    });
-    it('date picker test', () => {
-        let value = new Date('08/08/2023');
-        mount(
-            <LocalizationProvider dateAdapter={AdapterDateFns} id={'datePicker'}>
-                <ComfortReactProvider>
-                    <DatePicker variant={'outlined'} value={value} onChange={(newValue) => (value = newValue)} />
-                </ComfortReactProvider>
-            </LocalizationProvider>
-        );
-        cy.get('.MuiButtonBase-root').click().get('.css-l0iinn > .MuiButtonBase-root').click();
-        cy.get('.MuiYearPicker-root > :nth-child(123)').click();
-        cy.get('.MuiButtonBase-root').contains('23').click();
-        console.log(value);
-        mount(
-            <LocalizationProvider dateAdapter={AdapterDateFns} id={'datePicker'}>
-                <ComfortReactProvider>
-                    <DatePicker variant={'outlined'} value={value} onChange={(newValue) => (value = newValue)} />
-                </ComfortReactProvider>
-            </LocalizationProvider>
-        );
-        cy.get('.MuiOutlinedInput-root > input').should('have.value', '23/08/2022');
     });
 });

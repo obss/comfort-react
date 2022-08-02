@@ -41,6 +41,7 @@ const ComponentAutocomplete = () => {
     const [selectedSortAlphabetically, setSelectedSortAlphabetically] = useState(false);
     const [selectedOnCloseEvent, setSelectedOnCloseEvent] = useState(false);
     const [selectedLoading, setSelectedLoading] = useState(false);
+    const [selectedLoadingText, setSelectedLoadingText] = useState();
     const [selectedPlaceholder, setSelectedPlaceholder] = useState(false);
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
@@ -84,13 +85,14 @@ const ComponentAutocomplete = () => {
             errorMessage={enableUseValidatableForm ? getError('valSimpleSingle') : errorMessage}
             setPathValue={enableUseValidatableForm ? setPathValue : null}
             setPathIsBlurred={enableUseValidatableForm ? setPathIsBlurred : null}
-            options={options}
+            options={selectedLoading ? [] : options}
             disabled={selectedDisabled}
             disableClearable={selectedDisableClearable}
             fullWidth={selectedFullWidth}
             sortAlphabetically={selectedSortAlphabetically}
             onClose={selectedOnCloseEvent ? handleOnClose : null}
             loading={selectedLoading}
+            loadingText={selectedLoadingText}
             RenderInputComponent={selectedCustomInput ? CUSTOM_INPUT : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
         />
@@ -107,7 +109,7 @@ const ComponentAutocomplete = () => {
             errorMessage={enableUseValidatableForm ? getError('valSimpleMultiple') : errorMessage}
             setPathValue={enableUseValidatableForm ? setPathValue : null}
             setPathIsBlurred={enableUseValidatableForm ? setPathIsBlurred : null}
-            options={options}
+            options={selectedLoading ? [] : options}
             multiple={true}
             disabled={selectedDisabled}
             disableClearable={selectedDisableClearable}
@@ -115,6 +117,7 @@ const ComponentAutocomplete = () => {
             sortAlphabetically={selectedSortAlphabetically}
             onClose={selectedOnCloseEvent ? handleOnClose : null}
             loading={selectedLoading}
+            loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
         />
     );
@@ -130,7 +133,7 @@ const ComponentAutocomplete = () => {
             errorMessage={enableUseValidatableForm ? getError('valComplexSingle') : errorMessage}
             setPathValue={enableUseValidatableForm ? setPathValue : null}
             setPathIsBlurred={enableUseValidatableForm ? setPathIsBlurred : null}
-            options={complexOptions}
+            options={selectedLoading ? [] : complexOptions}
             valueKey="id"
             disabled={selectedDisabled}
             disableClearable={selectedDisableClearable}
@@ -149,6 +152,7 @@ const ComponentAutocomplete = () => {
             sortAlphabetically={selectedSortAlphabetically}
             onClose={selectedOnCloseEvent ? handleOnClose : null}
             loading={selectedLoading}
+            loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
         />
     );
@@ -164,7 +168,7 @@ const ComponentAutocomplete = () => {
             errorMessage={enableUseValidatableForm ? getError('valComplexMultiple') : errorMessage}
             setPathValue={enableUseValidatableForm ? setPathValue : null}
             setPathIsBlurred={enableUseValidatableForm ? setPathIsBlurred : null}
-            options={complexOptions}
+            options={selectedLoading ? [] : complexOptions}
             valueKey="id"
             multiple={true}
             disabled={selectedDisabled}
@@ -184,6 +188,7 @@ const ComponentAutocomplete = () => {
             sortAlphabetically={selectedSortAlphabetically}
             onClose={selectedOnCloseEvent ? handleOnClose : null}
             loading={selectedLoading}
+            loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
         />
     );
@@ -313,7 +318,7 @@ const ComponentAutocomplete = () => {
                 <Grid item xs={12} sm={6}>
                     <FormGroup>
                         <Checkbox
-                            label={'sort alphabetically'}
+                            label={'sortAlphabetically'}
                             value={selectedSortAlphabetically}
                             onChange={(newValue) => {
                                 setSelectedSortAlphabetically(newValue);
@@ -342,6 +347,15 @@ const ComponentAutocomplete = () => {
                             }}
                         />
                     </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        value={selectedLoadingText}
+                        onChange={(val) => {
+                            setSelectedLoadingText(val);
+                        }}
+                        label="loadingText"
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <FormGroup>

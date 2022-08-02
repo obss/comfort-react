@@ -1,7 +1,7 @@
 import { mount } from '@cypress/react';
 import { ComfortReactProvider, ConfirmDialog } from '../../src/lib/index';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { LocalizationProvider } from '@mui/lab';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 describe('ConfirmDialog tests', () => {
     it('mount test', () => {

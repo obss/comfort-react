@@ -37,6 +37,7 @@ const messages = {
     tr: {
         DECIMAL_SEPARATOR: ',',
         THOUSAND_SEPARATOR: '.',
+        AUTOCOMPLETE_LOADING_TEXT: 'Yükleniyor...',
         DATE_PICKER_INPUT_FORMAT: 'dd/MM/yyyy',
         DATE_PICKER_OK_TEXT: 'Tamam',
         DATE_PICKER_CANCEL_TEXT: 'İptal',
@@ -56,6 +57,7 @@ const messages = {
     en: {
         DECIMAL_SEPARATOR: '.',
         THOUSAND_SEPARATOR: ',',
+        AUTOCOMPLETE_LOADING_TEXT: 'Loading...',
         DATE_PICKER_INPUT_FORMAT: 'MM/dd/yyyy',
         DATE_PICKER_OK_TEXT: 'OK',
         DATE_PICKER_CANCEL_TEXT: 'Cancel',
@@ -77,6 +79,7 @@ const messages = {
     ar: {
         DECIMAL_SEPARATOR: '.',
         THOUSAND_SEPARATOR: ',',
+        AUTOCOMPLETE_LOADING_TEXT: 'جار التحميل...',
         DATE_PICKER_INPUT_FORMAT: 'MM/dd/yyyy',
         DATE_PICKER_OK_TEXT: 'نعم',
         DATE_PICKER_CANCEL_TEXT: 'يلغي',

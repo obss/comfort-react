@@ -59,6 +59,14 @@ p.ComfortTransferListHeader {
     pointer-events: none;
 }
 
+.ComfortPhoneInput.hasError .special-label {
+    color: #d32f2f;
+}
+
+.ComfortPhoneInput.hasError .react-tel-input .form-control.invalid-number {
+    border: 1px solid #d32f2f;
+}
+
 .ComfortPhoneInput.disabled .special-label {
     color: rgba(0, 0, 0, 0.38);
 }
@@ -85,7 +93,10 @@ td.ComfortTableLoadingColumn {
 }
 
 .ComfortDialog .ComfortDialogTitle {
-    padding: 16px;
+    padding-top: 12px;
+    padding-left: 12px;
+    padding-bottom: 12px;
+    padding-right: 50px;
 }
 
 .ComfortDialog .ComfortDialogCloseButton {

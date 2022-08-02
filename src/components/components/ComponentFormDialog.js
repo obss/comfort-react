@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Checkbox, FormDialog, TextField, useSnackbar, useValidatableForm } from '../../lib';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import jsxToString from 'jsx-to-string';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import CurrentRulesInfo from '../CurrentRulesInfo';
@@ -58,7 +58,7 @@ const ComponentFormDialog = () => {
             saveText={selectedCustomActionsMessages ? 'Custom Save Text' : null}
             cancelText={selectedCustomActionsMessages ? 'Custom Cancel Text' : null}
             hideCloseButton={selectedHideCloseButton}
-            title={<Typography> Dialog Title </Typography>}
+            title="Form Dialog Title"
         >
             <TextField
                 label={'Input'}

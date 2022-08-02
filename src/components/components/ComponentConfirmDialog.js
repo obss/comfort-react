@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Checkbox, ConfirmDialog, useSnackbar } from '../../lib';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import jsxToString from 'jsx-to-string';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import CurrentRulesInfo from '../CurrentRulesInfo';
@@ -40,9 +40,9 @@ const ComponentConfirmDialog = () => {
             confirmText={selectedCustomActionsMessages ? 'Custom Confirm Text' : null}
             cancelText={selectedCustomActionsMessages ? 'Custom Cancel Text' : null}
             hideCloseButton={selectedHideCloseButton}
-            title={<Typography> Dialog Title </Typography>}
+            title="Confirm Dialog Title"
         >
-            <Typography>Dialog Content</Typography>
+            <div>Dialog Content</div>
         </ConfirmDialog>
     );
 

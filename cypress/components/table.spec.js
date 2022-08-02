@@ -76,7 +76,7 @@ describe('table tests', () => {
                 />
             </ComfortReactProvider>
         );
-        cy.get('.css-14covj4-MuiToolbar-root > svg').should('not.exist');
+        cy.get('.MuiToolbar-root > svg').should('not.exist');
         mount(
             <ComfortReactProvider>
                 <Table
@@ -92,7 +92,7 @@ describe('table tests', () => {
                 />
             </ComfortReactProvider>
         );
-        cy.get('.css-14covj4-MuiToolbar-root > svg').should('exist');
+        cy.get('.MuiToolbar-root > svg').should('exist');
     });
     it('hide toolbar test', () => {
         const page = 1;

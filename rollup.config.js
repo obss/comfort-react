@@ -21,9 +21,7 @@ const comfortReactGlobals = {
     '@mui/icons-material/Visibility': '@mui/icons-material/Visibility',
     '@mui/icons-material/VisibilityOff': '@mui/icons-material/VisibilityOff',
     '@mui/lab': '@mui/lab',
-    '@mui/lab/AdapterDateFns': '@mui/lab/AdapterDateFns',
     '@mui/lab/LoadingButton': '@mui/lab/LoadingButton',
-    '@mui/lab/LocalizationProvider': '@mui/lab/LocalizationProvider',
     '@mui/material': '@mui/material',
     '@mui/material/Collapse': '@mui/material/Collapse',
     '@mui/material/ClickAwayListener': '@mui/material/ClickAwayListener',
@@ -36,6 +34,8 @@ const comfortReactGlobals = {
     '@mui/material/SvgIcon': '@mui/material/SvgIcon',
     '@mui/material/Tooltip': '@mui/material/Tooltip',
     '@mui/utils': '@mui/utils',
+    '@mui/x-date-pickers': '@mui/x-date-pickers',
+    '@mui/x-date-pickers/AdapterDateFns': '@mui/x-date-pickers/AdapterDateFns',
     'react': 'react',
     'react-dom': 'react-dom',
     'react-imask': 'react-imask'

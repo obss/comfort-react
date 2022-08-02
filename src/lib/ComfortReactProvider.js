@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import trLocale from 'date-fns/locale/tr';
 import enLocale from 'date-fns/locale/en-US';
 import { ReactValidatableFormProvider } from 'react-validatable-form';
@@ -77,7 +77,7 @@ const ComfortReactProvider = (props) => {
             <ComfortReactContext.Provider value={contextValue}>
                 <LocalizationProvider
                     dateAdapter={AdapterDateFns}
-                    locale={localizationProviderLocale || localeMap[lang] || localeMap[DEFAULT_LANGUAGE]}
+                    adapterLocale={localizationProviderLocale || localeMap[lang] || localeMap[DEFAULT_LANGUAGE]}
                 >
                     <NotistackProvider notistackProviderProps={notistackProviderProps}>
                         <ReactValidatableFormProvider {...allReactValidatableFormProps}>

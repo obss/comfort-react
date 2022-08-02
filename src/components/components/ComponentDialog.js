@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Checkbox, useSnackbar } from '../../lib';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import jsxToString from 'jsx-to-string';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import CurrentRulesInfo from '../CurrentRulesInfo';
@@ -35,11 +35,11 @@ const ComponentDialog = () => {
             open={open}
             draggable={selectedDraggable}
             onClose={onClose}
-            title={<Typography> Dialog Title </Typography>}
+            title="Dialog Title"
             hideCloseButton={selectedHideCloseButton}
             actions={<Button onClick={onClose}>Close Dialog</Button>}
         >
-            <Typography>Dialog Content</Typography>
+            <div>Dialog Content</div>
             <Button variant={'contained'} onClick={openSecondaryDialog}>
                 Open Another Dialog
             </Button>
@@ -52,20 +52,20 @@ const ComponentDialog = () => {
             open={secondaryDialogOpen}
             draggable={selectedDraggable}
             onClose={onCloseSecondary}
-            title={<Typography> Dialog Title </Typography>}
+            title="Another Dialog Title"
             hideCloseButton={selectedHideCloseButton}
             actions={<Button onClick={onCloseSecondary}>Close Dialog</Button>}
         >
-            <Typography>Dialog Another Content</Typography>
+            <div>Dialog Another Content</div>
         </Dialog>
     );
 
     let currentJsx = jsxToString(draggableDialogElementJsx, {
-        displayName: 'Draggable Dialog',
+        displayName: 'Dialog',
         useFunctionCode: true,
     });
 
-    currentJsx = "import { DraggableDialog } from 'comfort-react';\n\n" + currentJsx;
+    currentJsx = "import { Dialog } from 'comfort-react';\n\n" + currentJsx;
 
     return (
         <ExampleUsageWrapper>
