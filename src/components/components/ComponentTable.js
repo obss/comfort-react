@@ -123,6 +123,7 @@ const ComponentTable = () => {
     const [finalDefinitions, setFinalDefinitions] = useState(definitions);
     const [dontWrapWithPaper, setDontWrapWithPaper] = useState(false);
     const [fillEmptyRows, setFillEmptyRows] = useState(false);
+    const [selectedGetRowProps, setSelectedGetRowProps] = useState(false);
 
     useEffect(() => {
         const definitionsWithButtons = [...definitions];
@@ -176,6 +177,16 @@ const ComponentTable = () => {
 
     const customLoadingComponent = <div className="custom-table-loading-component">Custom Loading Component</div>;
 
+    const getRowProps = selectedGetRowProps
+        ? (row, rowIndex) => {
+              const customRowProps = { hover: true };
+              if (rowIndex === 2) {
+                  customRowProps.style = { backgroundColor: 'lightgreen' };
+              }
+              return customRowProps;
+          }
+        : null;
+
     const tableElementJsx = (
         <Table
             identifierKey="id"
@@ -206,6 +217,7 @@ const ComponentTable = () => {
             loadingComponent={selectedCustomLoading ? customLoadingComponent : undefined}
             dontWrapWithPaper={dontWrapWithPaper}
             fillEmptyRows={fillEmptyRows}
+            getRowProps={getRowProps}
         />
     );
 
@@ -391,6 +403,17 @@ const ComponentTable = () => {
                             value={fillEmptyRows}
                             onChange={(newValue) => {
                                 setFillEmptyRows(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'getRowProps'}
+                            value={selectedGetRowProps}
+                            onChange={(newValue) => {
+                                setSelectedGetRowProps(newValue);
                             }}
                         />
                     </FormGroup>

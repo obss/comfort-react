@@ -257,6 +257,7 @@ const Table = (props) => {
         columnFilteringTitle,
         dontWrapWithPaper,
         fillEmptyRows = false,
+        getRowProps,
         ...rest
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -346,15 +347,23 @@ const Table = (props) => {
         const rowKey = getRowId(row);
         const isItemSelected = isSelected(rowKey);
 
+        let rowProps = {};
+        if (getRowProps) {
+            if (!isFunction(getRowProps)) {
+                throw new Error('comfort-react error. Table: getRowProps prop must be a function');
+            }
+            rowProps = getRowProps(row, rowIndex);
+        }
+
         return (
             <TableRow
-                hover
                 onClick={(event) => handleRowClick(event, row, rowIndex)}
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
                 key={rowKey}
                 selected={isItemSelected}
+                {...rowProps}
             >
                 {enableSelection && (
                     <TableCell padding="checkbox">
