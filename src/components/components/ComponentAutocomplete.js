@@ -46,6 +46,8 @@ const ComponentAutocomplete = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
+    const [selectedGetOptionDisabled, setSelectedGetOptionDisabled] = useState(false);
+
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -74,6 +76,9 @@ const ComponentAutocomplete = () => {
         enqueueSnackbar('Autocomplete is closed', { variant: 'info' });
     };
 
+    const simpleGetOptionDisabled = (option) => option === 'Antarctica';
+    const complexGetOptionDisabled = (option) => option.label === 'Antarctica';
+
     const autocompleteSimpleSingleElementJsx = (
         <Autocomplete
             label="Autocomplete simple single"
@@ -95,6 +100,7 @@ const ComponentAutocomplete = () => {
             loadingText={selectedLoadingText}
             RenderInputComponent={selectedCustomInput ? CUSTOM_INPUT : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
         />
     );
 
@@ -119,6 +125,7 @@ const ComponentAutocomplete = () => {
             loading={selectedLoading}
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
         />
     );
 
@@ -154,6 +161,7 @@ const ComponentAutocomplete = () => {
             loading={selectedLoading}
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
         />
     );
 
@@ -190,6 +198,7 @@ const ComponentAutocomplete = () => {
             loading={selectedLoading}
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
         />
     );
 
@@ -257,7 +266,7 @@ const ComponentAutocomplete = () => {
                         onChange={(val) => {
                             setSelectedLabelOptions(val);
                         }}
-                        label={'label option'}
+                        label={'getOptionLabel'}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -395,6 +404,17 @@ const ComponentAutocomplete = () => {
                             value={enableUseValidatableForm}
                             onChange={(newValue) => {
                                 setEnableUseValidatableForm(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'getOptionDisabled'}
+                            value={selectedGetOptionDisabled}
+                            onChange={(newValue) => {
+                                setSelectedGetOptionDisabled(newValue);
                             }}
                         />
                     </FormGroup>
@@ -547,6 +567,12 @@ const AutocompleteApiInfo = [
     },
     {
         name: 'renderErrorMessage',
+        type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'getOptionDisabled',
         type: 'Func',
         defaultValue: '',
         description: '',

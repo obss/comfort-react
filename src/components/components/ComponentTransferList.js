@@ -49,6 +49,8 @@ const ComponentTransferList = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
+    const [selectedGetOptionDisabled, setSelectedGetOptionDisabled] = useState(false);
+
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -68,6 +70,9 @@ const ComponentTransferList = () => {
     if (selectedCheckboxSize) {
         checkboxProps.size = selectedCheckboxSize;
     }
+
+    const simpleGetOptionDisabled = (option) => option === 'Antarctica';
+    const complexGetOptionDisabled = (option) => option.label === 'Antarctica';
 
     const transferListSimpleSingleElementJsx = (
         <TransferList
@@ -89,6 +94,7 @@ const ComponentTransferList = () => {
             checkBoxProps={checkboxProps}
             buttonStyleProps={selectedCustomButtonStyle ? CUSTOM_BUTTON_THEME : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
         />
     );
 
@@ -124,6 +130,7 @@ const ComponentTransferList = () => {
             checkBoxProps={checkboxProps}
             buttonStyleProps={selectedCustomButtonStyle ? CUSTOM_BUTTON_THEME : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
         />
     );
 
@@ -167,7 +174,7 @@ const ComponentTransferList = () => {
                         onChange={(val) => {
                             setSelectedLabelOptions(val);
                         }}
-                        label={'label option'}
+                        label={'getOptionLabel'}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -295,6 +302,17 @@ const ComponentTransferList = () => {
                             value={enableUseValidatableForm}
                             onChange={(newValue) => {
                                 setEnableUseValidatableForm(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'getOptionDisabled'}
+                            value={selectedGetOptionDisabled}
+                            onChange={(newValue) => {
+                                setSelectedGetOptionDisabled(newValue);
                             }}
                         />
                     </FormGroup>
@@ -436,6 +454,12 @@ const TransferListApiInfo = [
     {
         name: 'buttonStyleProps',
         type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'getOptionDisabled',
+        type: 'Func',
         defaultValue: '',
         description: '',
     },

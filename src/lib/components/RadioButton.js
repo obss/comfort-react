@@ -31,6 +31,7 @@ const RadioButton = ({
     radioProps,
     labelProps,
     renderErrorMessage,
+    getOptionDisabled,
     ...rest
 }) => {
     const [sortedOptions, setSortedOptions] = useState(options);
@@ -106,6 +107,16 @@ const RadioButton = ({
         return option;
     };
 
+    const isOptionDisabled = (option) => {
+        if (disabled) {
+            return true;
+        }
+        if (getOptionDisabled) {
+            return getOptionDisabled(option);
+        }
+        return false;
+    };
+
     return (
         <FormControl
             id={id || path}
@@ -132,7 +143,7 @@ const RadioButton = ({
                         className={_className}
                         control={<Radio {...radioProps} />}
                         label={getOptionLabel ? getOptionLabel(option) : option}
-                        disabled={disabled}
+                        disabled={isOptionDisabled(option)}
                         {...labelProps}
                     />
                 ))}
@@ -165,6 +176,7 @@ RadioButton.propTypes = {
     radioProps: PropTypes.object,
     labelProps: PropTypes.object,
     renderErrorMessage: PropTypes.func,
+    getOptionDisabled: PropTypes.func,
 };
 
 export default memo(RadioButton);

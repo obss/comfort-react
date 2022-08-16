@@ -54,6 +54,7 @@ const TransferList = (props) => {
         renderErrorMessage,
         checkBoxProps,
         buttonStyleProps,
+        getOptionDisabled,
     } = props;
     const [sortedOptions, setSortedOptions] = useState(options);
     const [checked, setChecked] = useState([]);
@@ -174,6 +175,16 @@ const TransferList = (props) => {
         handleOnChange([]);
     };
 
+    const isOptionDisabled = (option) => {
+        if (disabled) {
+            return true;
+        }
+        if (getOptionDisabled) {
+            return getOptionDisabled(option);
+        }
+        return false;
+    };
+
     const customList = (header, items) => (
         <Paper className={_paperClassName}>
             <Typography className={_headerClassName}>{header}</Typography>
@@ -200,12 +211,12 @@ const TransferList = (props) => {
                             role="listitem"
                             button
                             onClick={() => handleToggle(option)}
-                            disabled={disabled}
+                            disabled={isOptionDisabled(option)}
                         >
                             <ListItemIcon>
                                 <Checkbox
                                     noLabel
-                                    disabled={disabled}
+                                    disabled={isOptionDisabled(option)}
                                     value={checked.indexOf(option) !== -1}
                                     tabIndex={-1}
                                     disableRipple
@@ -298,6 +309,7 @@ TransferList.propTypes = {
     value: PropTypes.array,
     valueKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     renderErrorMessage: PropTypes.func,
+    getOptionDisabled: PropTypes.func,
 };
 
 export default memo(TransferList);
