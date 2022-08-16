@@ -44,6 +44,7 @@ const Home = () => {
             rowGap={5}
             pt={2}
         >
+            <img width={'200px'} src={process.env.PUBLIC_URL + '/logo.png'} alt={'logo'} />
             <Typography variant={'h3'}> comfort-react </Typography>
             <Typography variant={'h6'}>
                 {' '}

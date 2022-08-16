@@ -325,7 +325,13 @@ const Main = () => {
                                 <MenuIcon />
                             </IconButton>
                             <Link to={'/'} className="bannerLink">
-                                <span className="bannerText">comfort-react</span>
+                                <img
+                                    width={48}
+                                    className={'menuLogo'}
+                                    src={process.env.PUBLIC_URL + '/logo.png'}
+                                    alt={'logo'}
+                                />
+                                <span className="bannerText">comfort-react Storybook</span>
                             </Link>
                             <Box flexGrow={1} />
                             <Settings openSettingsDialog={openSettingsDialog} />
