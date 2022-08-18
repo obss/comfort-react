@@ -17,6 +17,7 @@ export const ComponentFileInput = () => {
     const [selectedFileType, setSelectedFileType] = useState(FILE_TYPE[0]);
     const [selectedFullWidth, setSelectedFullWidth] = useState(false);
     const [selectedMaxFiles, setSelectedMaxFiles] = useState();
+    const [selectedMaxFileBytes, setSelectedMaxFileBytes] = useState();
     const [selectedCustomDescription, setSelectedCustomDescription] = useState(false);
     const [selectedRemovePadding, setSelectedRemovePadding] = useState(false);
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
@@ -38,6 +39,12 @@ export const ComponentFileInput = () => {
         setValue(null);
         setPathValue('val', null);
         setSelectedMaxFiles(newMaxFilex);
+    };
+
+    const handleChangeSelectedMaxFileBytes = (newMaxFileBytes) => {
+        setValue(null);
+        setPathValue('val', null);
+        setSelectedMaxFileBytes(newMaxFileBytes);
     };
 
     const handleBlur = () => {
@@ -66,6 +73,7 @@ export const ComponentFileInput = () => {
             fullWidth={selectedFullWidth}
             height={selectedHeight ? `${selectedHeight}px` : undefined}
             width={selectedWidth ? `${selectedWidth}px` : undefined}
+            maxFileBytes={selectedMaxFileBytes}
             maxFiles={selectedMaxFiles}
             hidePreviewArea={selectedHidePreviewArea}
             description={
@@ -152,6 +160,17 @@ export const ComponentFileInput = () => {
                                 handleChangeSelectedMaxFiles(val);
                             }}
                             label="maxFiles"
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <NumberField
+                            value={selectedMaxFileBytes}
+                            onChange={(val) => {
+                                handleChangeSelectedMaxFileBytes(val);
+                            }}
+                            label="maxFileBytes"
                         />
                     </FormGroup>
                 </Grid>
