@@ -17,7 +17,7 @@ const Usage = (props) => {
     `;
 
     return (
-        <ExampleUsageWrapper header="ValidatableFormUsage">
+        <ExampleUsageWrapper header="Usage">
             <div className="infoParagraph">
                 <b>comfort-react</b> is based on{' '}
                 <a
