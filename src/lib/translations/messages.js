@@ -50,7 +50,7 @@ const messages = {
         FORM_DIALOG_SAVE_TEXT: 'Kaydet',
         FORM_DIALOG_CANCEL_TEXT: 'İptal',
         FILE_INPUT_MAX_ACCEPT_MESSAGE: 'En fazla {{maxFiles}} dosya yükleyebilirsiniz',
-        FILE_INPUT_MAX_FILE_SIZE_MESSAGE: 'En fazla {{maxFileSizeInBytes}} byte boyutunde dosya yükleyebilirsiniz',
+        FILE_INPUT_MAX_FILE_SIZE_MESSAGE: 'En fazla {{maxFileSizeInBytes}} byte boyutunda dosya yükleyebilirsiniz',
         FILE_INPUT_MAX_TOTAL_FILE_SIZE_MESSAGE:
             'Dosyaların toplam boyutu en fazla {{maxTotalFileSizeInBytes}} byte boyutunda olabilir',
         FILE_INPUT_REJECT_MESSAGE: '{{fileCount}} adet dosya reddedildi',
