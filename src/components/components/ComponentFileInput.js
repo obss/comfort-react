@@ -17,7 +17,8 @@ export const ComponentFileInput = () => {
     const [selectedFileType, setSelectedFileType] = useState(FILE_TYPE[0]);
     const [selectedFullWidth, setSelectedFullWidth] = useState(false);
     const [selectedMaxFiles, setSelectedMaxFiles] = useState();
-    const [selectedMaxFileBytes, setSelectedMaxFileBytes] = useState();
+    const [selectedMaxTotalFileSizeInBytes, setSelectedMaxTotalFileSizeInBytes] = useState();
+    const [selectedMaxFileSizeInBytes, setSelectedMaxFileSizeInBytes] = useState();
     const [selectedCustomDescription, setSelectedCustomDescription] = useState(false);
     const [selectedRemovePadding, setSelectedRemovePadding] = useState(false);
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
@@ -41,10 +42,16 @@ export const ComponentFileInput = () => {
         setSelectedMaxFiles(newMaxFilex);
     };
 
-    const handleChangeSelectedMaxFileBytes = (newMaxFileBytes) => {
+    const handleChangeSelectedMaxTotalFileSizeInBytes = (newMaxTotalFileSizeInBytes) => {
         setValue(null);
         setPathValue('val', null);
-        setSelectedMaxFileBytes(newMaxFileBytes);
+        setSelectedMaxTotalFileSizeInBytes(newMaxTotalFileSizeInBytes);
+    };
+
+    const handleChangeSelectedMaxFileSizeInBytes = (newMaxFileSizeInBytes) => {
+        setValue(null);
+        setPathValue('val', null);
+        setSelectedMaxFileSizeInBytes(newMaxFileSizeInBytes);
     };
 
     const handleBlur = () => {
@@ -73,7 +80,8 @@ export const ComponentFileInput = () => {
             fullWidth={selectedFullWidth}
             height={selectedHeight ? `${selectedHeight}px` : undefined}
             width={selectedWidth ? `${selectedWidth}px` : undefined}
-            maxFileBytes={selectedMaxFileBytes}
+            maxTotalFileSizeInBytes={selectedMaxTotalFileSizeInBytes}
+            maxFileSizeInBytes={selectedMaxFileSizeInBytes}
             maxFiles={selectedMaxFiles}
             hidePreviewArea={selectedHidePreviewArea}
             description={
@@ -166,11 +174,22 @@ export const ComponentFileInput = () => {
                 <Grid item xs={12} sm={6}>
                     <FormGroup>
                         <NumberField
-                            value={selectedMaxFileBytes}
+                            value={selectedMaxTotalFileSizeInBytes}
                             onChange={(val) => {
-                                handleChangeSelectedMaxFileBytes(val);
+                                handleChangeSelectedMaxTotalFileSizeInBytes(val);
                             }}
-                            label="maxFileBytes"
+                            label="maxTotalFileSizeInBytes"
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <NumberField
+                            value={selectedMaxFileSizeInBytes}
+                            onChange={(val) => {
+                                handleChangeSelectedMaxFileSizeInBytes(val);
+                            }}
+                            label="maxFileSizeInBytes"
                         />
                     </FormGroup>
                 </Grid>
