@@ -20,6 +20,7 @@ const TextField = ({
     setPathIsBlurred,
     onChange,
     onBlur,
+    onFocus,
     onKeyUp,
     onEnterPressed,
     noHelperText,
@@ -30,14 +31,18 @@ const TextField = ({
     limitClassName,
     hideCounter,
     hidePasswordVisibility,
+    label,
+    focusedLabel,
     ...rest
 }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [focused, setFocused] = useState(false);
 
     const _className = getClassName([className, 'ComfortTextField']);
     const _limitClassName = getClassName([limitClassName, 'ComfortTextFieldLimit']);
 
-    const handleOnChange = (val) => {
+    const handleOnChange = (e) => {
+        const val = e.target.value;
         if (setPathValue && onChange) {
             throw new Error('Only one of setPathValue or onChange props should be passed');
         }
@@ -52,6 +57,7 @@ const TextField = ({
     };
 
     const handleOnBlur = () => {
+        setFocused(false);
         if (setPathIsBlurred && onBlur) {
             throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
         }
@@ -59,6 +65,13 @@ const TextField = ({
             setPathIsBlurred(id || path);
         } else if (onBlur) {
             onBlur();
+        }
+    };
+
+    const handleOnFocus = (e) => {
+        setFocused(true);
+        if (onFocus) {
+            onFocus(e);
         }
     };
 
@@ -86,19 +99,26 @@ const TextField = ({
         }
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+    };
+
+    const getLabel = () => {
+        if (focused || value) {
+            return focusedLabel || label;
+        }
+        return label;
+    };
+
+    const getEmptyHelperText = () => {
+        if (noHelperText) {
+            return '';
+        }
+        return ' ';
     };
 
     const getInputType = () => {
@@ -130,13 +150,15 @@ const TextField = ({
         <>
             <MuiTextField
                 id={id || path}
+                label={getLabel()}
                 error={!!errorMessage}
                 helperText={getHelperText()}
                 value={isNullOrUndefined(value) ? '' : value}
-                onChange={(e) => handleOnChange(e.target.value)}
+                onChange={handleOnChange}
                 onBlur={handleOnBlur}
-                onKeyUp={(e) => handleOnKeyUp(e)}
-                onKeyPress={(e) => handleOnKeyPress(e)}
+                onFocus={handleOnFocus}
+                onKeyUp={handleOnKeyUp}
+                onKeyPress={handleOnKeyPress}
                 className={_className}
                 multiline={multiline}
                 variant={getInputVariant()}
@@ -181,6 +203,7 @@ TextField.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     onKeyUp: PropTypes.func,
     onEnterPressed: PropTypes.func,
     noHelperText: PropTypes.bool,
@@ -192,6 +215,8 @@ TextField.propTypes = {
     limitClassName: PropTypes.string,
     hideCounter: PropTypes.bool,
     hidePasswordVisibility: PropTypes.bool,
+    label: PropTypes.string,
+    focusedLabel: PropTypes.string,
 };
 
 export default memo(TextField);

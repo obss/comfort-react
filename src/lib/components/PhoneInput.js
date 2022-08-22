@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import ReactPhoneInput from 'react-phone-input-2';
 import tr from 'react-phone-input-2/lang/tr.json';
 import PropTypes from 'prop-types';
@@ -17,13 +17,16 @@ const PhoneInput = ({
     noHelperText,
     onChange,
     onBlur,
+    onFocus,
     renderErrorMessage,
     helperTextProps,
     fullWidth,
     disabled,
     localization,
+    label,
     ...rest
 }) => {
+    const [focused, setFocused] = useState(false);
     const context = useContext(ComfortReactContext);
     const { lang } = context;
 
@@ -33,6 +36,7 @@ const PhoneInput = ({
         fullWidth ? 'fullWidth' : '',
         disabled ? 'disabled' : '',
         errorMessage ? 'hasError' : '',
+        focused ? 'hasFocus' : '',
     ]);
 
     const handleOnChange = (inputValue, data) => {
@@ -51,6 +55,7 @@ const PhoneInput = ({
     };
 
     const handleOnBlur = () => {
+        setFocused(false);
         if (setPathIsBlurred && onBlur) {
             throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
         }
@@ -58,6 +63,13 @@ const PhoneInput = ({
             setPathIsBlurred(id || path);
         } else if (onBlur) {
             onBlur();
+        }
+    };
+
+    const handleOnFocus = (e) => {
+        setFocused(true);
+        if (onFocus) {
+            onFocus(e);
         }
     };
 
@@ -87,9 +99,11 @@ const PhoneInput = ({
         <>
             <div id={id || path} className={_containerClassName}>
                 <ReactPhoneInput
+                    specialLabel={label}
                     value={getValue() || ''}
                     onChange={handleOnChange}
                     onBlur={handleOnBlur}
+                    onFocus={handleOnFocus}
                     isValid={!errorMessage}
                     disabled={disabled}
                     localization={_localization}
@@ -115,6 +129,7 @@ PhoneInput.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     noHelperText: PropTypes.bool,
     disabled: PropTypes.bool,
     renderErrorMessage: PropTypes.func,

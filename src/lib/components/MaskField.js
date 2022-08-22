@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import React, { forwardRef, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 import { IMaskInput } from 'react-imask';
@@ -18,6 +18,7 @@ const MaskField = ({
     setPathIsBlurred,
     onChange,
     onBlur,
+    onFocus,
     onKeyUp,
     onEnterPressed,
     noHelperText,
@@ -27,8 +28,12 @@ const MaskField = ({
     renderErrorMessage,
     InputComponent,
     InputProps,
+    label,
+    focusedLabel,
     ...rest
 }) => {
+    const [focused, setFocused] = useState(false);
+
     const _className = getClassName([className, 'ComfortMaskField']);
 
     const handleOnChange = (val) => {
@@ -45,6 +50,7 @@ const MaskField = ({
     };
 
     const handleOnBlur = () => {
+        setFocused(false);
         if (setPathIsBlurred && onBlur) {
             throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
         }
@@ -52,6 +58,13 @@ const MaskField = ({
             setPathIsBlurred(id || path);
         } else if (onBlur) {
             onBlur();
+        }
+    };
+
+    const handleOnFocus = (e) => {
+        setFocused(true);
+        if (onFocus) {
+            onFocus(e);
         }
     };
 
@@ -66,6 +79,13 @@ const MaskField = ({
         if (type === 'number' && ['e', 'E'].includes(e.key)) {
             e.preventDefault();
         }
+    };
+
+    const getLabel = () => {
+        if (focused || value) {
+            return focusedLabel || label;
+        }
+        return label;
     };
 
     const getEmptyHelperText = () => {
@@ -95,11 +115,13 @@ const MaskField = ({
     return (
         <TextField
             id={id || path}
+            label={getLabel()}
             error={!!errorMessage}
             helperText={getHelperText()}
             value={value || ''}
             onChange={handleOnChange}
             onBlur={handleOnBlur}
+            onFocus={handleOnFocus}
             onKeyUp={handleOnKeyUp}
             onKeyPress={handleOnKeyPress}
             className={_className}
@@ -162,6 +184,7 @@ MaskField.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     onKeyUp: PropTypes.func,
     onEnterPressed: PropTypes.func,
     noHelperText: PropTypes.bool,
@@ -174,6 +197,8 @@ MaskField.propTypes = {
     renderErrorMessage: PropTypes.func,
     InputComponent: PropTypes.object,
     InputProps: PropTypes.object,
+    label: PropTypes.string,
+    focusedLabel: PropTypes.string,
 };
 
 export default memo(MaskField);

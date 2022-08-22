@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
 import PropTypes from 'prop-types';
 import TextField from './TextField';
@@ -13,6 +13,7 @@ const DatePicker = ({
     className,
     onChange,
     onBlur,
+    onFocus,
     setPathIsBlurred,
     setPathValue,
     errorMessage,
@@ -27,8 +28,10 @@ const DatePicker = ({
     variant,
     RenderInputComponent,
     renderErrorMessage,
+    focusedLabel,
     ...rest
 }) => {
+    const [focused, setFocused] = useState(false);
     const { getLocalizedMessage } = useTranslation();
     const _className = getClassName([className, 'ComfortDatePicker']);
     const _inputFormat = inputFormat || getLocalizedMessage('DATE_PICKER_INPUT_FORMAT');
@@ -57,6 +60,7 @@ const DatePicker = ({
     };
 
     const handleOnBlur = () => {
+        setFocused(false);
         if (setPathIsBlurred && onBlur) {
             throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
         }
@@ -67,21 +71,35 @@ const DatePicker = ({
         }
     };
 
+    const handleOnFocus = (e) => {
+        setFocused(true);
+        if (onFocus) {
+            onFocus(e);
+        }
+    };
+
+    const getLabel = () => {
+        if (focused || value) {
+            return focusedLabel || label;
+        }
+        return label;
+    };
+
     const RenderInputFinalComponent = RenderInputComponent ? RenderInputComponent : TextField;
 
     return (
         <MuiDatePicker
             id={id || path}
             className={_className}
-            label={label}
+            label={getLabel()}
             value={getValue()}
-            onChange={(event) => handleOnChange(event)}
-            onBlur={() => handleOnBlur()}
+            onChange={handleOnChange}
             inputProps={{ placeholder: placeholder, ...inputProps }}
             renderInput={(params) => (
                 <RenderInputFinalComponent
                     {...params}
-                    onBlur={() => handleOnBlur()}
+                    onBlur={handleOnBlur}
+                    onFocus={handleOnFocus}
                     error={!!errorMessage}
                     errorMessage={errorMessage}
                     renderErrorMessage={renderErrorMessage}
@@ -112,6 +130,7 @@ DatePicker.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     noHelperText: PropTypes.bool,
     renderedTextFieldSx: PropTypes.object,
     fullWidth: PropTypes.bool,
@@ -123,6 +142,7 @@ DatePicker.propTypes = {
     variant: PropTypes.string,
     RenderInputComponent: PropTypes.object,
     renderErrorMessage: PropTypes.func,
+    focusedLabel: PropTypes.string,
 };
 
 export default memo(DatePicker);

@@ -38,6 +38,7 @@ const ComponentTextField = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
+    const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -78,6 +79,7 @@ const ComponentTextField = () => {
             inputProps={selectedMaxLength ? MAX_LENGTH_3000 : undefined}
             fullWidth={selectedFullWidth}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            focusedLabel={selectedFocusedLabel ? 'Focused TextField' : null}
             {...restProps}
         />
     );
@@ -255,6 +257,17 @@ const ComponentTextField = () => {
                         />
                     </FormGroup>
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enable focusedLabel'}
+                            value={selectedFocusedLabel}
+                            onChange={(newValue) => {
+                                setSelectedFocusedLabel(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -277,6 +290,18 @@ const TextFieldApiInfo = [
     },
     {
         name: 'path',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'label',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'focusedLabel',
         type: 'String',
         defaultValue: '',
         description: '',
