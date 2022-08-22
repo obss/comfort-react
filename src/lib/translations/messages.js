@@ -50,6 +50,9 @@ const messages = {
         FORM_DIALOG_SAVE_TEXT: 'Kaydet',
         FORM_DIALOG_CANCEL_TEXT: 'İptal',
         FILE_INPUT_MAX_ACCEPT_MESSAGE: 'En fazla {{maxFiles}} dosya yükleyebilirsiniz',
+        FILE_INPUT_MAX_FILE_SIZE_MESSAGE: 'En fazla {{maxFileSizeInBytes}} byte boyutunda dosya yükleyebilirsiniz',
+        FILE_INPUT_MAX_TOTAL_FILE_SIZE_MESSAGE:
+            'Dosyaların toplam boyutu en fazla {{maxTotalFileSizeInBytes}} byte boyutunda olabilir',
         FILE_INPUT_REJECT_MESSAGE: '{{fileCount}} adet dosya reddedildi',
         FILE_INPUT_PREVIEW_LABEL: 'Önizle',
         FILE_INPUT_DESCRIPTION: 'Dosyaları buraya sürükleyip bırakın veya dosyaları seçmek için tıklayın',
@@ -72,6 +75,9 @@ const messages = {
         FORM_DIALOG_SAVE_TEXT: 'Save',
         FORM_DIALOG_CANCEL_TEXT: 'Cancel',
         FILE_INPUT_MAX_ACCEPT_MESSAGE: 'You can upload max {{maxFiles}} files',
+        FILE_INPUT_MAX_FILE_SIZE_MESSAGE: 'You can upload files up to {{maxFileSizeInBytes}} bytes.',
+        FILE_INPUT_MAX_TOTAL_FILE_SIZE_MESSAGE:
+            'The total size of the files can be up to {{maxTotalFileSizeInBytes}} bytes.',
         FILE_INPUT_REJECT_MESSAGE: '{{fileCount}} files rejected',
         FILE_INPUT_PREVIEW_LABEL: 'Preview',
         FILE_INPUT_DESCRIPTION: 'Drag and drop some files here or click to select files',
@@ -94,6 +100,9 @@ const messages = {
         FORM_DIALOG_SAVE_TEXT: 'حفظ',
         FORM_DIALOG_CANCEL_TEXT: 'إلغاء',
         FILE_INPUT_MAX_ACCEPT_MESSAGE: 'يمكنك تحميل  {{maxFiles}} ملفات كحد أقصى',
+        FILE_INPUT_MAX_FILE_SIZE_MESSAGE: 'يمكنك تحميل ملفات يصل حجمها إلى {{maxFileSizeInBytes}} بايت.',
+        FILE_INPUT_MAX_TOTAL_FILE_SIZE_MESSAGE:
+            'يمكن أن يصل الحجم الإجمالي للملفات إلى {{maxTotalFileSizeInBytes}} بايت.',
         FILE_INPUT_REJECT_MESSAGE: 'تم رفض {{fileCount}} من الملفات',
         FILE_INPUT_PREVIEW_LABEL: 'معاينة',
         FILE_INPUT_DESCRIPTION: 'قم بسحب وإفلات بعض الملفات هنا أو انقر لتحديد الملفات',

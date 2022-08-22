@@ -17,6 +17,8 @@ export const ComponentFileInput = () => {
     const [selectedFileType, setSelectedFileType] = useState(FILE_TYPE[0]);
     const [selectedFullWidth, setSelectedFullWidth] = useState(false);
     const [selectedMaxFiles, setSelectedMaxFiles] = useState();
+    const [selectedMaxTotalFileSizeInBytes, setSelectedMaxTotalFileSizeInBytes] = useState();
+    const [selectedMaxFileSizeInBytes, setSelectedMaxFileSizeInBytes] = useState();
     const [selectedCustomDescription, setSelectedCustomDescription] = useState(false);
     const [selectedRemovePadding, setSelectedRemovePadding] = useState(false);
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
@@ -38,6 +40,18 @@ export const ComponentFileInput = () => {
         setValue(null);
         setPathValue('val', null);
         setSelectedMaxFiles(newMaxFilex);
+    };
+
+    const handleChangeSelectedMaxTotalFileSizeInBytes = (newMaxTotalFileSizeInBytes) => {
+        setValue(null);
+        setPathValue('val', null);
+        setSelectedMaxTotalFileSizeInBytes(newMaxTotalFileSizeInBytes);
+    };
+
+    const handleChangeSelectedMaxFileSizeInBytes = (newMaxFileSizeInBytes) => {
+        setValue(null);
+        setPathValue('val', null);
+        setSelectedMaxFileSizeInBytes(newMaxFileSizeInBytes);
     };
 
     const handleBlur = () => {
@@ -66,6 +80,8 @@ export const ComponentFileInput = () => {
             fullWidth={selectedFullWidth}
             height={selectedHeight ? `${selectedHeight}px` : undefined}
             width={selectedWidth ? `${selectedWidth}px` : undefined}
+            maxTotalFileSizeInBytes={selectedMaxTotalFileSizeInBytes}
+            maxFileSizeInBytes={selectedMaxFileSizeInBytes}
             maxFiles={selectedMaxFiles}
             hidePreviewArea={selectedHidePreviewArea}
             description={
@@ -152,6 +168,28 @@ export const ComponentFileInput = () => {
                                 handleChangeSelectedMaxFiles(val);
                             }}
                             label="maxFiles"
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <NumberField
+                            value={selectedMaxTotalFileSizeInBytes}
+                            onChange={(val) => {
+                                handleChangeSelectedMaxTotalFileSizeInBytes(val);
+                            }}
+                            label="maxTotalFileSizeInBytes"
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <NumberField
+                            value={selectedMaxFileSizeInBytes}
+                            onChange={(val) => {
+                                handleChangeSelectedMaxFileSizeInBytes(val);
+                            }}
+                            label="maxFileSizeInBytes"
                         />
                     </FormGroup>
                 </Grid>

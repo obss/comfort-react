@@ -47,6 +47,8 @@ const FileInput = ({
     noHelperText,
     accept,
     maxFiles = 1,
+    maxTotalFileSizeInBytes = 0,
+    maxFileSizeInBytes = 0,
     loading,
     loadingComponent = DEFAULT_LOADING_COMPONENT,
     width,
@@ -87,6 +89,33 @@ const FileInput = ({
 
     const handleDropMultiFile = ({ files }) => {
         let copyValue = [...getFinalValueArray()];
+        if (maxFileSizeInBytes) {
+            if (
+                copyValue.some((element) => element.size > maxFileSizeInBytes) ||
+                files.some((element) => element.size > maxFileSizeInBytes)
+            ) {
+                enqueueSnackbar(getLocalizedMessage('FILE_INPUT_MAX_FILE_SIZE_MESSAGE', { maxFileSizeInBytes }), {
+                    variant: 'error',
+                });
+                return;
+            }
+        }
+
+        if (maxTotalFileSizeInBytes) {
+            const sumOfBytes =
+                copyValue.reduce((total, element) => total + element.size, 0) +
+                files.reduce((total, element) => total + element.size, 0);
+            if (sumOfBytes > maxTotalFileSizeInBytes) {
+                enqueueSnackbar(
+                    getLocalizedMessage('FILE_INPUT_MAX_TOTAL_FILE_SIZE_MESSAGE', { maxTotalFileSizeInBytes }),
+                    {
+                        variant: 'error',
+                    }
+                );
+                return;
+            }
+        }
+
         if (isMultiple) {
             const newLength = copyValue.length + files.length;
             if (newLength > maxFiles) {
@@ -390,6 +419,8 @@ FileInput.propTypes = {
     errorMessage: PropTypes.string,
     noHelperText: PropTypes.bool,
     accept: PropTypes.any,
+    maxFileSizeInBytes: PropTypes.number,
+    maxTotalFileSizeInBytes: PropTypes.number,
     maxFiles: PropTypes.number,
     loading: PropTypes.bool,
     loadingComponent: PropTypes.any,
