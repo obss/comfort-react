@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Autocomplete as MuiAutocomplete } from '@mui/material';
 import PropTypes from 'prop-types';
 import TextField from './TextField';
 import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
+import useSortableOptions from '../hooks/useSortableOptions';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -47,23 +48,9 @@ const Autocomplete = ({
 }) => {
     const { getLocalizedMessage } = useTranslation();
     const [focused, setFocused] = useState(false);
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const _className = getClassName([className, 'ComfortAutocomplete']);
     const _loadingText = loadingText || getLocalizedMessage('AUTOCOMPLETE_LOADING_TEXT');
-
-    useEffect(() => {
-        if (sortAlphabetically) {
-            const copyOptions = [...options];
-            if (valueKey) {
-                copyOptions.sort((a, b) => getOptionLabel(a).toString().localeCompare(getOptionLabel(b).toString()));
-            } else {
-                copyOptions.sort((a, b) => a.toString().localeCompare(b.toString()));
-            }
-            setSortedOptions(copyOptions);
-        } else {
-            setSortedOptions([...options]);
-        }
-    }, [options, sortAlphabetically, getOptionLabel, valueKey]);
 
     const complexRenderOption = useCallback(
         (props, option) => {

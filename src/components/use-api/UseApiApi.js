@@ -60,21 +60,14 @@ const providerParametersApiInfoList = [
     },
 ];
 
-const ApiComfortReactProvider = (props) => {
+const UseApiApi = () => {
     return (
         <ExampleUsageWrapper header="UseApiProvider">
             <CodeAccordion code={providerFormCode} />
-            <div className="apiInfoSectionHeader">
-                UseApi Provider Parameters
-                <div>
-                    <span className="inner-link" onClick={props.openSettingsDialog}>
-                        See Example Usages
-                    </span>
-                </div>
-            </div>
+            <div className="apiInfoSectionHeader">UseApi Provider Parameters</div>
             <ApiInfo apiInfoList={providerParametersApiInfoList} />
         </ExampleUsageWrapper>
     );
 };
 
-export default ApiComfortReactProvider;
+export default UseApiApi;

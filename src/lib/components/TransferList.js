@@ -1,10 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, List, ListItem, ListItemIcon, ListItemText, Paper, FormHelperText, Typography } from '@mui/material';
 import { getClassName } from '../utils/ClassNameUtils';
 import Button from './Button';
 import Checkbox from './Checkbox';
 import useHelperText from '../hooks/useHelperText';
+import useSortableOptions from '../hooks/useSortableOptions';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -58,25 +59,11 @@ const TransferList = (props) => {
         getOptionDisabled,
     } = props;
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const [checked, setChecked] = useState([]);
     const _className = getClassName([className, 'ComfortTransferList']);
     const _headerClassName = getClassName([headerClassName, 'ComfortTransferListHeader']);
     const _paperClassName = getClassName([paperClassName, 'ComfortTransferListPaper']);
-
-    useEffect(() => {
-        if (sortAlphabetically) {
-            const copyOptions = [...options];
-            if (valueKey) {
-                copyOptions.sort((a, b) => getOptionLabel(a).toString().localeCompare(getOptionLabel(b).toString()));
-            } else {
-                copyOptions.sort((a, b) => a.toString().localeCompare(b.toString()));
-            }
-            setSortedOptions(copyOptions);
-        } else {
-            setSortedOptions([...options]);
-        }
-    }, [options, sortAlphabetically, getOptionLabel, valueKey]);
 
     const getValue = () => {
         const defaultValue = [];

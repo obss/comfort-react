@@ -492,12 +492,6 @@ const AutocompleteApiInfo = [
         description: '',
     },
     {
-        name: 'label',
-        type: 'String',
-        defaultValue: '',
-        description: '',
-    },
-    {
         name: 'className',
         type: 'String',
         defaultValue: '',

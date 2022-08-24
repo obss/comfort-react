@@ -5,7 +5,6 @@ import Homepage from './Homepage';
 import CustomMessage from './validatable-form/CustomMessage';
 import CustomTranslations from './validatable-form/CustomTranslations';
 import Installation from './getting-started/Installation';
-import ValidatableFormUsage from './validatable-form/ValidatableFormUsage';
 import ApiComfortReactProvider from './api/ApiComfortReactProvider';
 import Home from './getting-started/Home';
 import RuleTckn from './rules/RuleTckn';
@@ -113,9 +112,6 @@ const Routes = (props) => {
                     </Route>
                     <Route exact path="/components/form-dialog">
                         <ComponentFormDialog />
-                    </Route>
-                    <Route exact path="/validatable-form/usage">
-                        <ValidatableFormUsage openSettingsDialog={props.openSettingsDialog} />
                     </Route>
                     <Route exact path="/validatable-form/tckn">
                         <RuleTckn />

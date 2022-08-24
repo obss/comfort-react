@@ -149,11 +149,6 @@ const allMenuItems = [
         itemId: 'validatable-form-group',
         subNav: [
             {
-                title: 'Usage',
-                itemId: '/validatable-form/usage',
-                keywords: ['ReactValidatableFormProvider', 'useValidatableForm'],
-            },
-            {
                 title: 'Custom Message',
                 itemId: '/validatable-form/custom-message',
             },
