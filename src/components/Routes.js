@@ -36,7 +36,7 @@ import UseSnackbarApi from './use-snackbar/UseSnackbarApi';
 import UseApiApi from './use-api/UseApiApi';
 import ComponentConfirmDialog from './components/ComponentConfirmDialog';
 import ComponentFormDialog from './components/ComponentFormDialog';
-import { ComponentFileInput } from './components/ComponentFileInput';
+import ComponentFileInput from './components/ComponentFileInput';
 import ComponentSwitch from './components/ComponentSwitch';
 
 const Routes = (props) => {

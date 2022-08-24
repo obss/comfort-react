@@ -22,8 +22,7 @@ const RuleVkn = () => {
             </p>
             <div>
                 <TextField
-                    error={!!getError('val')}
-                    helperText={getError('val') || ' '}
+                    errorMessage={getError('val')}
                     label="val"
                     type="text"
                     value={getValue('val') || ''}

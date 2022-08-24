@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { TextField } from '@mui/material';
 import { IMaskInput } from 'react-imask';
 import { getClassName } from '../utils/ClassNameUtils';
-
-const DEFAULT_VARIANT = 'outlined';
+import useHelperText from '../hooks/useHelperText';
+import { DEFAULT_VARIANT } from '../constants/constants';
 
 const MaskField = ({
     id,
@@ -33,6 +33,7 @@ const MaskField = ({
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
 
     const _className = getClassName([className, 'ComfortMaskField']);
 
@@ -88,24 +89,6 @@ const MaskField = ({
         return label;
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
-
     const getInputVariant = () => {
         return variant || DEFAULT_VARIANT;
     };
@@ -117,7 +100,7 @@ const MaskField = ({
             id={id || path}
             label={getLabel()}
             error={!!errorMessage}
-            helperText={getHelperText()}
+            helperText={helperText}
             value={value || ''}
             onChange={handleOnChange}
             onBlur={handleOnBlur}

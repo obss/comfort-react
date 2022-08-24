@@ -12,7 +12,7 @@ const FILE_TYPE = ['all', 'images', 'videos'];
 
 const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }] }];
 
-export const ComponentFileInput = () => {
+const ComponentFileInput = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [selectedFileType, setSelectedFileType] = useState(FILE_TYPE[0]);
     const [selectedFullWidth, setSelectedFullWidth] = useState(false);
@@ -306,3 +306,5 @@ export const ComponentFileInput = () => {
         </ExampleUsageWrapper>
     );
 };
+
+export default ComponentFileInput;

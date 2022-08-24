@@ -4,8 +4,8 @@ import { TextField } from '@mui/material';
 import NumberFormat from 'react-number-format';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
-
-const DEFAULT_VARIANT = 'outlined';
+import useHelperText from '../hooks/useHelperText';
+import { DEFAULT_VARIANT } from '../constants/constants';
 
 const NumberField = ({
     id,
@@ -34,6 +34,7 @@ const NumberField = ({
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
 
     const _className = getClassName([className, 'ComfortNumberField']);
 
@@ -87,24 +88,6 @@ const NumberField = ({
         return label;
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
-
     const getInputVariant = () => {
         return variant || DEFAULT_VARIANT;
     };
@@ -114,7 +97,7 @@ const NumberField = ({
             id={id || path}
             label={getLabel()}
             error={!!errorMessage}
-            helperText={getHelperText()}
+            helperText={helperText}
             value={value || ''}
             onChange={handleOnChange}
             onBlur={handleOnBlur}

@@ -7,8 +7,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { getClassName } from '../utils/ClassNameUtils';
 import { isNullOrUndefined } from '../utils/ControlUtils';
-
-const DEFAULT_VARIANT = 'outlined';
+import useHelperText from '../hooks/useHelperText';
+import { DEFAULT_VARIANT } from '../constants/constants';
 
 const TextField = ({
     id,
@@ -37,6 +37,7 @@ const TextField = ({
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [focused, setFocused] = useState(false);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
 
     const _className = getClassName([className, 'ComfortTextField']);
     const _limitClassName = getClassName([limitClassName, 'ComfortTextFieldLimit']);
@@ -114,13 +115,6 @@ const TextField = ({
         return label;
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
     const getInputType = () => {
         if (type === 'number') {
             return 'tel';
@@ -129,17 +123,6 @@ const TextField = ({
             return showPassword ? 'text' : 'password';
         }
         return type;
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
     };
 
     const getInputVariant = () => {
@@ -152,7 +135,7 @@ const TextField = ({
                 id={id || path}
                 label={getLabel()}
                 error={!!errorMessage}
-                helperText={getHelperText()}
+                helperText={helperText}
                 value={isNullOrUndefined(value) ? '' : value}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}

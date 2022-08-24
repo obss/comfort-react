@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { FormHelperText } from '@mui/material';
 import { getClassName } from '../utils/ClassNameUtils';
 import ComfortReactContext from '../ComfortReactContext';
+import useHelperText from '../hooks/useHelperText';
 
 const PhoneInput = ({
     id,
@@ -27,6 +28,7 @@ const PhoneInput = ({
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const context = useContext(ComfortReactContext);
     const { lang } = context;
 
@@ -75,24 +77,6 @@ const PhoneInput = ({
 
     const getValue = () => `${value?.callingCode}${value?.number}`;
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
-
     const _localization = localization || lang === 'tr' ? tr : undefined;
 
     return (
@@ -112,7 +96,7 @@ const PhoneInput = ({
                 />
             </div>
             <FormHelperText error={!!errorMessage} {...helperTextProps}>
-                {getHelperText()}
+                {helperText}
             </FormHelperText>
         </>
     );

@@ -3,6 +3,7 @@ import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioG
 import PropTypes from 'prop-types';
 import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
+import useHelperText from '../hooks/useHelperText';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -34,6 +35,7 @@ const RadioButton = ({
     getOptionDisabled,
     ...rest
 }) => {
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const [sortedOptions, setSortedOptions] = useState(options);
     const _containerClass = getClassName([containerClass, 'ComfortRadioButton']);
     const _className = getClassName([className, 'ComfortRadio']);
@@ -80,24 +82,6 @@ const RadioButton = ({
         } else if (onBlur) {
             onBlur();
         }
-    };
-
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
     };
 
     const getRadioInputValue = (option) => {
@@ -148,7 +132,7 @@ const RadioButton = ({
                     />
                 ))}
             </RadioGroup>
-            <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>
+            <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>
         </FormControl>
     );
 };

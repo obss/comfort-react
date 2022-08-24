@@ -76,6 +76,7 @@ const defaultSettings = {
     showAfterBlur: false,
     focusToErrorAfterSubmit: false,
     customElementFocusHandlerEnabled: false,
+    customErrorMessageRendererEnabled: false,
 };
 
 const defaultTranslations = {
@@ -201,6 +202,18 @@ const Main = () => {
         };
     }
 
+    let customRenderErrorMessage = null;
+    if (currentSettings.customErrorMessageRendererEnabled) {
+        customRenderErrorMessage = (errorMessage) => {
+            return (
+                <span style={{ textDecoration: 'underline', fontSize: 'x-large' }}>
+                    <>Managed by provider</>
+                    {errorMessage}
+                </span>
+            );
+        };
+    }
+
     const dialogContent = (
         <div className={'providerDialogContent'}>
             <Autocomplete
@@ -277,6 +290,15 @@ const Main = () => {
                 }
                 label="custom elementFocusHandler"
             />
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={currentSettings.customErrorMessageRendererEnabled}
+                        onChange={(e) => handleSettingChange('customErrorMessageRendererEnabled', e.target.checked)}
+                    />
+                }
+                label="custom renderErrorMessage"
+            />
         </div>
     );
 
@@ -344,6 +366,7 @@ const Main = () => {
                     reactValidatableFormProps={reactValidatableFormProps}
                     notistackProviderProps={notistackProviderProps}
                     useApiProps={useApiProps}
+                    renderErrorMessage={customRenderErrorMessage}
                 >
                     <Dialog open={settingsDialogOpen} onClose={() => setSettingsDialogOpen(false)}>
                         <DialogTitle>

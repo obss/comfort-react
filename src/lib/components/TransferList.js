@@ -4,6 +4,7 @@ import { Grid, List, ListItem, ListItemIcon, ListItemText, Paper, FormHelperText
 import { getClassName } from '../utils/ClassNameUtils';
 import Button from './Button';
 import Checkbox from './Checkbox';
+import useHelperText from '../hooks/useHelperText';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -56,6 +57,7 @@ const TransferList = (props) => {
         buttonStyleProps,
         getOptionDisabled,
     } = props;
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const [sortedOptions, setSortedOptions] = useState(options);
     const [checked, setChecked] = useState([]);
     const _className = getClassName([className, 'ComfortTransferList']);
@@ -75,24 +77,6 @@ const TransferList = (props) => {
             setSortedOptions([...options]);
         }
     }, [options, sortAlphabetically, getOptionLabel, valueKey]);
-
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
 
     const getValue = () => {
         const defaultValue = [];
@@ -285,7 +269,7 @@ const TransferList = (props) => {
                 </Grid>
                 <Grid item>{customList(rightHeader, rightItems)}</Grid>
             </Grid>
-            <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>
+            <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>
         </div>
     );
 };
