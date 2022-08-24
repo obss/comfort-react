@@ -17,6 +17,7 @@ elementFocusHandler:{elementFocusHandler}
 }
 <ComfortReactProvider
     reactValidatableFormProps={valitableFormProps}
+    renderErrorMessage={customRenderErrorMessage}
 >
     <App />
 </ComfortReactProvider>`;
@@ -72,6 +73,10 @@ const providerParametersApiInfoList = [
                 </Link>
             </span>
         ),
+    },
+    {
+        label: 'renderErrorMessage (function)',
+        desc: <span>Custom errorMessage renderer for components.</span>,
     },
 ];
 
