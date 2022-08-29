@@ -54,7 +54,7 @@ const TransferList = (props) => {
         disabled = false,
         errorMessage,
         renderErrorMessage,
-        checkBoxProps,
+        checkboxProps,
         buttonStyleProps,
         getOptionDisabled,
     } = props;
@@ -194,7 +194,7 @@ const TransferList = (props) => {
                                     inputProps={{
                                         'aria-labelledby': labelId,
                                     }}
-                                    {...checkBoxProps}
+                                    {...checkboxProps}
                                 />
                             </ListItemIcon>
                             <ListItemText id={labelId} primary={`${label}`} />

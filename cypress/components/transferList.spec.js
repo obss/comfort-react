@@ -7,9 +7,9 @@ describe('TransferList tests', () => {
         mount(<TransferList options={options} />);
     });
     it('checkbox size test', () => {
-        mount(<TransferList options={options} checkBoxProps={{ size: 'medium' }} />);
+        mount(<TransferList options={options} checkboxProps={{ size: 'medium' }} />);
         cy.get(':nth-child(1) > span > svg').should('have.css', 'font-size', '24px');
-        mount(<TransferList options={options} checkBoxProps={{ size: 'large' }} />);
+        mount(<TransferList options={options} checkboxProps={{ size: 'large' }} />);
         cy.get(':nth-child(1) > span > svg').should('have.css', 'font-size', '35px');
     });
     it('checkbox style test', () => {
@@ -21,7 +21,7 @@ describe('TransferList tests', () => {
         };
         mount(<TransferList options={options} />);
         cy.get(':nth-child(1) > span > svg').should('have.css', 'color', 'rgba(0, 0, 0, 0.6)');
-        mount(<TransferList options={options} checkBoxProps={{ sx: CUSTOM_CHECKBOX_THEME }} />);
+        mount(<TransferList options={options} checkboxProps={{ sx: CUSTOM_CHECKBOX_THEME }} />);
         cy.get(':nth-child(1) > span > svg').should('have.css', 'color', 'rgb(173, 20, 87)');
     });
     it('disable test', () => {

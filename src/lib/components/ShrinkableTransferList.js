@@ -11,7 +11,7 @@ const ShrinkableTransferList = (props) => {
         leftHeader,
         headerClassName,
         paperClassName,
-        checkBoxProps,
+        checkboxProps,
         buttonStyleProps,
         ...rest
     } = props;
@@ -23,7 +23,7 @@ const ShrinkableTransferList = (props) => {
     if (isMobile) {
         specificProps = { multiple: true };
     } else {
-        specificProps = { rightHeader, leftHeader, headerClassName, paperClassName, checkBoxProps, buttonStyleProps };
+        specificProps = { rightHeader, leftHeader, headerClassName, paperClassName, checkboxProps, buttonStyleProps };
     }
     return <AlternativeComponent {...rest} {...specificProps} />;
 };

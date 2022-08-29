@@ -9,7 +9,7 @@ describe('Shrinkable Transfer List Tests', () => {
                 <ShrinkableTransferList
                     id={'shrinkableTransferList'}
                     options={options}
-                    checkBoxProps={{ size: 'medium' }}
+                    checkboxProps={{ size: 'medium' }}
                 />
             </ComfortReactProvider>
         );
@@ -22,7 +22,7 @@ describe('Shrinkable Transfer List Tests', () => {
                 <ShrinkableTransferList
                     id={'shrinkableTransferList'}
                     options={options}
-                    checkBoxProps={{ size: 'medium' }}
+                    checkboxProps={{ size: 'medium' }}
                 />
             </ComfortReactProvider>
         );
@@ -34,7 +34,7 @@ describe('Shrinkable Transfer List Tests', () => {
                 <ShrinkableTransferList
                     id={'shrinkableTransferList'}
                     options={options}
-                    checkBoxProps={{ size: 'medium' }}
+                    checkboxProps={{ size: 'medium' }}
                 />
             </ComfortReactProvider>
         );
