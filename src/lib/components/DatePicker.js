@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TextField from './TextField';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
+import useOnBlur from '../hooks/useOnBlur';
 
 const DatePicker = ({
     id,
@@ -37,6 +38,7 @@ const DatePicker = ({
     const _inputFormat = inputFormat || getLocalizedMessage('DATE_PICKER_INPUT_FORMAT');
     const _okText = okText || getLocalizedMessage('DATE_PICKER_OK_TEXT');
     const _cancelText = cancelText || getLocalizedMessage('DATE_PICKER_CANCEL_TEXT');
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
 
     const getValue = () => {
         const defaultValue = null;
@@ -56,18 +58,6 @@ const DatePicker = ({
             onChange(val);
         } else {
             throw new Error('Either one of setPathValue or onChange props should be passed');
-        }
-    };
-
-    const handleOnBlur = () => {
-        setFocused(false);
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

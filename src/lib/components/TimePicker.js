@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { IMask } from 'react-imask';
 import MaskField from './MaskField';
 import { getClassName } from '../utils/ClassNameUtils';
+import useOnBlur from '../hooks/useOnBlur';
 
 const TimePicker = ({
     id,
@@ -17,27 +18,6 @@ const TimePicker = ({
     ...rest
 }) => {
     const _className = getClassName([className, 'ComfortTimePicker']);
-
-    const getValue = () => {
-        const defaultValue = null;
-        if (value) {
-            return value;
-        }
-        return defaultValue;
-    };
-
-    const handleOnChange = (val) => {
-        if (setPathValue && onChange) {
-            throw new Error('Only one of setPathValue or onChange props should be passed');
-        }
-        if (setPathValue) {
-            setPathValue(path, val);
-        } else if (onChange) {
-            onChange(val);
-        } else {
-            throw new Error('Either one of setPathValue or onChange props should be passed');
-        }
-    };
 
     const completeTimeValue = () => {
         const suffix = isSecond ? ':00' : '';
@@ -60,15 +40,26 @@ const TimePicker = ({
         }
     };
 
-    const handleOnBlur = () => {
-        completeTimeValue();
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, completeTimeValue });
+
+    const getValue = () => {
+        const defaultValue = null;
+        if (value) {
+            return value;
         }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
+        return defaultValue;
+    };
+
+    const handleOnChange = (val) => {
+        if (setPathValue && onChange) {
+            throw new Error('Only one of setPathValue or onChange props should be passed');
+        }
+        if (setPathValue) {
+            setPathValue(path, val);
+        } else if (onChange) {
+            onChange(val);
+        } else {
+            throw new Error('Either one of setPathValue or onChange props should be passed');
         }
     };
 

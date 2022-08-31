@@ -73,7 +73,7 @@ const ComponentFormDialog = () => {
     let currentJsx = jsxToString(formDialogElementJsx, {
         displayName: 'FormDialog',
         useFunctionCode: true,
-    });
+    }).replace('<[object Object]', '<TextField');
 
     currentJsx = "import { FormDialog } from 'comfort-react';\n\n" + currentJsx;
 

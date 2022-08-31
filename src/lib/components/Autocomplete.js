@@ -6,6 +6,7 @@ import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
 import useSortableOptions from '../hooks/useSortableOptions';
+import useOnBlur from '../hooks/useOnBlur';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -49,6 +50,7 @@ const Autocomplete = ({
     const { getLocalizedMessage } = useTranslation();
     const [focused, setFocused] = useState(false);
     const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
     const _className = getClassName([className, 'ComfortAutocomplete']);
     const _loadingText = loadingText || getLocalizedMessage('AUTOCOMPLETE_LOADING_TEXT');
 
@@ -111,18 +113,6 @@ const Autocomplete = ({
             }
         } else {
             throw new Error('Either one of setPathValue or onChange props should be passed');
-        }
-    };
-
-    const handleOnBlur = () => {
-        setFocused(false);
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

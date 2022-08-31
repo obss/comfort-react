@@ -6,6 +6,7 @@ import { FormHelperText } from '@mui/material';
 import { getClassName } from '../utils/ClassNameUtils';
 import ComfortReactContext from '../ComfortReactContext';
 import useHelperText from '../hooks/useHelperText';
+import useOnBlur from '../hooks/useOnBlur';
 
 const PhoneInput = ({
     id,
@@ -29,6 +30,7 @@ const PhoneInput = ({
 }) => {
     const [focused, setFocused] = useState(false);
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
     const context = useContext(ComfortReactContext);
     const { lang } = context;
 
@@ -53,18 +55,6 @@ const PhoneInput = ({
             setPathValue(path, newValue);
         } else if (onChange) {
             onChange(newValue);
-        }
-    };
-
-    const handleOnBlur = () => {
-        setFocused(false);
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

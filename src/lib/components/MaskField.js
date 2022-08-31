@@ -5,6 +5,7 @@ import { IMaskInput } from 'react-imask';
 import { getClassName } from '../utils/ClassNameUtils';
 import useHelperText from '../hooks/useHelperText';
 import { DEFAULT_VARIANT } from '../constants/constants';
+import useOnBlur from '../hooks/useOnBlur';
 
 const MaskField = ({
     id,
@@ -34,7 +35,7 @@ const MaskField = ({
 }) => {
     const [focused, setFocused] = useState(false);
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
-
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
     const _className = getClassName([className, 'ComfortMaskField']);
 
     const handleOnChange = (val) => {
@@ -47,18 +48,6 @@ const MaskField = ({
             } else if (onChange) {
                 onChange(val);
             }
-        }
-    };
-
-    const handleOnBlur = () => {
-        setFocused(false);
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

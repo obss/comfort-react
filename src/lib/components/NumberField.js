@@ -6,6 +6,7 @@ import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
 import useHelperText from '../hooks/useHelperText';
 import { DEFAULT_VARIANT } from '../constants/constants';
+import useOnBlur from '../hooks/useOnBlur';
 
 const NumberField = ({
     id,
@@ -35,7 +36,7 @@ const NumberField = ({
 }) => {
     const [focused, setFocused] = useState(false);
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
-
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
     const _className = getClassName([className, 'ComfortNumberField']);
 
     const handleOnChange = (val) => {
@@ -46,18 +47,6 @@ const NumberField = ({
             setPathValue(path, val.value);
         } else if (onChange) {
             onChange(val.value);
-        }
-    };
-
-    const handleOnBlur = () => {
-        setFocused(false);
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 
