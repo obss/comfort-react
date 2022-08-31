@@ -31,8 +31,8 @@ const DEFAULT_ROWS = [];
 const DEFAULT_DEFINITIONS = [];
 const DEFAULT_SELECTED = [];
 const DEFAULT_ON_SELECTION_CHANGE = () => {};
-const DEFAULT_ON_ROW_CLICK = () => {};
-const DEFAULT_ON_CELL_CLICK = () => {};
+const DEFAULT_ON_ROW_CLICK = null;
+const DEFAULT_ON_CELL_CLICK = null;
 const DEFAULT_SORT_CONFIG = [];
 const DEFAULT_ON_SORT_CHANGE = () => {};
 const DEFAULT_PAGE = 0;
@@ -318,11 +318,15 @@ const Table = (props) => {
         handleSelection(row);
     };
 
+    const isRowClickable = (enableSelection && enableSelectionOnRowClick) || onRowClick;
+
     const handleRowClick = (event, row, rowIndex) => {
         if (enableSelection && enableSelectionOnRowClick) {
             handleSelection(row);
         }
-        onRowClick(event, row, rowIndex);
+        if (onRowClick) {
+            onRowClick(event, row, rowIndex);
+        }
     };
 
     const handleCellClick = (row, key, event) => {
@@ -360,7 +364,7 @@ const Table = (props) => {
 
         return (
             <TableRow
-                onClick={(event) => handleRowClick(event, row, rowIndex)}
+                onClick={isRowClickable ? (event) => handleRowClick(event, row, rowIndex) : null}
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
@@ -408,7 +412,7 @@ const Table = (props) => {
                                 scope={scope}
                                 padding={padding}
                                 align={align}
-                                onClick={(event) => handleCellClick(row, defKey, event)}
+                                onClick={onCellClick ? (event) => handleCellClick(row, defKey, event) : undefined}
                                 {...definition.tableCellProps}
                             >
                                 {cellValue}
