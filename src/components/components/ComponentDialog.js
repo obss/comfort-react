@@ -63,7 +63,12 @@ const ComponentDialog = () => {
     let currentJsx = jsxToString(draggableDialogElementJsx, {
         displayName: 'Dialog',
         useFunctionCode: true,
-    });
+        keyValueOverride: {
+            actions: '<Button onClick={onClose}>Close Dialog</Button>',
+        },
+    })
+        .replace('<[object Object]', '<Button')
+        .replace('</[object Object]>', '</Button>');
 
     currentJsx = "import { Dialog } from 'comfort-react';\n\n" + currentJsx;
 
