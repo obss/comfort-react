@@ -47,6 +47,7 @@ const ComponentAutocomplete = () => {
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
     const [selectedGetOptionDisabled, setSelectedGetOptionDisabled] = useState(false);
+    const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
 
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
@@ -101,6 +102,7 @@ const ComponentAutocomplete = () => {
             RenderInputComponent={selectedCustomInput ? CUSTOM_INPUT : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
+            focusedLabel={selectedFocusedLabel ? 'Focused Autocomplete' : null}
         />
     );
 
@@ -126,6 +128,7 @@ const ComponentAutocomplete = () => {
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
+            focusedLabel={selectedFocusedLabel ? 'Focused Autocomplete' : null}
         />
     );
 
@@ -162,6 +165,7 @@ const ComponentAutocomplete = () => {
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
+            focusedLabel={selectedFocusedLabel ? 'Focused Autocomplete' : null}
         />
     );
 
@@ -199,6 +203,7 @@ const ComponentAutocomplete = () => {
             loadingText={selectedLoadingText}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
+            focusedLabel={selectedFocusedLabel ? 'Focused Autocomplete' : null}
         />
     );
 
@@ -419,6 +424,17 @@ const ComponentAutocomplete = () => {
                         />
                     </FormGroup>
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enable focusedLabel'}
+                            value={selectedFocusedLabel}
+                            onChange={(newValue) => {
+                                setSelectedFocusedLabel(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -458,14 +474,20 @@ const AutocompleteApiInfo = [
         description: '',
     },
     {
-        name: 'value',
-        type: 'Any',
+        name: 'label',
+        type: 'String',
         defaultValue: '',
         description: '',
     },
     {
-        name: 'label',
+        name: 'focusedLabel',
         type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'value',
+        type: 'Any',
         defaultValue: '',
         description: '',
     },

@@ -42,12 +42,14 @@ const ComfortReactProvider = (props) => {
         localizationProviderLocale,
         notistackProviderProps,
         useApiProps,
+        renderErrorMessage,
     } = props;
     const { translations, customRules, ...restReactValidatableFormProps } = reactValidatableFormProps;
     const contextValue = DEFAULT_CONTEXT_VALUE;
     const lang = langProp || DEFAULT_LANGUAGE;
     contextValue.lang = lang;
     contextValue.useApiProps = useApiProps;
+    contextValue.renderErrorMessage = renderErrorMessage;
 
     const aggregatedReactValidatableFormProps = {
         lang: lang,

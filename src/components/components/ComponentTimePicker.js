@@ -28,6 +28,7 @@ const ComponentTimePicker = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
+    const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -58,6 +59,7 @@ const ComponentTimePicker = () => {
                 style: selectedInputStyle ? INPUT_STYLE : null,
             }}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            focusedLabel={selectedFocusedLabel ? 'Focused TimePicker' : null}
         />
     );
 
@@ -170,6 +172,17 @@ const ComponentTimePicker = () => {
                         />
                     </FormGroup>
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enable focusedLabel'}
+                            value={selectedFocusedLabel}
+                            onChange={(newValue) => {
+                                setSelectedFocusedLabel(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -192,6 +205,18 @@ const TimePickerApiInfo = [
     },
     {
         name: 'path',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'label',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'focusedLabel',
         type: 'String',
         defaultValue: '',
         description: '',

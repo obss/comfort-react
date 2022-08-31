@@ -4,3 +4,5 @@ export const TIME_MESSAGE_KEY = 'time';
 export const VKN_MESSAGE_KEY = 'vkn';
 
 export const DEFAULT_LANGUAGE = 'tr';
+
+export const DEFAULT_VARIANT = 'outlined';

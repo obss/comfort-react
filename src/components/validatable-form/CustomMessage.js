@@ -85,8 +85,7 @@ const CustomMessage = () => {
             <div>
                 <div>
                     <TextField
-                        error={!!getError('val1')}
-                        helperText={getError('val1') || ' '}
+                        errorMessage={getError('val1')}
                         label="val1 (customMessage as string)"
                         type="text"
                         value={getValue('val1') || ''}
@@ -95,8 +94,7 @@ const CustomMessage = () => {
                 </div>
                 <div>
                     <TextField
-                        error={!!getError('val2')}
-                        helperText={getError('val2') || ' '}
+                        errorMessage={getError('val2')}
                         label="val2 (customMessage as function)"
                         type="text"
                         value={getValue('val2') || ''}
@@ -105,8 +103,7 @@ const CustomMessage = () => {
                 </div>
                 <div>
                     <TextField
-                        error={!!getError('val3')}
-                        helperText={getError('val3') || ' '}
+                        errorMessage={getError('val3')}
                         label="val3 (customMessage for custom rule)"
                         type="text"
                         value={getValue('val3') || ''}
@@ -115,8 +112,7 @@ const CustomMessage = () => {
                 </div>
                 <div>
                     <TextField
-                        error={!!getError('val4')}
-                        helperText={getError('val4') || ' '}
+                        errorMessage={getError('val4')}
                         label="val4 (customMessage for jsx)"
                         type="text"
                         value={getValue('val4') || ''}

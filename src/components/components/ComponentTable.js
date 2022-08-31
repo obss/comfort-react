@@ -124,6 +124,7 @@ const ComponentTable = () => {
     const [dontWrapWithPaper, setDontWrapWithPaper] = useState(false);
     const [fillEmptyRows, setFillEmptyRows] = useState(false);
     const [selectedGetRowProps, setSelectedGetRowProps] = useState(false);
+    const [renderAsDiv, setRenderAsDiv] = useState(false);
 
     useEffect(() => {
         const definitionsWithButtons = [...definitions];
@@ -218,6 +219,7 @@ const ComponentTable = () => {
             dontWrapWithPaper={dontWrapWithPaper}
             fillEmptyRows={fillEmptyRows}
             getRowProps={getRowProps}
+            renderAsDiv={renderAsDiv}
         />
     );
 
@@ -414,6 +416,17 @@ const ComponentTable = () => {
                             value={selectedGetRowProps}
                             onChange={(newValue) => {
                                 setSelectedGetRowProps(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'renderAsDiv'}
+                            value={renderAsDiv}
+                            onChange={(newValue) => {
+                                setRenderAsDiv(newValue);
                             }}
                         />
                     </FormGroup>
@@ -662,6 +675,18 @@ const TableApiInfo = [
     },
     {
         name: 'fillEmptyRows',
+        type: 'Bool',
+        defaultValue: 'false',
+        description: '',
+    },
+    {
+        name: 'getRowProps',
+        type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'renderAsDiv',
         type: 'Bool',
         defaultValue: 'false',
         description: '',

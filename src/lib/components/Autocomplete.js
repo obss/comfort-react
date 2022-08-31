@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { Autocomplete as MuiAutocomplete } from '@mui/material';
 import PropTypes from 'prop-types';
 import TextField from './TextField';
 import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
+import useSortableOptions from '../hooks/useSortableOptions';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -26,6 +27,7 @@ const Autocomplete = ({
     className,
     onChange,
     onBlur,
+    onFocus,
     setPathIsBlurred,
     setPathValue,
     errorMessage,
@@ -41,26 +43,14 @@ const Autocomplete = ({
     onInputRemove,
     RenderInputComponent,
     renderErrorMessage,
+    focusedLabel,
     ...rest
 }) => {
     const { getLocalizedMessage } = useTranslation();
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const [focused, setFocused] = useState(false);
+    const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const _className = getClassName([className, 'ComfortAutocomplete']);
     const _loadingText = loadingText || getLocalizedMessage('AUTOCOMPLETE_LOADING_TEXT');
-
-    useEffect(() => {
-        if (sortAlphabetically) {
-            const copyOptions = [...options];
-            if (valueKey) {
-                copyOptions.sort((a, b) => getOptionLabel(a).toString().localeCompare(getOptionLabel(b).toString()));
-            } else {
-                copyOptions.sort((a, b) => a.toString().localeCompare(b.toString()));
-            }
-            setSortedOptions(copyOptions);
-        } else {
-            setSortedOptions([...options]);
-        }
-    }, [options, sortAlphabetically, getOptionLabel, valueKey]);
 
     const complexRenderOption = useCallback(
         (props, option) => {
@@ -87,7 +77,7 @@ const Autocomplete = ({
         return defaultValue;
     };
 
-    const handleOnChange = (val) => {
+    const handleOnChange = (event, val) => {
         if (setPathValue && onChange) {
             throw new Error('Only one of setPathValue or onChange props should be passed');
         }
@@ -125,6 +115,7 @@ const Autocomplete = ({
     };
 
     const handleOnBlur = () => {
+        setFocused(false);
         if (setPathIsBlurred && onBlur) {
             throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
         }
@@ -135,6 +126,21 @@ const Autocomplete = ({
         }
     };
 
+    const handleOnFocus = (e) => {
+        setFocused(true);
+        if (onFocus) {
+            onFocus(e);
+        }
+    };
+
+    const getLabel = () => {
+        const hasValue = Array.isArray(value) ? value.length > 0 : !isEmptyString(value);
+        if (focused || hasValue) {
+            return focusedLabel || label;
+        }
+        return label;
+    };
+
     const RenderInputFinalComponent = RenderInputComponent ? RenderInputComponent : TextField;
 
     return (
@@ -142,8 +148,9 @@ const Autocomplete = ({
             id={id || path}
             value={getValue()}
             className={_className}
-            onChange={(event, newValue) => handleOnChange(newValue)}
-            onBlur={() => handleOnBlur()}
+            onChange={handleOnChange}
+            onFocus={handleOnFocus}
+            onBlur={handleOnBlur}
             disabled={disabled}
             renderInput={(params) => {
                 return (
@@ -153,7 +160,7 @@ const Autocomplete = ({
                         errorMessage={errorMessage}
                         renderErrorMessage={renderErrorMessage}
                         path={path}
-                        label={label}
+                        label={getLabel()}
                         placeholder={placeholder}
                         onChange={(e) => {
                             if (onInputChange) {
@@ -191,6 +198,7 @@ Autocomplete.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     options: PropTypes.array,
     noHelperText: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -203,6 +211,7 @@ Autocomplete.propTypes = {
     onInputRemove: PropTypes.func,
     RenderInputComponent: PropTypes.object,
     renderErrorMessage: PropTypes.func,
+    focusedLabel: PropTypes.string,
 };
 
 export default memo(Autocomplete);

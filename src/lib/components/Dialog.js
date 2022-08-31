@@ -55,8 +55,8 @@ Dialog.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     draggable: PropTypes.bool,
-    title: PropTypes.element,
-    actions: PropTypes.element,
+    title: PropTypes.node,
+    actions: PropTypes.node,
     hideCloseButton: PropTypes.bool,
     onClose: PropTypes.func,
 };

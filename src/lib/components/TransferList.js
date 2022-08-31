@@ -1,9 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, List, ListItem, ListItemIcon, ListItemText, Paper, FormHelperText, Typography } from '@mui/material';
 import { getClassName } from '../utils/ClassNameUtils';
 import Button from './Button';
 import Checkbox from './Checkbox';
+import useHelperText from '../hooks/useHelperText';
+import useSortableOptions from '../hooks/useSortableOptions';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -52,47 +54,16 @@ const TransferList = (props) => {
         disabled = false,
         errorMessage,
         renderErrorMessage,
-        checkBoxProps,
+        checkboxProps,
         buttonStyleProps,
         getOptionDisabled,
     } = props;
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
+    const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const [checked, setChecked] = useState([]);
     const _className = getClassName([className, 'ComfortTransferList']);
     const _headerClassName = getClassName([headerClassName, 'ComfortTransferListHeader']);
     const _paperClassName = getClassName([paperClassName, 'ComfortTransferListPaper']);
-
-    useEffect(() => {
-        if (sortAlphabetically) {
-            const copyOptions = [...options];
-            if (valueKey) {
-                copyOptions.sort((a, b) => getOptionLabel(a).toString().localeCompare(getOptionLabel(b).toString()));
-            } else {
-                copyOptions.sort((a, b) => a.toString().localeCompare(b.toString()));
-            }
-            setSortedOptions(copyOptions);
-        } else {
-            setSortedOptions([...options]);
-        }
-    }, [options, sortAlphabetically, getOptionLabel, valueKey]);
-
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
 
     const getValue = () => {
         const defaultValue = [];
@@ -223,7 +194,7 @@ const TransferList = (props) => {
                                     inputProps={{
                                         'aria-labelledby': labelId,
                                     }}
-                                    {...checkBoxProps}
+                                    {...checkboxProps}
                                 />
                             </ListItemIcon>
                             <ListItemText id={labelId} primary={`${label}`} />
@@ -285,7 +256,7 @@ const TransferList = (props) => {
                 </Grid>
                 <Grid item>{customList(rightHeader, rightItems)}</Grid>
             </Grid>
-            <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>
+            <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>
         </div>
     );
 };

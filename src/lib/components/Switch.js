@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Switch as MuiSwitch, FormControlLabel, FormHelperText } from '@mui/material';
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
+import useHelperText from '../hooks/useHelperText';
 
 const Switch = ({
     id,
@@ -28,6 +29,7 @@ const Switch = ({
     noLabel = false,
     ...rest
 }) => {
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const _containerClassName = getClassName([containerClassName, 'ComfortSwitchIdentifierClass']);
     const _className = getClassName([className, 'ComfortSwitch']);
     const _inputClassName = getClassName([inputClassName, 'ComfortSwitch__input']);
@@ -59,24 +61,6 @@ const Switch = ({
         } else if (onBlur) {
             onBlur();
         }
-    };
-
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
     };
 
     const getLabel = () => {
@@ -115,7 +99,7 @@ const Switch = ({
                 control={switchJsx}
                 {...labelProps}
             />
-            {!hideErrorMessage && <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>}
+            {!hideErrorMessage && <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>}
         </div>
     );
 

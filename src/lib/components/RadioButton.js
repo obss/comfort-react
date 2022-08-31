@@ -1,8 +1,10 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
 import PropTypes from 'prop-types';
 import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
+import useHelperText from '../hooks/useHelperText';
+import useSortableOptions from '../hooks/useSortableOptions';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -34,24 +36,11 @@ const RadioButton = ({
     getOptionDisabled,
     ...rest
 }) => {
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
+    const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const _containerClass = getClassName([containerClass, 'ComfortRadioButton']);
     const _className = getClassName([className, 'ComfortRadio']);
     const _labelClassName = getClassName([labelClassName, 'ComfortRadioLabel']);
-
-    useEffect(() => {
-        if (sortAlphabetically) {
-            const copyOptions = [...options];
-            if (valueKey) {
-                copyOptions.sort((a, b) => getOptionLabel(a).toString().localeCompare(getOptionLabel(b).toString()));
-            } else {
-                copyOptions.sort((a, b) => a.toString().localeCompare(b.toString()));
-            }
-            setSortedOptions(copyOptions);
-        } else {
-            setSortedOptions([...options]);
-        }
-    }, [options, sortAlphabetically, getOptionLabel, valueKey]);
 
     const getValue = () => {
         if (!isEmptyString(value)) {
@@ -80,24 +69,6 @@ const RadioButton = ({
         } else if (onBlur) {
             onBlur();
         }
-    };
-
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
     };
 
     const getRadioInputValue = (option) => {
@@ -148,7 +119,7 @@ const RadioButton = ({
                     />
                 ))}
             </RadioGroup>
-            <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>
+            <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>
         </FormControl>
     );
 };

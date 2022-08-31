@@ -29,7 +29,8 @@ const CustomTranslations = () => {
             codeUrl={['components/validatable-form/CustomTranslations.js', 'components/Main.js']}
         >
             <p className="infoParagraph">
-                Validation error messages of any rules can be customized in app by passing <b>translations</b> param to{' '}
+                Validation error messages of any rules can be customized in app by passing <b>translations</b> inside of
+                <b>reactValidatableFormProps</b> to{' '}
                 <Link className="inner-link" to="/api/react-validatable-form-provider">
                     ReactValidatableFormProvider
                 </Link>
@@ -38,8 +39,7 @@ const CustomTranslations = () => {
             <div>
                 <div>
                     <TextField
-                        error={!!getError('val1')}
-                        helperText={getError('val1') || ' '}
+                        errorMessage={getError('val1')}
                         label="val1 (requiredAndLengthGreaterThan)"
                         type="text"
                         value={getValue('val1')}
@@ -48,8 +48,7 @@ const CustomTranslations = () => {
                 </div>
                 <div>
                     <TextField
-                        error={!!getError('val2')}
-                        helperText={getError('val2') || ' '}
+                        errorMessage={getError('val2')}
                         label="val2 (requiredAndLengthEqualTo)"
                         type="text"
                         value={getValue('val2')}
@@ -58,8 +57,7 @@ const CustomTranslations = () => {
                 </div>
                 <div>
                     <TextField
-                        error={!!getError('val3')}
-                        helperText={getError('val3') || ' '}
+                        errorMessage={getError('val3')}
                         label="val3 (email)"
                         type="text"
                         value={getValue('val3')}

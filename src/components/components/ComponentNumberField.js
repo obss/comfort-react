@@ -30,6 +30,7 @@ const ComponentNumberField = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
+    const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -62,6 +63,7 @@ const ComponentNumberField = () => {
                 style: selectedInputStyle ? INPUT_STYLE : null,
             }}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
+            focusedLabel={selectedFocusedLabel ? 'Focused NumberField' : null}
         />
     );
 
@@ -196,6 +198,17 @@ const ComponentNumberField = () => {
                         />
                     </FormGroup>
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enable focusedLabel'}
+                            value={selectedFocusedLabel}
+                            onChange={(newValue) => {
+                                setSelectedFocusedLabel(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -219,6 +232,18 @@ const NumberFieldApiInfo = [
     {
         name: 'path',
         type: 'string',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'label',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'focusedLabel',
+        type: 'String',
         defaultValue: '',
         description: '',
     },

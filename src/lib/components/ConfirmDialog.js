@@ -54,7 +54,7 @@ ConfirmDialog.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     draggable: PropTypes.bool,
-    title: PropTypes.element,
+    title: PropTypes.node,
     hideCloseButton: PropTypes.bool,
     onClose: PropTypes.func,
     onConfirm: PropTypes.func,

@@ -20,6 +20,7 @@ import { getClassName } from '../utils/ClassNameUtils';
 import PropTypes from 'prop-types';
 import Switch from './Switch';
 import useTranslation from '../hooks/useTranslation';
+import useHelperText from '../hooks/useHelperText';
 
 export function fData(number) {
     return numeral(number).format('0.0 b');
@@ -60,6 +61,7 @@ const FileInput = ({
     uploadAreaClassName,
     ...rest
 }) => {
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const { enqueueSnackbar } = useSnackbar();
     const { getLocalizedMessage } = useTranslation();
     const [showPreview, setShowPreview] = useState(false);
@@ -202,27 +204,6 @@ const FileInput = ({
         }
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (hideErrorMessage) {
-            return getEmptyHelperText();
-        }
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
-
     return (
         <Card
             id={id || path}
@@ -271,7 +252,7 @@ const FileInput = ({
                 />
             </CardContent>
             <Box px={4}>
-                <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>
+                {!hideErrorMessage && <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>}
             </Box>
             <Box px={4}>
                 {!showPreview &&

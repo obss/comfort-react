@@ -63,13 +63,14 @@ const TableHead = (props) => {
         onSortChange,
         enableSelection,
         tableHeadProps,
+        renderAsDiv,
     } = props;
 
     return (
-        <MuiTableHead className="ComfortTableHead" {...tableHeadProps}>
-            <TableRow>
+        <MuiTableHead className="ComfortTableHead" component={renderAsDiv ? 'div' : undefined} {...tableHeadProps}>
+            <TableRow component={renderAsDiv ? 'div' : undefined}>
                 {enableSelection && (
-                    <TableCell padding="checkbox">
+                    <TableCell component={renderAsDiv ? 'div' : undefined} padding="checkbox">
                         <Checkbox
                             noLabel
                             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -115,6 +116,7 @@ const TableHead = (props) => {
                                 align={definition.align || DEFAULT_ALIGN}
                                 padding={definition.padding || DEFAULT_PADDING}
                                 sortDirection={order}
+                                component={renderAsDiv ? 'div' : undefined}
                                 {...definition.tableHeaderCellProps}
                             >
                                 {headerCellContentJsx}
@@ -258,6 +260,7 @@ const Table = (props) => {
         dontWrapWithPaper,
         fillEmptyRows = false,
         getRowProps,
+        renderAsDiv,
         ...rest
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -363,10 +366,11 @@ const Table = (props) => {
                 tabIndex={-1}
                 key={rowKey}
                 selected={isItemSelected}
+                component={renderAsDiv ? 'div' : undefined}
                 {...rowProps}
             >
                 {enableSelection && (
-                    <TableCell padding="checkbox">
+                    <TableCell padding="checkbox" component={renderAsDiv ? 'div' : undefined}>
                         <Checkbox
                             noLabel
                             value={isItemSelected}
@@ -400,7 +404,7 @@ const Table = (props) => {
                         return (
                             <TableCell
                                 key={defKey}
-                                component={component}
+                                component={renderAsDiv ? 'div' : component}
                                 scope={scope}
                                 padding={padding}
                                 align={align}
@@ -421,8 +425,9 @@ const Table = (props) => {
                 style={{
                     height: rowHeight * emptyRows,
                 }}
+                component={renderAsDiv ? 'div' : undefined}
             >
-                <TableCell colSpan={colCount} />
+                <TableCell colSpan={colCount} component={renderAsDiv ? 'div' : undefined} />
             </TableRow>
         ) : undefined;
 
@@ -442,7 +447,7 @@ const Table = (props) => {
                 />
             )}
             <TableContainer className={_tableContainerClassName} {...tableContainerProps}>
-                <MuiTable className={_tableClassName} size={size} {...rest}>
+                <MuiTable className={_tableClassName} size={size} component={renderAsDiv ? 'div' : undefined} {...rest}>
                     <TableHead
                         definitions={definitions}
                         filteredColumns={filteredColumns}
@@ -453,16 +458,26 @@ const Table = (props) => {
                         rowCount={rows.length}
                         enableSelection={enableSelection}
                         tableHeadProps={tableHeadProps}
+                        renderAsDiv={renderAsDiv}
                     />
-                    <TableBody className="ComfortTableBody" {...tableBodyProps}>
+                    <TableBody
+                        className="ComfortTableBody"
+                        component={renderAsDiv ? 'div' : undefined}
+                        {...tableBodyProps}
+                    >
                         {loading ? (
                             <TableRow
                                 style={{
                                     height: rowHeight * rowsPerPage,
                                 }}
                                 className="ComfortTableLoadingRow"
+                                component={renderAsDiv ? 'div' : undefined}
                             >
-                                <TableCell colSpan={colCount} className="ComfortTableLoadingColumn">
+                                <TableCell
+                                    colSpan={colCount}
+                                    className="ComfortTableLoadingColumn"
+                                    component={renderAsDiv ? 'div' : undefined}
+                                >
                                     {loadingComponent}
                                 </TableCell>
                             </TableRow>

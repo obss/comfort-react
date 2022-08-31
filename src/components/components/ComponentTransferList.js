@@ -91,7 +91,7 @@ const ComponentTransferList = () => {
             disabled={selectedDisabled}
             fullWidth={selectedFullWidth}
             sortAlphabetically={selectedSortAlphabetically}
-            checkBoxProps={checkboxProps}
+            checkboxProps={checkboxProps}
             buttonStyleProps={selectedCustomButtonStyle ? CUSTOM_BUTTON_THEME : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? simpleGetOptionDisabled : null}
@@ -127,7 +127,7 @@ const ComponentTransferList = () => {
                     return option.label;
                 }
             }}
-            checkBoxProps={checkboxProps}
+            checkboxProps={checkboxProps}
             buttonStyleProps={selectedCustomButtonStyle ? CUSTOM_BUTTON_THEME : null}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             getOptionDisabled={selectedGetOptionDisabled ? complexGetOptionDisabled : null}
@@ -446,7 +446,7 @@ const TransferListApiInfo = [
         description: '',
     },
     {
-        name: 'checkBoxProps',
+        name: 'checkboxProps',
         type: 'Object',
         defaultValue: '',
         description: '',

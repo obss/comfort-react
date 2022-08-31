@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel, FormHelperText } from '@mui/material';
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
+import useHelperText from '../hooks/useHelperText';
 
 const Checkbox = ({
     id,
@@ -25,6 +26,7 @@ const Checkbox = ({
     noLabel = false,
     ...rest
 }) => {
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const _containerClassName = getClassName([containerClassName, 'ComfortCheckboxIdentifierClass']);
     const _className = getClassName([className, 'ComfortCheckbox']);
     const _inputClassName = getClassName([inputClassName, 'ComfortCheckbox__input']);
@@ -58,24 +60,6 @@ const Checkbox = ({
         }
     };
 
-    const getEmptyHelperText = () => {
-        if (noHelperText) {
-            return '';
-        }
-        return ' ';
-    };
-
-    const getHelperText = () => {
-        if (errorMessage) {
-            if (renderErrorMessage) {
-                return renderErrorMessage(errorMessage);
-            } else {
-                return errorMessage;
-            }
-        }
-        return getEmptyHelperText();
-    };
-
     const checkboxJsx = (
         <MuiCheckbox
             indeterminate={indeterminate}
@@ -99,7 +83,7 @@ const Checkbox = ({
                 control={checkboxJsx}
                 {...labelProps}
             />
-            {!hideErrorMessage && <FormHelperText error={!!errorMessage}>{getHelperText()}</FormHelperText>}
+            {!hideErrorMessage && <FormHelperText error={!!errorMessage}>{helperText}</FormHelperText>}
         </div>
     );
 
