@@ -3,6 +3,7 @@ import { Checkbox as MuiCheckbox, FormControlLabel, FormHelperText } from '@mui/
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
 import useHelperText from '../hooks/useHelperText';
+import useOnBlur from '../hooks/useOnBlur';
 
 const Checkbox = ({
     id,
@@ -30,6 +31,7 @@ const Checkbox = ({
     const _containerClassName = getClassName([containerClassName, 'ComfortCheckboxIdentifierClass']);
     const _className = getClassName([className, 'ComfortCheckbox']);
     const _inputClassName = getClassName([inputClassName, 'ComfortCheckbox__input']);
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
 
     const getValue = () => {
         if (value) {
@@ -46,17 +48,6 @@ const Checkbox = ({
             setPathValue(path, val);
         } else if (onChange) {
             onChange(val, event);
-        }
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

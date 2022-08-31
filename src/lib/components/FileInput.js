@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import Switch from './Switch';
 import useTranslation from '../hooks/useTranslation';
 import useHelperText from '../hooks/useHelperText';
+import useOnBlur from '../hooks/useOnBlur';
 
 export function fData(number) {
     return numeral(number).format('0.0 b');
@@ -67,6 +68,7 @@ const FileInput = ({
     const [showPreview, setShowPreview] = useState(false);
     const _className = getClassName([cardClassName, 'ComfortFileInputUploadCard', errorMessage ? 'hasError' : '']);
     const _uploadClassName = getClassName([uploadAreaClassName, 'ComfortFileInputUploadArea']);
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
 
     const isMultiple = maxFiles && maxFiles > 1;
 
@@ -171,17 +173,6 @@ const FileInput = ({
             }
         } else {
             throw new Error('Either one of setPathValue or onChange props should be passed');
-        }
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

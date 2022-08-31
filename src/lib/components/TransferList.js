@@ -6,6 +6,7 @@ import Button from './Button';
 import Checkbox from './Checkbox';
 import useHelperText from '../hooks/useHelperText';
 import useSortableOptions from '../hooks/useSortableOptions';
+import useOnBlur from '../hooks/useOnBlur';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -60,6 +61,7 @@ const TransferList = (props) => {
     } = props;
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
     const [checked, setChecked] = useState([]);
     const _className = getClassName([className, 'ComfortTransferList']);
     const _headerClassName = getClassName([headerClassName, 'ComfortTransferListHeader']);
@@ -99,17 +101,6 @@ const TransferList = (props) => {
         }
 
         setChecked(newChecked);
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
-        }
     };
 
     const handleOnChange = (val) => {

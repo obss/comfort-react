@@ -5,6 +5,7 @@ import { isEmptyString } from '../utils/ControlUtils';
 import { getClassName } from '../utils/ClassNameUtils';
 import useHelperText from '../hooks/useHelperText';
 import useSortableOptions from '../hooks/useSortableOptions';
+import useOnBlur from '../hooks/useOnBlur';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -38,6 +39,7 @@ const RadioButton = ({
 }) => {
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
     const _containerClass = getClassName([containerClass, 'ComfortRadioButton']);
     const _className = getClassName([className, 'ComfortRadio']);
     const _labelClassName = getClassName([labelClassName, 'ComfortRadioLabel']);
@@ -57,17 +59,6 @@ const RadioButton = ({
             setPathValue(path, value);
         } else if (onChange) {
             onChange(value);
-        }
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 

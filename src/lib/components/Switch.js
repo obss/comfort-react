@@ -3,6 +3,7 @@ import { Switch as MuiSwitch, FormControlLabel, FormHelperText } from '@mui/mate
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
 import useHelperText from '../hooks/useHelperText';
+import useOnBlur from '../hooks/useOnBlur';
 
 const Switch = ({
     id,
@@ -30,6 +31,7 @@ const Switch = ({
     ...rest
 }) => {
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
     const _containerClassName = getClassName([containerClassName, 'ComfortSwitchIdentifierClass']);
     const _className = getClassName([className, 'ComfortSwitch']);
     const _inputClassName = getClassName([inputClassName, 'ComfortSwitch__input']);
@@ -49,17 +51,6 @@ const Switch = ({
             setPathValue(path, val);
         } else if (onChange) {
             onChange(val, event);
-        }
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 
