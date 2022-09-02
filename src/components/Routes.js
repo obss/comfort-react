@@ -37,6 +37,7 @@ import ComponentConfirmDialog from './components/ComponentConfirmDialog';
 import ComponentFormDialog from './components/ComponentFormDialog';
 import ComponentFileInput from './components/ComponentFileInput';
 import ComponentSwitch from './components/ComponentSwitch';
+import ComponentCheckList from './components/ComponentCheckList';
 
 const Routes = (props) => {
     return (
@@ -67,6 +68,9 @@ const Routes = (props) => {
                     </Route>
                     <Route exact path="/components/checkbox">
                         <ComponentCheckbox />
+                    </Route>
+                    <Route exact path="/components/checklist">
+                        <ComponentCheckList />
                     </Route>
                     <Route exact path="/components/number-field">
                         <ComponentNumberField />
