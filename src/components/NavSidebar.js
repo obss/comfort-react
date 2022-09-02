@@ -68,6 +68,11 @@ const allMenuItems = [
                 keywords: ['checkbox'],
             },
             {
+                title: 'CheckList',
+                itemId: '/components/check-list',
+                keywords: ['checklist'],
+            },
+            {
                 title: 'NumberField',
                 itemId: '/components/number-field',
                 keywords: ['number'],

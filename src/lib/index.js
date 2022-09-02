@@ -5,6 +5,7 @@ import { useValidatableForm } from 'react-validatable-form';
 import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
 import Checkbox from './components/Checkbox';
+import CheckList from './components/CheckList';
 import DatePicker from './components/DatePicker';
 import IconButton from './components/IconButton';
 import MaskField from './components/MaskField';
@@ -29,6 +30,7 @@ export {
     Autocomplete,
     Button,
     Checkbox,
+    CheckList,
     DatePicker,
     IconButton,
     MaskField,
