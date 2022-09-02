@@ -69,7 +69,7 @@ const Routes = (props) => {
                     <Route exact path="/components/checkbox">
                         <ComponentCheckbox />
                     </Route>
-                    <Route exact path="/components/checklist">
+                    <Route exact path="/components/check-list">
                         <ComponentCheckList />
                     </Route>
                     <Route exact path="/components/number-field">
