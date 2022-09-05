@@ -1,4 +1,4 @@
-import { Checkbox, PhoneInput, TextField, useSnackbar } from '../../lib';
+import { Checkbox, PhoneInput, TextField, useSnackbar, useValidatableForm } from '../../lib';
 import { Grid } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
@@ -8,7 +8,6 @@ import CurrentRulesInfo from '../CurrentRulesInfo';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
 import { customErrorMessageRenderer } from './CustomErrorMessageRenderer';
 import { customErrorMessageJsx } from '../../constants/JsxConstants';
-import { useValidatableForm } from 'react-validatable-form';
 
 const INPUT_STYLE = { color: 'red' };
 const PLACEHOLDER_TEXT = 'placeholder';

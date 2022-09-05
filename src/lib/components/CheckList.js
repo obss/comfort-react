@@ -6,6 +6,7 @@ import { getClassName } from '../utils/ClassNameUtils';
 import Checkbox from './Checkbox';
 import useHelperText from '../hooks/useHelperText';
 import useSortableOptions from '../hooks/useSortableOptions';
+import useOnBlur from '../hooks/useOnBlur';
 
 const defaultOptions = [];
 const defaultOptionLabel = (option) => option.label;
@@ -37,7 +38,8 @@ const CheckList = ({
 }) => {
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
-    const _className = getClassName([className, 'ComfortCheckList']);
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
+    const _className = getClassName([className, 'ComfortCheckList', errorMessage ? 'hasError' : '']);
     const _labelClassName = getClassName([labelClassName, 'ComfortCheckListLabel']);
 
     const getValue = () => {
@@ -69,17 +71,6 @@ const CheckList = ({
             setPathValue(path, newValue);
         } else if (onChange) {
             onChange(newValue);
-        }
-    };
-
-    const handleOnBlur = () => {
-        if (setPathIsBlurred && onBlur) {
-            throw new Error('Only one of setPathIsBlurred or onBlur props should be passed');
-        }
-        if (setPathIsBlurred) {
-            setPathIsBlurred(id || path);
-        } else if (onBlur) {
-            onBlur();
         }
     };
 
@@ -163,7 +154,7 @@ CheckList.propTypes = {
     className: PropTypes.string,
     valueKey: PropTypes.string,
     options: PropTypes.array,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     setPathValue: PropTypes.func,
     setPathIsBlurred: PropTypes.func,
     onBlur: PropTypes.func,

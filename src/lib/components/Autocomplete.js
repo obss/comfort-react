@@ -184,7 +184,7 @@ Autocomplete.propTypes = {
     label: PropTypes.string,
     className: PropTypes.string,
     setPathValue: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,

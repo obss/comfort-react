@@ -1,6 +1,6 @@
 {
   "name": "comfort-react",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "Comfort react infrastructure",
   "keywords": [
     "comfort",
@@ -22,7 +22,6 @@
   "license": "MIT",
   "author": "ahmetemrekilinc",
   "peerDependencies": {
-    "@emotion/cache": "11.10.1",
     "@emotion/react": "11.10.0",
     "@emotion/styled": "11.10.0",
     "@mui/icons-material": "5.8.4",
@@ -32,8 +31,8 @@
     "@mui/utils": "5.9.3",
     "@mui/x-date-pickers": "5.0.0-beta.3",
     "date-fns": "2.29.1",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
     "react-draggable": "4.4.5",
     "react-dropzone": "14.2.2",
     "react-imask": "6.4.2"

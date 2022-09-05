@@ -8,12 +8,12 @@ import {
     NumberField,
     PhoneInput,
     RadioButton,
+    ShrinkableTransferList,
     Table,
     TextField,
     TimePicker,
-    TransferList,
     useApi,
-    useValidatableForm,
+    useComfortForm,
 } from '../../lib';
 import {
     Box,
@@ -29,7 +29,6 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import { newsKeywords, newsTypes } from '../../miragejs/mock-data';
 import { Add, Remove } from '@mui/icons-material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 const initialFormData = {
     name: '',
@@ -51,16 +50,16 @@ const initialFormData = {
 const rules = [
     { path: 'name', ruleSet: [{ rule: 'required' }, { rule: 'length', greaterThan: 4 }] },
     { path: 'type', ruleSet: [{ rule: 'required' }, { rule: 'equality', isOneOf: newsTypes }] },
-    { path: 'keywords', ruleSet: [{ rule: 'required' }, { rule: 'listSize', greaterThan: 2 }] },
+    { path: 'keywords', ruleSet: [{ rule: 'required' }, { rule: 'listSize', greaterThan: 1 }] },
     { listPath: 'keywords', ruleSet: [{ rule: 'unique' }] },
     { path: 'outdated', ruleSet: [{ rule: 'required' }] },
     { path: 'date', ruleSet: [{ rule: 'required' }, { rule: 'date' }] },
     { path: 'iban', ruleSet: [{ rule: 'required' }, { rule: 'iban' }] },
     { path: 'time', ruleSet: [{ rule: 'required' }, { rule: 'time' }] },
-    { path: 'phone', ruleSet: [{ rule: 'required' }, { rule: 'phoneNumber' }] },
+    { path: 'phoneNumber', ruleSet: [{ rule: 'required' }, { rule: 'phoneNumber' }] },
     { path: 'vkn', ruleSet: [{ rule: 'required' }, { rule: 'vkn' }] },
     { path: 'tckn', ruleSet: [{ rule: 'required' }, { rule: 'tckn' }] },
-    { path: 'website', ruleSet: [{ rule: 'required' }, { rule: 'url' }, { rule: 'includes', includes: '.com' }] },
+    { path: 'website', ruleSet: [{ rule: 'required' }, { rule: 'url' }, { rule: 'includes', includes: '.io' }] },
     { path: 'price', ruleSet: [{ rule: 'required' }, { rule: 'number' }] },
     { path: 'email', ruleSet: [{ rule: 'required' }, { rule: 'email' }] },
     { path: 'greetings', ruleSet: [{ rule: 'required' }, { rule: 'regex', regex: /^Hello/ }] },
@@ -131,6 +130,9 @@ const definitions = [
         header: 'Phone Number',
         sortable: false,
         defaultHidden: true,
+        renderCell: (row) => {
+            return <p>{row.phoneNumber.callingCode + ' ' + row.phoneNumber.number}</p>;
+        },
     },
     {
         key: 'vkn',
@@ -160,7 +162,7 @@ const definitions = [
         key: 'email',
         align: 'center',
         padding: 'normal',
-        header: 'Website',
+        header: 'Email',
         sortable: false,
         defaultHidden: true,
     },
@@ -179,19 +181,14 @@ const definitions = [
         header: 'Keywords',
         sortable: false,
         defaultHidden: true,
+        renderCell: (row) => {
+            return <p>{row.keywords.join(',')}</p>;
+        },
     },
 ];
 
 const ListItemsExample = () => {
-    const {
-        setPathValue,
-        getValue,
-        getError,
-        setFormData,
-        formData,
-        setFormIsSubmitted,
-        setPathIsBlurred,
-    } = useValidatableForm({
+    const { resetForm, setFormData, formData, setFormIsSubmitted, getPathRelatedProps } = useComfortForm({
         rules,
         initialFormData,
         hideBeforeSubmit: true,
@@ -205,11 +202,10 @@ const ListItemsExample = () => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [searchText, setSearchTest] = useState('');
     const [openedEditDialog, setOpenedEditDialog] = useState(false);
-    const [addindNewItem, setAddingNewItem] = useState(false);
+    const [addingNewItem, setAddingNewItem] = useState(false);
     const [deletingItem, setDeletingItem] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const { loading, getRequest, postRequest, putRequest, deleteRequest } = useApi();
-    const isMobile = useMediaQuery('(max-width:1024px)');
 
     const updateNewsDates = (news) => {
         news.forEach((element, index) => {
@@ -289,12 +285,15 @@ const ListItemsExample = () => {
     };
 
     const openEditDialog = (item) => {
-        setFormData(item);
+        const itemToBeEdited = { ...item, date: new Date(item.date) };
+        setFormData(itemToBeEdited);
+        resetForm();
         setOpenedEditDialog(true);
     };
 
     const addNewItemDialog = () => {
         setFormData(initialFormData);
+        resetForm();
         setAddingNewItem(true);
         setOpenedEditDialog(true);
     };
@@ -400,7 +399,7 @@ const ListItemsExample = () => {
             <Dialog open={openedEditDialog} onClose={closeDialog}>
                 <Grid container alignItems={'center'} justifyContent={'center'}>
                     <DialogTitle>
-                        <Typography> {addindNewItem ? 'Add Item' : 'Edit Item'} </Typography>
+                        <Typography> {addingNewItem ? 'Add Item' : 'Edit Item'} </Typography>
                     </DialogTitle>
                     <DialogContent>
                         <Box m={1}>
@@ -408,150 +407,66 @@ const ListItemsExample = () => {
                                 label={'Item Name'}
                                 disabled={loading}
                                 fullWidth
-                                value={getValue('name')}
-                                onChange={(value) => setPathValue('name', value)}
-                                onBlur={() => setPathIsBlurred('name')}
-                                errorMessage={getError('name')}
+                                {...getPathRelatedProps('name')}
                             />
-                            <TextField
-                                label={'Email'}
-                                disabled={loading}
-                                fullWidth
-                                value={getValue('email')}
-                                onChange={(value) => setPathValue('email', value)}
-                                onBlur={() => setPathIsBlurred('email')}
-                                errorMessage={getError('email')}
-                            />
-                            <TextField
-                                label={'Iban'}
-                                disabled={loading}
-                                fullWidth
-                                value={getValue('iban')}
-                                onChange={(value) => setPathValue('iban', value)}
-                                onBlur={() => setPathIsBlurred('iban')}
-                                errorMessage={getError('iban')}
-                            />
+                            <TextField label={'Email'} disabled={loading} fullWidth {...getPathRelatedProps('email')} />
+                            <TextField label={'Iban'} disabled={loading} fullWidth {...getPathRelatedProps('iban')} />
                             <RadioButton
                                 options={newsTypes}
                                 disabled={loading}
                                 fullWidth
                                 label={'Item Type'}
-                                value={getValue('type')}
-                                onChange={(value) => setPathValue('type', value)}
-                                onBlur={() => setPathIsBlurred('type')}
-                                errorMessage={getError('type')}
+                                {...getPathRelatedProps('type')}
                             />
-                            {isMobile ? (
-                                <Autocomplete
-                                    options={newsKeywords}
-                                    disabled={loading}
-                                    multiple={true}
-                                    fullWidth
-                                    getOptionLabel={(options) => options.toString()}
-                                    value={getValue('keywords')}
-                                    onChange={(value) => setPathValue('keywords', value)}
-                                    errorMessage={getError('keywords')}
-                                />
-                            ) : (
-                                <TransferList
-                                    options={newsKeywords}
-                                    disabled={loading}
-                                    fullWidth
-                                    value={getValue('keywords')}
-                                    onChange={(value) => setPathValue('keywords', value)}
-                                    errorMessage={getError('keywords')}
-                                />
-                            )}
-                            <Checkbox
-                                label={'Outdated'}
+                            <ShrinkableTransferList
+                                label={'Keywords'}
+                                leftHeader={'Keywords'}
+                                rightHeader={'Selected Keywords'}
+                                options={newsKeywords}
                                 disabled={loading}
-                                value={getValue('outdated')}
-                                onChange={(value) => setPathValue('outdated', value)}
-                                onBlur={() => setPathIsBlurred('outdated')}
+                                multiple={true}
+                                fullWidth
+                                {...getPathRelatedProps('keywords')}
                             />
+                            <Checkbox label={'Outdated'} disabled={loading} {...getPathRelatedProps('outdated')} />
                             <DatePicker
                                 fullWidth
                                 label={'Item Date'}
                                 disabled={loading}
-                                value={new Date(getValue('date'))}
-                                onChange={(value) => setPathValue('date', value)}
-                                onBlur={() => setPathIsBlurred('date')}
-                                errorMessage={getError('date')}
+                                {...getPathRelatedProps('date')}
                             />
-                            <TimePicker
-                                fullWidth
-                                label={'Time'}
-                                disabled={loading}
-                                value={getValue('time')}
-                                onChange={(value) => setPathValue('time', value)}
-                                onBlur={() => setPathIsBlurred('time')}
-                                errorMessage={getError('time')}
-                            />
-                            <TextField
-                                label={'VKN'}
-                                disabled={loading}
-                                fullWidth
-                                value={getValue('vkn')}
-                                onChange={(value) => setPathValue('vkn', value)}
-                                onBlur={() => setPathIsBlurred('vkn')}
-                                errorMessage={getError('vkn')}
-                            />
-                            <TextField
-                                label={'Tckn'}
-                                disabled={loading}
-                                fullWidth
-                                value={getValue('tckn')}
-                                onChange={(value) => setPathValue('tckn', value)}
-                                onBlur={() => setPathIsBlurred('tckn')}
-                                errorMessage={getError('tckn')}
-                            />
+                            <TimePicker fullWidth label={'Time'} disabled={loading} {...getPathRelatedProps('time')} />
+                            <TextField label={'VKN'} disabled={loading} fullWidth {...getPathRelatedProps('vkn')} />
+                            <TextField label={'Tckn'} disabled={loading} fullWidth {...getPathRelatedProps('tckn')} />
                             <TextField
                                 label={'Website'}
                                 disabled={loading}
                                 fullWidth
-                                value={getValue('website')}
-                                onChange={(value) => setPathValue('website', value)}
-                                onBlur={() => setPathIsBlurred('website')}
-                                errorMessage={getError('website')}
+                                {...getPathRelatedProps('website')}
                             />
                             <NumberField
                                 fullWidth
                                 label={'Item Price'}
                                 disabled={loading}
-                                value={getValue('price')}
-                                onChange={(value) => setPathValue('price', value)}
-                                onBlur={() => setPathIsBlurred('price')}
-                                errorMessage={getError('price')}
+                                {...getPathRelatedProps('price')}
                             />
                             <PhoneInput
                                 label={'Phone Number'}
                                 disabled={loading}
                                 fullWidth
-                                value={{
-                                    callingCode: getValue('callingCode'),
-                                    number: getValue('phone'),
-                                }}
-                                onChange={(value) => {
-                                    setPathValue('callingCode', value.callingCode);
-                                    setPathValue('phone', value.number);
-                                }}
-                                onBlur={() => setPathIsBlurred('phone')}
-                                errorMessage={getError('phone')}
+                                {...getPathRelatedProps('phoneNumber')}
                             />
                             <TextField
                                 label={'Greetings Message'}
                                 disabled={loading}
                                 fullWidth
-                                value={getValue('greetings')}
-                                onChange={(value) => setPathValue('greetings', value)}
-                                onBlur={() => setPathIsBlurred('greetings')}
-                                errorMessage={getError('greetings')}
+                                {...getPathRelatedProps('greetings')}
                             />
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant={'contained'} loading={loading} onClick={addindNewItem ? addItem : editItem}>
-                            {addindNewItem ? 'Add Item' : 'Save'}
+                        <Button variant={'contained'} loading={loading} onClick={addingNewItem ? addItem : editItem}>
+                            {addingNewItem ? 'Add Item' : 'Save'}
                         </Button>
                     </DialogActions>
                 </Grid>
@@ -561,7 +476,7 @@ const ListItemsExample = () => {
                     <Typography fontWeight={'bolder'}> Warning </Typography>
                 </DialogTitle>
                 <DialogContent>
-                    <Typography>Are you sure delete this item?</Typography>
+                    <Typography>Are you sure to delete this item?</Typography>
                 </DialogContent>
                 <DialogActions>
                     <Button loading={loading} onClick={closeRemoveItemDialog}>

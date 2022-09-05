@@ -116,3 +116,11 @@ td.ComfortTableLoadingColumn {
 .ComfortDialogDraggableTitle {
     cursor: move;
 }
+
+.ComfortCheckList.hasError .ComfortCheckListLabel {
+    color: #d32f2f;
+}
+
+.ComfortTransferList.hasError .ComfortTransferListHeader {
+    color: #d32f2f;
+}

@@ -99,7 +99,7 @@ PhoneInput.propTypes = {
     label: PropTypes.string,
     containerClassName: PropTypes.string,
     setPathValue: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,

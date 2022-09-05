@@ -1,4 +1,4 @@
-import { Autocomplete, Checkbox, TextField, useSnackbar } from '../../lib';
+import { Autocomplete, Checkbox, TextField, useSnackbar, useValidatableForm } from '../../lib';
 import { useState } from 'react';
 import { complexOptions, options } from '../../constants/Data';
 import { customErrorMessageRenderer } from './CustomErrorMessageRenderer';
@@ -11,7 +11,6 @@ import CurrentRulesInfo from '../CurrentRulesInfo';
 import { pink } from '@mui/material/colors';
 import './ComponentTransferList.css';
 import ShrinkableTransferList from '../../lib/components/ShrinkableTransferList';
-import { useValidatableForm } from 'react-validatable-form';
 
 const LABEL_OPTIONS = ['label', 'id', 'description'];
 const PLACEHOLDER_TEXT = 'placeholder';

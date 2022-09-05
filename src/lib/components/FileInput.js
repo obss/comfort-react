@@ -388,7 +388,7 @@ FileInput.propTypes = {
     onReject: PropTypes.func,
     previewLabel: PropTypes.any,
     hidePreviewArea: PropTypes.any,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     noHelperText: PropTypes.bool,
     accept: PropTypes.any,
     maxFileSizeInBytes: PropTypes.number,

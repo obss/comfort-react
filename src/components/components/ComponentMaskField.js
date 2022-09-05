@@ -1,4 +1,4 @@
-import { Autocomplete, Checkbox, MaskField, TextField, useSnackbar } from '../../lib';
+import { Autocomplete, Checkbox, MaskField, TextField, useSnackbar, useValidatableForm } from '../../lib';
 import { IMask } from 'react-imask';
 import { Grid } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
@@ -9,7 +9,6 @@ import CurrentRulesInfo from '../CurrentRulesInfo';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
 import { customErrorMessageRenderer } from './CustomErrorMessageRenderer';
 import { customErrorMessageJsx } from '../../constants/JsxConstants';
-import { useValidatableForm } from 'react-validatable-form';
 
 const VARIANT_OPTIONS = ['outlined', 'filled', 'standard'];
 const MASK_TYPE = ['date', 'credit card', 'cost (regex)', 'custom mask'];

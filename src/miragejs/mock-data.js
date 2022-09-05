@@ -8,6 +8,7 @@ export const newsTypes = ['General', 'Sport', 'Technology', 'Health'];
 export const newsKeywords = ['Urgent', 'Normal', 'Unneccesary', 'Ordinary', 'Daily'];
 
 export const mockNews = Array.from({ length: 100 }, (_, i) => {
+    const iOf10 = i % 10;
     return {
         name: `News ${i}`,
         id: i,
@@ -20,8 +21,7 @@ export const mockNews = Array.from({ length: 100 }, (_, i) => {
         date: 1651824272000,
         iban: 'TR320010009999901234567890',
         time: '23:12',
-        callingCode: '+90',
-        phone: '777 777 77 77',
+        phoneNumber: { callingCode: '90', number: '777 777 77 7' + iOf10 },
         vkn: '1988553332',
         tckn: '41126372152',
         website: 'https://obss.github.io/react-validatable-form-demo/getting-started/home',

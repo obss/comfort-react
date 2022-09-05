@@ -1,4 +1,4 @@
-import { Autocomplete, Checkbox, Switch, TextField, useSnackbar } from '../../lib';
+import { Autocomplete, Checkbox, Switch, TextField, useSnackbar, useValidatableForm } from '../../lib';
 import { Grid } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
@@ -8,7 +8,6 @@ import CurrentRulesInfo from '../CurrentRulesInfo';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
 import { customErrorMessageRenderer } from './CustomErrorMessageRenderer';
 import { customErrorMessageJsx } from '../../constants/JsxConstants';
-import { useValidatableForm } from 'react-validatable-form';
 
 const SWITCH_SIZE = ['medium', 'small'];
 const LABEL_PLACEMENT = ['end', 'bottom', 'start', 'top'];

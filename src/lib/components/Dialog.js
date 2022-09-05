@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useId, useRef, useState } from 'react';
 import { Box, Dialog as MuiDialog, DialogActions, DialogContent, DialogTitle, Grid, Paper } from '@mui/material';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
@@ -7,11 +7,9 @@ import { IconButton } from '../index';
 import '../styles/Dialog.css';
 import { getClassName } from '../utils/ClassNameUtils';
 
-const getUniqueId = () => `${Math.random().toString().slice(5)}`.replace('.', '');
-
 const Dialog = (props) => {
     const { id, draggable, className, title, actions, children, hideCloseButton, onClose, ...rest } = props;
-    const [draggableHandleId] = useState(`draggable-title-${getUniqueId()}`);
+    const [draggableHandleId] = useState(`draggable-title${useId().replaceAll(':', '-')}`);
     const _className = getClassName([className, 'ComfortDialog']);
     const _titleClassName = getClassName([draggable ? 'ComfortDialogDraggableTitle' : '', 'ComfortDialogTitle']);
 

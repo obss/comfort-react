@@ -1,4 +1,4 @@
-import { Autocomplete, Checkbox, TextField, useSnackbar } from '../../lib';
+import { Autocomplete, Checkbox, TextField, useSnackbar, useValidatableForm } from '../../lib';
 import { Grid } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
@@ -9,7 +9,6 @@ import './ComponentTextField.css';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
 import { customErrorMessageRenderer } from './CustomErrorMessageRenderer';
 import { customErrorMessageJsx } from '../../constants/JsxConstants';
-import { useValidatableForm } from 'react-validatable-form';
 
 const VARIANT_OPTIONS = ['outlined', 'filled', 'standard'];
 const TYPE_OPTIONS = ['text', 'password', 'number'];

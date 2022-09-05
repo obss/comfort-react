@@ -38,6 +38,7 @@ import ComponentFormDialog from './components/ComponentFormDialog';
 import ComponentFileInput from './components/ComponentFileInput';
 import ComponentSwitch from './components/ComponentSwitch';
 import ComponentCheckList from './components/ComponentCheckList';
+import UseComfortForm from './validatable-form/UseComfortForm';
 
 const Routes = (props) => {
     return (
@@ -134,6 +135,9 @@ const Routes = (props) => {
                     </Route>
                     <Route exact path="/validatable-form/translations">
                         <CustomTranslations />
+                    </Route>
+                    <Route exact path="/validatable-form/use-comfort-form">
+                        <UseComfortForm />
                     </Route>
                     <Route exact path="/notistack/use-snackbar">
                         <UseSnackbar />

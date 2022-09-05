@@ -25,6 +25,7 @@ import ConfirmDialog from './components/ConfirmDialog';
 import FormDialog from './components/FormDialog';
 import ShrinkableTransferList from './components/ShrinkableTransferList';
 import useApi from './hooks/useApi';
+import useComfortForm from './hooks/useComfortForm';
 
 export {
     Autocomplete,
@@ -52,4 +53,5 @@ export {
     useApi,
     useSnackbar,
     useValidatableForm,
+    useComfortForm,
 };

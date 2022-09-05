@@ -63,7 +63,7 @@ const TransferList = (props) => {
     const sortedOptions = useSortableOptions({ options, sortAlphabetically, getOptionLabel, valueKey });
     const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path });
     const [checked, setChecked] = useState([]);
-    const _className = getClassName([className, 'ComfortTransferList']);
+    const _className = getClassName([className, 'ComfortTransferList', errorMessage ? 'hasError' : '']);
     const _headerClassName = getClassName([headerClassName, 'ComfortTransferListHeader']);
     const _paperClassName = getClassName([paperClassName, 'ComfortTransferListPaper']);
 
@@ -267,7 +267,7 @@ TransferList.propTypes = {
     rightHeader: PropTypes.string,
     setPathValue: PropTypes.func,
     setPathIsBlurred: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     value: PropTypes.array,
     valueKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     renderErrorMessage: PropTypes.func,

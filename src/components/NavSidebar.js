@@ -177,6 +177,11 @@ const allMenuItems = [
                 title: 'vkn',
                 itemId: '/validatable-form/vkn',
             },
+            {
+                title: 'useComfortForm',
+                itemId: '/validatable-form/use-comfort-form',
+                keywords: ['useValidatableForm'],
+            },
         ],
     },
     {

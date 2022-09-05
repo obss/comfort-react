@@ -123,7 +123,7 @@ RadioButton.propTypes = {
     className: PropTypes.string,
     valueKey: PropTypes.string,
     options: PropTypes.array,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     setPathValue: PropTypes.func,
     setPathIsBlurred: PropTypes.func,
     onBlur: PropTypes.func,

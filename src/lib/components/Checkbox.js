@@ -93,7 +93,7 @@ Checkbox.propTypes = {
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     setPathValue: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     noHelperText: PropTypes.bool,
     indeterminate: PropTypes.bool,
     disabled: PropTypes.bool,

@@ -172,7 +172,7 @@ TextField.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     className: PropTypes.string,
     setPathValue: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     setPathIsBlurred: PropTypes.func,
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
