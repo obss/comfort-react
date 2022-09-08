@@ -45,6 +45,7 @@ const Autocomplete = ({
     RenderInputComponent,
     renderErrorMessage,
     focusedLabel,
+    renderInputProps,
     ...rest
 }) => {
     const { getLocalizedMessage } = useTranslation();
@@ -162,6 +163,7 @@ const Autocomplete = ({
                                 onInputRemove();
                             }
                         }}
+                        {...renderInputProps}
                     />
                 );
             }}
@@ -202,6 +204,7 @@ Autocomplete.propTypes = {
     RenderInputComponent: PropTypes.object,
     renderErrorMessage: PropTypes.func,
     focusedLabel: PropTypes.string,
+    renderInputProps: PropTypes.object,
 };
 
 export default memo(Autocomplete);
