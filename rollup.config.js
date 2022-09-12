@@ -41,7 +41,8 @@ const comfortReactGlobals = {
     'react-dom': 'react-dom',
     'react-draggable': 'react-draggable',
     'react-dropzone': 'react-dropzone',
-    'react-imask': 'react-imask'
+    'react-imask': 'react-imask',
+    'react-phone-input-2': 'react-phone-input-2'
 };
 
 export default [
