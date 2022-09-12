@@ -1,5 +1,5 @@
 import { mount } from '@cypress/react';
-import { Checkbox, MenuButton } from '../../src/lib';
+import { Checkbox, ComfortReactProvider, MenuButton } from '../../src/lib';
 import { ListItemIcon, ListItemText, MenuItem } from '@mui/material';
 import { FilterList } from '@mui/icons-material';
 
@@ -167,7 +167,7 @@ const MENU_ITEMS = [
 ];
 
 const menuItemsJSX = () => {
-    return MENU_ITEMS.map((element) => {
+    const items = MENU_ITEMS.map((element) => {
         return (
             <MenuItem key={element.key} onClick={() => alert(element.key)}>
                 <ListItemIcon>
@@ -177,4 +177,6 @@ const menuItemsJSX = () => {
             </MenuItem>
         );
     });
+
+    return <ComfortReactProvider>{items}</ComfortReactProvider>;
 };

@@ -3,7 +3,7 @@ import { Box, Dialog as MuiDialog, DialogActions, DialogContent, DialogTitle, Gr
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 import { Close } from '@mui/icons-material';
-import { IconButton } from '../index';
+import IconButton from './IconButton';
 import '../styles/Dialog.css';
 import { getClassName } from '../utils/ClassNameUtils';
 

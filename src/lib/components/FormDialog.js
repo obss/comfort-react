@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Dialog } from '../index';
-import '../styles/Dialog.css';
+import Button from './Button';
+import Dialog from './Dialog';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
 

@@ -1,4 +1,4 @@
-import { useValidatableForm } from '..';
+import { useValidatableForm } from 'react-validatable-form';
 
 const useComfortForm = (props) => {
     const useValidatableFormResult = useValidatableForm(props);

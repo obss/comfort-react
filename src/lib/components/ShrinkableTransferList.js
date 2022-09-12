@@ -1,20 +1,14 @@
 import React, { memo } from 'react';
 import { useMediaQuery } from '@mui/material';
-import { Autocomplete, TransferList } from '../index';
+import Autocomplete from './Autocomplete';
+import TransferList from './TransferList';
 
 const ShrinkableTransferList = (props) => {
     const mobileWidth = props.mobileWidth;
     const isMobile = useMediaQuery(`(max-width:${mobileWidth ? mobileWidth : 1024}px)`);
     const AlternativeComponent = isMobile ? Autocomplete : TransferList;
-    const {
-        rightHeader,
-        leftHeader,
-        headerClassName,
-        paperClassName,
-        checkboxProps,
-        buttonStyleProps,
-        ...rest
-    } = props;
+    const { rightHeader, leftHeader, headerClassName, paperClassName, checkboxProps, buttonStyleProps, ...rest } =
+        props;
     delete rest.rightHeader;
     delete rest.leftHeader;
     delete rest.mobileWidth;

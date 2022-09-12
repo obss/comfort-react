@@ -13,11 +13,11 @@ import {
     Paper,
     Tooltip,
 } from '@mui/material';
-import '../styles/FileInput.css';
 import { Clear, Close, InsertDriveFile, FileDownload as FileDownloadIcon } from '@mui/icons-material';
-import { IconButton } from '../index';
-import { getClassName } from '../utils/ClassNameUtils';
 import PropTypes from 'prop-types';
+import IconButton from './IconButton';
+import { getClassName } from '../utils/ClassNameUtils';
+import '../styles/FileInput.css';
 import Switch from './Switch';
 import useTranslation from '../hooks/useTranslation';
 import useHelperText from '../hooks/useHelperText';

@@ -1,4 +1,3 @@
-import { mount } from '@cypress/react';
 import { Button } from '../../src/lib';
 import { SendOutlined } from '@mui/icons-material';
 
@@ -6,19 +5,19 @@ const BUTTON_STYLE = { backgroundColor: 'red', color: 'black' };
 
 describe('Button tests', () => {
     it('mount test', () => {
-        mount(<Button id={'button'}> Button </Button>);
+        cy.mount(<Button id={'button'}> Button </Button>);
         cy.get('#button').should('be.visible');
     });
 
     it('variant test', () => {
-        mount(
+        cy.mount(
             <Button id={'buttonContained'} variant={'contained'}>
                 Button
             </Button>
         );
         cy.get('#buttonContained').should('have.css', 'background-color', 'rgb(25, 118, 210)');
         cy.get('#buttonContained').should('have.css', 'color', 'rgb(255, 255, 255)');
-        mount(
+        cy.mount(
             <Button id={'buttonOutlined'} variant={'outlined'}>
                 Button
             </Button>
@@ -27,13 +26,13 @@ describe('Button tests', () => {
         cy.get('#buttonOutlined').should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
     });
     it('disabled tests', () => {
-        mount(
+        cy.mount(
             <Button id={'button'} disabled={true}>
                 Button
             </Button>
         );
         cy.get('#button').should('be.disabled');
-        mount(
+        cy.mount(
             <Button id={'button'} disabled={false}>
                 Button
             </Button>
@@ -42,43 +41,43 @@ describe('Button tests', () => {
     });
 
     it('color tests', () => {
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'primary'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(25, 118, 210)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'secondary'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(156, 39, 176)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'success'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(46, 125, 50)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'error'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(211, 47, 47)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'info'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(2, 136, 209)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'warning'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(237, 108, 2)');
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} color={'inherit'}>
                 Button
             </Button>
@@ -87,7 +86,7 @@ describe('Button tests', () => {
     });
 
     it('size tests', () => {
-        mount(
+        cy.mount(
             <Button id={'buttonMedium'} variant={'contained'} size={'medium'}>
                 Button
             </Button>
@@ -97,7 +96,7 @@ describe('Button tests', () => {
         cy.get('#buttonMedium').should('have.css', 'padding-right', '16px');
         cy.get('#buttonMedium').should('have.css', 'padding-top', '6px');
         cy.get('#buttonMedium').should('have.css', 'padding-bottom', '6px');
-        mount(
+        cy.mount(
             <Button id={'buttonLarge'} variant={'contained'} size={'large'}>
                 Button
             </Button>
@@ -110,7 +109,7 @@ describe('Button tests', () => {
     });
 
     it('loading tests', () => {
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'} loading={false}>
                 Button
             </Button>
@@ -118,7 +117,7 @@ describe('Button tests', () => {
         cy.get('#button').should('have.css', 'background-color', 'rgb(25, 118, 210)');
         cy.get('#button').should('have.css', 'cursor', 'pointer');
         cy.get('#button').should('have.css', 'color', 'rgb(255, 255, 255)');
-        mount(
+        cy.mount(
             <Button id={'buttonLoading'} variant={'contained'} loading={true}>
                 Button
             </Button>
@@ -129,13 +128,13 @@ describe('Button tests', () => {
     });
 
     it('icon test', () => {
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'}>
                 Button
             </Button>
         );
         cy.get('#button').get('span');
-        mount(
+        cy.mount(
             <Button id={'buttonIcon'} variant={'contained'} endIcon={<SendOutlined />}>
                 Button
             </Button>
@@ -144,14 +143,14 @@ describe('Button tests', () => {
     });
 
     it('custom style', () => {
-        mount(
+        cy.mount(
             <Button id={'button'} variant={'contained'}>
                 Button
             </Button>
         );
         cy.get('#button').should('have.css', 'background-color', 'rgb(25, 118, 210)');
         cy.get('#button').should('have.css', 'color', 'rgb(255, 255, 255)');
-        mount(
+        cy.mount(
             <Button id={'buttonCustom'} variant={'contained'} style={BUTTON_STYLE}>
                 Button
             </Button>

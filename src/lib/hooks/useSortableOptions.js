@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useSortableOptions = (props = {}) => {
     const { options, sortAlphabetically, getOptionLabel, valueKey } = props;
-    const [sortedOptions, setSortedOptions] = useState(options);
+    const [sortedOptions, setSortedOptions] = useState([]);
 
     useEffect(() => {
         if (sortAlphabetically) {

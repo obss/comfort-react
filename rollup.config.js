@@ -16,6 +16,7 @@ const PRODUCTION = (process.env.NODE_ENV === "production");
 const comfortReactGlobals = {
     'date-fns/locale/tr': 'date-fns/locale/tr',
     'date-fns/locale/en-US': 'date-fns/locale/en-US',
+    '@mui/icons-material': '@mui/icons-material',
     '@mui/icons-material/Close': '@mui/icons-material/Close',
     '@mui/icons-material/FilterList': '@mui/icons-material/FilterList',
     '@mui/icons-material/Visibility': '@mui/icons-material/Visibility',
@@ -38,6 +39,8 @@ const comfortReactGlobals = {
     '@mui/x-date-pickers/AdapterDateFns': '@mui/x-date-pickers/AdapterDateFns',
     'react': 'react',
     'react-dom': 'react-dom',
+    'react-draggable': 'react-draggable',
+    'react-dropzone': 'react-dropzone',
     'react-imask': 'react-imask'
 };
 
