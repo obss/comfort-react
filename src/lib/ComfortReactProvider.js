@@ -18,8 +18,6 @@ import { validationMessages } from './translations/validationMessages';
 import { phoneNumberValidation, tcknFunction, timeValidation } from './validations';
 import { vknFunction } from './validations/vknValidation';
 
-import 'react-phone-input-2/lib/material.css';
-
 const comfortCustomRules = {
     [PHONE_NUMBER_MESSAGE_KEY]: phoneNumberValidation,
     [TIME_MESSAGE_KEY]: timeValidation,
