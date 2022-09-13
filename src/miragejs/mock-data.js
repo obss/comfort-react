@@ -21,7 +21,7 @@ export const mockNews = Array.from({ length: 100 }, (_, i) => {
         date: 1651824272000,
         iban: 'TR320010009999901234567890',
         time: '23:12',
-        phoneNumber: { callingCode: '90', number: '777 777 77 7' + iOf10 },
+        phoneNumber: '90555555555' + iOf10,
         vkn: '1988553332',
         tckn: '41126372152',
         website: 'https://obss.github.io/react-validatable-form-demo/getting-started/home',

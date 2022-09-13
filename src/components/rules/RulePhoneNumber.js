@@ -4,13 +4,10 @@ import ValidationResult from '../ValidationResult';
 import CurrentRulesInfo from '../CurrentRulesInfo';
 
 const initialFormData = {
-    val: {
-        callingCode: '90',
-        number: '131232321',
-    },
+    val: '90555',
 };
 
-const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }, { rule: 'phoneNumber', isRequired: true }] }];
+const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }, { rule: 'phoneNumber' }] }];
 
 const RulePhoneNumber = () => {
     const { isValid, setPathValue, getValue, getError } = useValidatableForm({

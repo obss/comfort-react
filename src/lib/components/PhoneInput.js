@@ -47,14 +47,10 @@ const PhoneInput = ({
         if (setPathValue && onChange) {
             throw new Error('Only one of setPathValue or onChange props should be passed');
         }
-        const newValue = {
-            callingCode: data.dialCode,
-            number: inputValue.slice(data.dialCode?.length || 0),
-        };
         if (setPathValue) {
-            setPathValue(path, newValue);
+            setPathValue(path, inputValue, data);
         } else if (onChange) {
-            onChange(newValue);
+            onChange(inputValue, data);
         }
     };
 
@@ -65,8 +61,6 @@ const PhoneInput = ({
         }
     };
 
-    const getValue = () => `${value?.callingCode}${value?.number}`;
-
     const _localization = localization || lang === 'tr' ? tr : undefined;
 
     return (
@@ -74,7 +68,7 @@ const PhoneInput = ({
             <div id={id || path} className={_containerClassName}>
                 <ReactPhoneInput
                     specialLabel={label}
-                    value={getValue() || ''}
+                    value={value || ''}
                     onChange={handleOnChange}
                     onBlur={handleOnBlur}
                     onFocus={handleOnFocus}

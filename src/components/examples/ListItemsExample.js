@@ -131,7 +131,7 @@ const definitions = [
         sortable: false,
         defaultHidden: true,
         renderCell: (row) => {
-            return <p>{row.phoneNumber.callingCode + ' ' + row.phoneNumber.number}</p>;
+            return <p>{row.phoneNumber}</p>;
         },
     },
     {
@@ -351,7 +351,7 @@ const ListItemsExample = () => {
             });
         }
         setFinalDefinitions(copyDefinitions);
-    }, [definitions, items]);
+    }, [definitions]);
 
     return (
         <Container>

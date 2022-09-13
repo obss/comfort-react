@@ -1,6 +1,6 @@
 {
     "name": "comfort-react",
-    "version": "1.16.0",
+    "version": "1.17.0",
     "description": "Comfort react infrastructure",
     "keywords": [
         "comfort",
@@ -40,6 +40,7 @@
         "react-phone-input-2": "2.15.1"
     },
     "dependencies": {
+        "libphonenumber-js": "1.9.34",
         "notistack": "2.0.5",
         "numeral": "2.0.6",
         "prop-types": "15.8.1",
@@ -80,6 +81,7 @@
         "eslint-plugin-prettier": "4.2.1",
         "eslint-plugin-react": "7.31.8",
         "eslint-plugin-react-hooks": "4.6.0",
+        "html-webpack-plugin": "5.5.0",
         "jsx-to-string": "1.4.0",
         "miragejs": "0.1.45",
         "prettier": "2.7.1",

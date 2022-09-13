@@ -4,9 +4,7 @@ export const validationMessages = {
     tr: {
         [TCKN_MESSAGE_KEY]: 'Girdiğiniz TCKN hatalıdır, lütfen kontrol edip tekrar giriniz',
         [VKN_MESSAGE_KEY]: 'Girdiğiniz vergi numarası hatalıdır, lütfen kontrol edip tekrar giriniz',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.tr`]: 'Bu alan 10 karakterden oluşmalıdır',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.other`]: 'Lütfen geçerli bir numara giriniz',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.required`]: 'Bu alan zorunludur',
+        [PHONE_NUMBER_MESSAGE_KEY]: 'Lütfen geçerli bir numara giriniz',
         ['valueIsNotAValidTime']: 'Girilen değer geçerli bir saat değil',
         ['comparisonValueIsNotAValidTime']: 'Kıyas yapılacak değer geçerli bir saat değil',
         ['comparisonTimeValueNotFound']: 'Kıyas yapılacak değer bulunamadı',
@@ -20,9 +18,7 @@ export const validationMessages = {
     en: {
         [TCKN_MESSAGE_KEY]: 'The entered Turkish identity number is incorrect, please check and re-enter',
         [VKN_MESSAGE_KEY]: 'The entered tax identification number is incorrect, please check and re-enter',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.tr`]: 'This field should have 10 characters',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.other`]: 'Please enter valid phone number',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.required`]: 'This field is required',
+        [PHONE_NUMBER_MESSAGE_KEY]: 'Please enter valid phone number',
         ['valueIsNotAValidTime']: 'Value is not a valid time',
         ['comparisonValueIsNotAValidTime']: 'Comparison value is not a valid time',
         ['comparisonTimeValueNotFound']: 'Comparison value could not be found',
@@ -36,9 +32,7 @@ export const validationMessages = {
     ar: {
         [TCKN_MESSAGE_KEY]: 'TCKN الذي أدخلته غير صحيح ، يرجى التحقق منه وإعادة إدخاله',
         [VKN_MESSAGE_KEY]: 'الرقم الضريبي الذي أدخلته غير صحيح ، يرجى التحقق منه وإعادة إدخاله',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.tr`]: 'يجب أن يحتوي هذا الحقل على 10 أحرف',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.other`]: 'من فضلك أدخل رقما صالحا',
-        [`${PHONE_NUMBER_MESSAGE_KEY}.required`]: 'هذه الخانة مطلوبه',
+        [PHONE_NUMBER_MESSAGE_KEY]: 'من فضلك أدخل رقما صالحا',
         ['valueIsNotAValidTime']: 'القيمة التي تم إدخالها ليست وقتًا صالحًا',
         ['comparisonValueIsNotAValidTime']: 'القيمة المراد مقارنتها ليست وقتًا صالحًا',
         ['comparisonTimeValueNotFound']: 'لا توجد قيمة للمقارنة',
