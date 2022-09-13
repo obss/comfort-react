@@ -64,25 +64,23 @@ const PhoneInput = ({
     const _localization = localization || lang === 'tr' ? tr : undefined;
 
     return (
-        <>
-            <div id={id || path} className={_containerClassName}>
-                <ReactPhoneInput
-                    specialLabel={label}
-                    value={value || ''}
-                    onChange={handleOnChange}
-                    onBlur={handleOnBlur}
-                    onFocus={handleOnFocus}
-                    isValid={!errorMessage}
-                    disabled={disabled}
-                    localization={_localization}
-                    key={lang} // to force re-render after language change (phone-input bug)
-                    {...rest}
-                />
-            </div>
+        <div id={id || path} className={_containerClassName}>
+            <ReactPhoneInput
+                specialLabel={label}
+                value={value || ''}
+                onChange={handleOnChange}
+                onBlur={handleOnBlur}
+                onFocus={handleOnFocus}
+                isValid={!errorMessage}
+                disabled={disabled}
+                localization={_localization}
+                key={lang} // to force re-render after language change (phone-input bug)
+                {...rest}
+            />
             <FormHelperText error={!!errorMessage} {...helperTextProps}>
                 {helperText}
             </FormHelperText>
-        </>
+        </div>
     );
 };
 

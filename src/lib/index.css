@@ -43,6 +43,7 @@ p.ComfortTransferListHeader {
     font-size: 1rem;
     line-height: 1.4375em;
     letter-spacing: 0.00938em;
+    border-radius: 4px;
 }
 
 .ComfortPhoneInput .react-tel-input .form-control:disabled {
@@ -77,6 +78,10 @@ p.ComfortTransferListHeader {
 
 .ComfortPhoneInput.disabled .special-label {
     color: rgba(0, 0, 0, 0.38);
+}
+
+.ComfortPhoneInput .MuiFormHelperText-root {
+    margin-left: 14px;
 }
 
 .ComfortTableTitle {
