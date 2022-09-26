@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { forwardRef, memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import { TextField } from '@mui/material';
-import NumberFormat from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
 import useHelperText from '../hooks/useHelperText';
@@ -24,29 +24,29 @@ const NumberField = ({
     noHelperText,
     variant,
     type,
-    prefix,
     thousandSeparator,
     decimalSeparator,
     disabled,
     renderErrorMessage,
-    InputProps,
     label,
     focusedLabel,
     ...rest
 }) => {
+    const { getLocalizedMessage } = useTranslation();
     const [focused, setFocused] = useState(false);
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
     const _className = getClassName([className, 'ComfortNumberField']);
 
-    const handleOnChange = (val) => {
+    const handleOnChange = (ev) => {
+        const newValue = ev.floatValue;
         if (setPathValue && onChange) {
             throw new Error('Only one of setPathValue or onChange props should be passed');
         }
         if (setPathValue) {
-            setPathValue(path, val.value);
+            setPathValue(path, newValue);
         } else if (onChange) {
-            onChange(val.value);
+            onChange(newValue);
         }
     };
 
@@ -81,14 +81,22 @@ const NumberField = ({
         return variant || DEFAULT_VARIANT;
     };
 
+    const _decimalSeparator = decimalSeparator || getLocalizedMessage('DECIMAL_SEPARATOR');
+    const _thousandSeparator = thousandSeparator || getLocalizedMessage('THOUSAND_SEPARATOR');
+
     return (
-        <TextField
+        <NumericFormat
+            customInput={TextField}
+            onValueChange={(ev) => {
+                handleOnChange(ev);
+            }}
+            decimalSeparator={_decimalSeparator}
+            thousandSeparator={_thousandSeparator}
             id={id || path}
             label={getLabel()}
             error={!!errorMessage}
             helperText={helperText}
             value={value || ''}
-            onChange={handleOnChange}
             onBlur={handleOnBlur}
             onFocus={handleOnFocus}
             onKeyUp={handleOnKeyUp}
@@ -98,46 +106,8 @@ const NumberField = ({
             type={type}
             disabled={disabled}
             {...rest}
-            InputProps={{
-                inputComponent: NumberFormatCustom,
-                inputProps: {
-                    prefix,
-                    decimalSeparator,
-                    thousandSeparator,
-                },
-                ...InputProps,
-            }}
         />
     );
-};
-
-const NumberFormatCustom = forwardRef((props, ref) => {
-    const { onChange, decimalSeparator, thousandSeparator, prefix, ...other } = props;
-    const { getLocalizedMessage } = useTranslation();
-
-    const _decimalSeparator = decimalSeparator || getLocalizedMessage('DECIMAL_SEPARATOR');
-    const _thousandSeparator = thousandSeparator || getLocalizedMessage('THOUSAND_SEPARATOR');
-
-    return (
-        <NumberFormat
-            {...other}
-            getInputRef={ref}
-            onValueChange={(value) => {
-                onChange(value);
-            }}
-            decimalSeparator={_decimalSeparator}
-            thousandSeparator={_thousandSeparator}
-            isNumericString
-            prefix={prefix}
-        />
-    );
-});
-
-NumberFormatCustom.propTypes = {
-    onChange: PropTypes.func.isRequired,
-    decimalSeparator: PropTypes.string,
-    thousandSeparator: PropTypes.string,
-    prefix: PropTypes.string,
 };
 
 NumberField.propTypes = {
@@ -159,7 +129,6 @@ NumberField.propTypes = {
     type: PropTypes.string,
     decimalSeparator: PropTypes.string,
     thousandSeparator: PropTypes.string,
-    prefix: PropTypes.string,
     disabled: PropTypes.bool,
     renderErrorMessage: PropTypes.func,
     InputProps: PropTypes.object,
