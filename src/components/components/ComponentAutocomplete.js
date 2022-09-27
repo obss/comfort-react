@@ -605,4 +605,10 @@ const AutocompleteApiInfo = [
         defaultValue: '',
         description: '',
     },
+    {
+        name: 'isDefaultEmptyValueUndefined',
+        type: 'Bool',
+        defaultValue: 'false',
+        description: '',
+    },
 ];

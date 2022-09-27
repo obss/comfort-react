@@ -46,6 +46,7 @@ const Autocomplete = ({
     renderErrorMessage,
     focusedLabel,
     renderInputProps,
+    isDefaultEmptyValueUndefined,
     ...rest
 }) => {
     const { getLocalizedMessage } = useTranslation();
@@ -67,13 +68,14 @@ const Autocomplete = ({
     );
 
     const getValue = () => {
-        const defaultValue = rest.multiple ? [] : null;
+        const defaultEmptyText = isDefaultEmptyValueUndefined ? undefined : null;
+        const defaultValue = rest.multiple ? [] : defaultEmptyText;
         if (!isEmptyString(value)) {
             if (valueKey) {
                 if (rest.multiple) {
                     return options.filter((option) => value.includes(option[valueKey])) || [];
                 }
-                return options.find((option) => option[valueKey] === value) || null;
+                return options.find((option) => option[valueKey] === value) || defaultEmptyText;
             }
             return value;
         }
