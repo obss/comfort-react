@@ -116,7 +116,7 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const ComponentTable = () => {
+const ComponentDataGrid = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [selected, setSelected] = useState([]);
     const [selectedTitle, setSelectedTitle] = useState('My Awesome DataGrid Title');
@@ -450,17 +450,17 @@ const ComponentTable = () => {
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
-                currentApiInfo={TableApiInfo}
+                currentApiInfo={DataGridApiInfo}
                 currentApiLinks={'https://mui.com/material-ui/react-table/#api'}
-                header={'Table'}
+                header={'DataGrid'}
             />
         </ExampleUsageWrapper>
     );
 };
 
-export default ComponentTable;
+export default ComponentDataGrid;
 
-const TableApiInfo = [
+const DataGridApiInfo = [
     {
         name: 'rows',
         type: 'Array',
