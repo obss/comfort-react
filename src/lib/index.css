@@ -84,21 +84,43 @@ p.ComfortTransferListHeader {
     margin-left: 14px;
 }
 
-.ComfortTableTitle {
+.ComfortDataGridTitle {
     flex: 1 1 100%;
 }
 
-.ComfortTable {
+.ComfortDataGrid {
     width: 100%;
 }
 
-.ComfortTable__paper {
+.ComfortDataGrid__paper {
     width: 100%;
     margin-bottom: 16px;
 }
 
 td.ComfortTableLoadingColumn {
     text-align: center;
+}
+
+.ComfortTableFilterIconBox {
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+    opacity: 0;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.ComfortTableFilterIconBox.ComfortTableFilterOpen {
+    opacity: 1;
+}
+
+.ComfortTableHead__cell:hover .ComfortTableFilterIconBox {
+    opacity: 1;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.ComfortTable .ComfortTableHead__cell {
+    flex-direction: row;
+    -webkit-flex-direction: row;
 }
 
 .ComfortTable .MuiTablePagination-actions .MuiIconButton-root:focus {

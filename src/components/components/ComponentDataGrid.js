@@ -1,4 +1,4 @@
-import { Autocomplete, NumberField, TextField, Checkbox, Table, useSnackbar, IconButton } from '../../lib';
+import { Autocomplete, NumberField, TextField, Checkbox, DataGrid, useSnackbar, IconButton } from '../../lib';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Grid } from '@mui/material';
@@ -7,7 +7,7 @@ import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import { useEffect, useState } from 'react';
 import jsxToString from 'jsx-to-string';
 import CurrentRulesInfo from '../CurrentRulesInfo';
-import './ComponentTable.css';
+import './ComponentDataGrid.css';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
 
 function createData(id, name, calories, fat, carbs, protein) {
@@ -45,7 +45,13 @@ const definitions = [
         padding: 'normal',
         header: 'Not Filterable Column',
         sortable: true,
-        notFilterable: true,
+        preventToBeHidden: true,
+        filterContent: (
+            <div>
+                <TextField noHelperText style={{ width: '200px' }} />
+            </div>
+        ),
+        filterIconPosition: 'right',
     },
     {
         key: 'defaultHidden',
@@ -65,6 +71,11 @@ const definitions = [
         padding: 'normal',
         header: 'Fat (g)',
         renderCell: (row, key) => <b>{`${row[key]} g`}</b>,
+        filterContent: (
+            <div>
+                <TextField noHelperText style={{ width: '200px' }} />
+            </div>
+        ),
     },
     {
         key: 'carbs',
@@ -79,6 +90,11 @@ const definitions = [
         header: <b>Protein (g)</b>,
         sortable: true,
         filterTitle: 'Protein (g)',
+        filterContent: (
+            <div>
+                <TextField noHelperText style={{ width: '200px' }} />
+            </div>
+        ),
     },
 ];
 
@@ -103,7 +119,7 @@ function getComparator(order, orderBy) {
 const ComponentTable = () => {
     const { enqueueSnackbar } = useSnackbar();
     const [selected, setSelected] = useState([]);
-    const [selectedTitle, setSelectedTitle] = useState('My Awesome Table Title');
+    const [selectedTitle, setSelectedTitle] = useState('My Awesome DataGrid Title');
     const [selectedColumnFilteringTitle, setSelectedColumnFilteringTitle] = useState();
     const [selectedSize, setSelectedSize] = useState();
     const [selectedRowHeight, setSelectedRowHeight] = useState(73);
@@ -189,7 +205,7 @@ const ComponentTable = () => {
         : null;
 
     const tableElementJsx = (
-        <Table
+        <DataGrid
             identifierKey="id"
             page={page}
             rowsPerPage={rowsPerPage}
@@ -224,16 +240,16 @@ const ComponentTable = () => {
     );
 
     let currentJsx = jsxToString(tableElementJsx, {
-        displayName: 'Table',
+        displayName: 'DataGrid',
         useFunctionCode: true,
         keyValueOverride: {
             toolbarRightContent: selectedToolbarRightContent ? '<DeleteIcon />' : null,
         },
     });
-    currentJsx = "import { Table } from 'comfort-react';\n\n" + currentJsx;
+    currentJsx = "import { DataGrid } from 'comfort-react';\n\n" + currentJsx;
 
     return (
-        <ExampleUsageWrapper header="Table" codeUrl={'components/components/ComponentTable.js'}>
+        <ExampleUsageWrapper header="DataGrid" codeUrl={'components/components/ComponentDataGrid.js'}>
             {tableElementJsx}
             <Grid container spacing={2} marginTop={2}>
                 <Grid item xs={12} sm={6}>
@@ -689,6 +705,18 @@ const TableApiInfo = [
         name: 'renderAsDiv',
         type: 'Bool',
         defaultValue: 'false',
+        description: '',
+    },
+    {
+        name: 'filterColumnsIcon',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'filterDataIcon',
+        type: 'Object',
+        defaultValue: '',
         description: '',
     },
 ];

@@ -25,7 +25,7 @@ import ComponentDatePicker from './components/ComponentDatePicker';
 import ComponentMaskField from './components/ComponentMaskField';
 import ComponentTimePicker from './components/ComponentTimePicker';
 import ComponentPhoneInput from './components/ComponentPhoneInput';
-import ComponentTable from './components/ComponentTable';
+import ComponentDataGrid from './components/ComponentDataGrid';
 import ComponentMenuButton from './components/ComponentMenuButton';
 import ListItemsExample from './examples/ListItemsExample';
 import ComponentShrinkableTransferList from './components/ComponentShrinkableTransferList';
@@ -229,10 +229,10 @@ const AppRoutes = (props) => {
                     />
                     <Route
                         exact
-                        path="/components/table"
+                        path="/components/data-grid"
                         element={
-                            <AppRouteWithTitle title="Table">
-                                <ComponentTable />
+                            <AppRouteWithTitle title="DataGrid">
+                                <ComponentDataGrid />
                             </AppRouteWithTitle>
                         }
                     />

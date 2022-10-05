@@ -9,7 +9,7 @@ import {
     PhoneInput,
     RadioButton,
     ShrinkableTransferList,
-    Table,
+    DataGrid,
     TextField,
     TimePicker,
     useApi,
@@ -376,7 +376,7 @@ const ListItemsExample = () => {
                         getOptionLabel={(options) => options.name}
                     />
                 )}
-                <Table
+                <DataGrid
                     title={'Items'}
                     identifierKey={'id'}
                     page={page}

@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Popover } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import MenuItem from '@mui/material/MenuItem';
 import {
@@ -64,13 +64,52 @@ const TableHead = (props) => {
         enableSelection,
         tableHeadProps,
         renderAsDiv,
+        filterDataIcon,
     } = props;
+    const { getLocalizedMessage } = useTranslation();
+    const [definitionToBeFiltered, setDefinitionToBeFiltered] = useState(null);
+    const [filterTargetAnchor, setFilterTargetAnchor] = useState(null);
+
+    const handleFilterIconClicked = (e, definition) => {
+        e.stopPropagation();
+        setDefinitionToBeFiltered(definition);
+        setFilterTargetAnchor(e.currentTarget);
+    };
+
+    const getFilterPopover = (definition) => {
+        return (
+            <Popover
+                open={definitionToBeFiltered.key === definition.key}
+                anchorEl={filterTargetAnchor}
+                onClose={(e) => {
+                    setDefinitionToBeFiltered(null);
+                    e.stopPropagation();
+                }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                className="ComfortTableFilterPopover"
+                {...definition.filterPopoverProps}
+            >
+                {definition.filterContent}
+            </Popover>
+        );
+    };
 
     return (
         <MuiTableHead className="ComfortTableHead" component={renderAsDiv ? 'div' : undefined} {...tableHeadProps}>
             <TableRow component={renderAsDiv ? 'div' : undefined}>
                 {enableSelection && (
-                    <TableCell component={renderAsDiv ? 'div' : undefined} padding="checkbox">
+                    <TableCell
+                        component={renderAsDiv ? 'div' : undefined}
+                        padding="checkbox"
+                        className={getClassName(['ComfortTableHead__cell', 'ComfortTableHead__selectionCell'])}
+                    >
                         <Checkbox
                             noLabel
                             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -110,6 +149,47 @@ const TableHead = (props) => {
                             definition.header
                         );
 
+                        let headerCellContentWithFilterJsx = headerCellContentJsx;
+
+                        const FilterFinalListIcon = filterDataIcon || FilterListIcon;
+
+                        const filterJsx = (
+                            <>
+                                <Box
+                                    className={getClassName([
+                                        'ComfortTableFilterIconBox',
+                                        definitionToBeFiltered && definitionToBeFiltered.key === definition.key
+                                            ? 'ComfortTableFilterOpen'
+                                            : '',
+                                        definition.filterIconBoxClassName,
+                                    ])}
+                                    onClick={(e) => handleFilterIconClicked(e, definition)}
+                                    {...definition.filterIconBoxProps}
+                                >
+                                    <Tooltip title={getLocalizedMessage('TABLE_FILTERING_TITLE')}>
+                                        <FilterFinalListIcon className="ComfortTableHead__filterIcon" />
+                                    </Tooltip>
+                                </Box>
+                                {definitionToBeFiltered ? getFilterPopover(definition) : null}
+                            </>
+                        );
+
+                        if (definition.filterContent) {
+                            headerCellContentWithFilterJsx = (
+                                <>
+                                    <Box
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent={definition.align === 'right' ? 'flex-end' : ''}
+                                    >
+                                        {definition.filterIconPosition !== 'right' ? filterJsx : null}
+                                        {headerCellContentJsx}
+                                        {definition.filterIconPosition === 'right' ? filterJsx : null}
+                                    </Box>
+                                </>
+                            );
+                        }
+
                         return (
                             <TableCell
                                 key={defKey}
@@ -117,9 +197,10 @@ const TableHead = (props) => {
                                 padding={definition.padding || DEFAULT_PADDING}
                                 sortDirection={order}
                                 component={renderAsDiv ? 'div' : undefined}
+                                className={getClassName(['ComfortTableHead__cell', definition.className])}
                                 {...definition.tableHeaderCellProps}
                             >
-                                {headerCellContentJsx}
+                                {headerCellContentWithFilterJsx}
                             </TableCell>
                         );
                     })}
@@ -149,6 +230,7 @@ const TableToolbar = (props) => {
         columnFilteringTitle,
         toolbarRightContent,
         toolbarProps,
+        filterColumnsIcon,
     } = props;
     const { getLocalizedMessage } = useTranslation();
 
@@ -181,10 +263,12 @@ const TableToolbar = (props) => {
         );
     });
 
+    const FilterColumnsIconComponent = filterColumnsIcon || FilterListIcon;
+
     const filterTableJsx = (
         <MenuButton isIconButton menuChildren={filterMenuJsx}>
             <Tooltip title={columnFilteringTitle || getLocalizedMessage('TABLE_COLUMN_FILTERING_TITLE')}>
-                <FilterListIcon />
+                <FilterColumnsIconComponent />
             </Tooltip>
         </MenuButton>
     );
@@ -195,10 +279,10 @@ const TableToolbar = (props) => {
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
             }}
-            className="ComfortTableToolbar"
+            className="ComfortDataGridToolbar"
             {...toolbarProps}
         >
-            <Typography className="ComfortTableTitle" variant="h6" component="div">
+            <Typography className="ComfortDataGridTitle" variant="h6" component="div">
                 {title}
             </Typography>
 
@@ -215,9 +299,10 @@ TableToolbar.propTypes = {
     columnFilteringTitle: PropTypes.string,
     toolbarRightContent: PropTypes.object,
     toolbarProps: PropTypes.object,
+    filterColumnsIcon: PropTypes.any,
 };
 
-const Table = (props) => {
+const DataGrid = (props) => {
     const {
         rows = DEFAULT_ROWS,
         definitions = DEFAULT_DEFINITIONS,
@@ -261,6 +346,8 @@ const Table = (props) => {
         fillEmptyRows = false,
         getRowProps,
         renderAsDiv,
+        filterColumnsIcon,
+        filterDataIcon,
         ...rest
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -275,13 +362,13 @@ const Table = (props) => {
     useEffect(() => {
         const defaultFilteredColumns = definitions.filter((d) => !d.defaultHidden).map((definition) => definition.key);
         setFilteredColumns(defaultFilteredColumns);
-        setFilterableDefinitions(definitions.filter((definition) => !definition.notFilterable));
+        setFilterableDefinitions(definitions.filter((definition) => !definition.preventToBeHidden));
     }, [definitions]);
 
-    const _className = getClassName([className, 'ComfortTable']);
-    const _paperClassName = getClassName([paperClassName, 'ComfortTable__paper']);
-    const _tableContainerClassName = getClassName([tableContainerClassName, 'ComfortTable__tableContainer']);
-    const _tableClassName = getClassName([tableClassName, 'ComfortTable__table']);
+    const _className = getClassName([className, 'ComfortDataGrid']);
+    const _paperClassName = getClassName([paperClassName, 'ComfortDataGrid__paper']);
+    const _tableContainerClassName = getClassName([tableContainerClassName, 'ComfortDataGrid__tableContainer']);
+    const _tableClassName = getClassName([tableClassName, 'ComfortTable']);
 
     const getRowId = (row) => {
         return row[identifierKey];
@@ -448,6 +535,7 @@ const Table = (props) => {
                     columnFilteringTitle={columnFilteringTitle}
                     toolbarRightContent={toolbarRightContent}
                     toolbarProps={toolbarProps}
+                    filterColumnsIcon={filterColumnsIcon}
                 />
             )}
             <TableContainer className={_tableContainerClassName} {...tableContainerProps}>
@@ -463,6 +551,7 @@ const Table = (props) => {
                         enableSelection={enableSelection}
                         tableHeadProps={tableHeadProps}
                         renderAsDiv={renderAsDiv}
+                        filterDataIcon={filterDataIcon}
                     />
                     <TableBody
                         className="ComfortTableBody"
@@ -520,4 +609,4 @@ const Table = (props) => {
     return <Box className={_className}>{insideBoxJsx}</Box>;
 };
 
-export default memo(Table);
+export default memo(DataGrid);

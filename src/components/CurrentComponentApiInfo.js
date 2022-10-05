@@ -3,7 +3,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import './CurrentComponentApiInfo.css';
-import { Table } from '../lib';
+import { DataGrid } from '../lib';
 
 const definitions = [
     {
@@ -44,7 +44,7 @@ const CurrentComponentInfo = ({ currentApiInfo, currentApiLinks: currentApiLink,
                     <span className={'currentRuleLabel'}>{header}</span>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Table
+                    <DataGrid
                         title={header}
                         identifierKey={'name'}
                         rows={currentApiInfo}

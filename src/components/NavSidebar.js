@@ -123,8 +123,8 @@ const allMenuItems = [
                 keywords: ['phone', 'telephone'],
             },
             {
-                title: 'Table',
-                itemId: '/components/table',
+                title: 'DataGrid',
+                itemId: '/components/data-grid',
                 keywords: ['table', 'datagrid'],
             },
             {

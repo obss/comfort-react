@@ -1,9 +1,9 @@
 import { mount } from '@cypress/react';
-import { ComfortReactProvider, Table } from '../../src/lib';
+import { ComfortReactProvider, DataGrid } from '../../src/lib';
 import { Delete, Edit } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-describe('table tests', () => {
+describe('DataGrid tests', () => {
     it('mount test', () => {
         const page = 1;
         const rowsPerPage = 5;
@@ -15,7 +15,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -39,7 +39,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -64,7 +64,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -79,7 +79,7 @@ describe('table tests', () => {
         cy.get('.MuiToolbar-root > svg').should('not.exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -105,7 +105,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -121,7 +121,7 @@ describe('table tests', () => {
         cy.get('.MuiTypography-root').should('exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -147,7 +147,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -166,7 +166,7 @@ describe('table tests', () => {
         ).should('not.exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -198,7 +198,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -214,7 +214,7 @@ describe('table tests', () => {
         cy.contains('Gingerbread').click();
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -244,7 +244,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -261,7 +261,7 @@ describe('table tests', () => {
         cy.get('.MuiTablePagination-actions').should('not.exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -288,7 +288,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -307,7 +307,7 @@ describe('table tests', () => {
         cy.get('.MuiCircularProgress-svg').should('not.exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -336,7 +336,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -367,7 +367,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -386,7 +386,7 @@ describe('table tests', () => {
         cy.get('.ComfortMenuButton > .MuiButtonBase-root').should('not.exist');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -421,7 +421,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -450,7 +450,7 @@ describe('table tests', () => {
         let filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -472,7 +472,7 @@ describe('table tests', () => {
         filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -498,7 +498,7 @@ describe('table tests', () => {
         const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}
@@ -514,7 +514,7 @@ describe('table tests', () => {
         cy.get('.MuiTableBody-root > :nth-child(1) > .MuiTableCell-alignLeft').should('have.css', 'padding', '16px');
         mount(
             <ComfortReactProvider>
-                <Table
+                <DataGrid
                     id={'table'}
                     identifierKey={'id'}
                     rowsPerPage={rowsPerPage}

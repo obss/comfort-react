@@ -15,7 +15,7 @@ import ComfortReactProvider from './ComfortReactProvider';
 import PhoneInput from './components/PhoneInput';
 import RadioButton from './components/RadioButton';
 import Switch from './components/Switch';
-import Table from './components/Table';
+import DataGrid from './components/DataGrid';
 import TextField from './components/TextField';
 import TimePicker from './components/TimePicker';
 import TransferList from './components/TransferList';
@@ -41,7 +41,7 @@ export {
     PhoneInput,
     RadioButton,
     Switch,
-    Table,
+    DataGrid,
     TextField,
     FileInput,
     TimePicker,
