@@ -452,7 +452,9 @@ const ComponentDataGrid = () => {
             <CurrentComponentApiInfo
                 currentApiInfo={DataGridApiInfo}
                 currentApiLinks={'https://mui.com/material-ui/react-table/#api'}
-                header={'DataGrid'}
+                header={'DataGrid API'}
+                extraApiInfoHeader={'definitions API'}
+                extraApiInfo={DefinitionsApiInfo}
             />
         </ExampleUsageWrapper>
     );
@@ -715,6 +717,105 @@ const DataGridApiInfo = [
     },
     {
         name: 'filterDataIcon',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+];
+
+const DefinitionsApiInfo = [
+    {
+        name: 'key',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'align',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'padding',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'scope',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'component',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'renderCell',
+        type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'tableCellProps',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'sortable',
+        type: 'Bool',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'header',
+        type: 'String || Node',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'tableSortLabelProps',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'filterIconBoxClassName',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'filterIconBoxProps',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'filterContent',
+        type: 'Node',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'filterIconPosition',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'className',
+        type: 'String',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'tableHeaderCellProps',
         type: 'Object',
         defaultValue: '',
         description: '',
