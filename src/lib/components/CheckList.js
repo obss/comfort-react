@@ -115,23 +115,24 @@ const CheckList = ({
                     const labelId = `transfer-list-item-${currentId}-label`;
 
                     const isSelected = getValue().indexOf(option) !== -1;
+                    const isDisabled = isOptionDisabled(option);
 
                     return (
                         <ListItem
                             key={currentId}
                             role="listitem"
-                            button
                             onClick={() => handleOnChange(currentId)}
-                            disabled={isOptionDisabled(option)}
+                            disabled={isDisabled}
                             className={getClassName([
                                 'ComfortCheckListItem',
                                 isSelected ? 'ComfortCheckListItemSelected' : 'ComfortCheckListItemNotSelected',
+                                isDisabled ? 'ComfortCheckListItemDisabled' : '',
                             ])}
                         >
                             <ListItemIcon>
                                 <Checkbox
                                     noLabel
-                                    disabled={isOptionDisabled(option)}
+                                    disabled={isDisabled}
                                     value={isSelected}
                                     tabIndex={-1}
                                     disableRipple

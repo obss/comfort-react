@@ -151,3 +151,12 @@ td.ComfortTableLoadingColumn {
 .ComfortTransferList.hasError .ComfortTransferListHeader {
     color: #d32f2f;
 }
+
+.ComfortCheckListItem:not(.ComfortCheckListItemDisabled) {
+    cursor: pointer;
+}
+
+.ComfortCheckListItemDisabled {
+    cursor: default;
+    pointer-events: none;
+}
