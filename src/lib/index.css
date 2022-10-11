@@ -97,7 +97,11 @@ p.ComfortTransferListHeader {
     margin-bottom: 16px;
 }
 
-td.ComfortTableLoadingColumn {
+.ComfortTableLoadingRow .ComfortTableLoadingColumn {
+    text-align: center;
+}
+
+.ComfortTableEmptyRow .ComfortTableEmptyColumn {
     text-align: center;
 }
 

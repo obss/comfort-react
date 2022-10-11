@@ -131,6 +131,7 @@ const ComponentDataGrid = () => {
     const [selectedCellClick, setSelectedCellClick] = useState(false);
     const [selectedLoading, setSelectedLoading] = useState(false);
     const [selectedCustomLoading, setSelectedCustomLoading] = useState(false);
+    const [selectedCustomEmpty, setSelectedCustomEmpty] = useState(false);
     const [selectedClassName, setSelectedClassName] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -141,6 +142,7 @@ const ComponentDataGrid = () => {
     const [fillEmptyRows, setFillEmptyRows] = useState(false);
     const [selectedGetRowProps, setSelectedGetRowProps] = useState(false);
     const [renderAsDiv, setRenderAsDiv] = useState(false);
+    const [empty, setEmpty] = useState(false);
 
     useEffect(() => {
         const definitionsWithButtons = [...definitions];
@@ -193,6 +195,7 @@ const ComponentDataGrid = () => {
     const filteredRows = sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
     const customLoadingComponent = <div className="custom-table-loading-component">Custom Loading Component</div>;
+    const customEmptyComponent = <div className="custom-table-loading-component">Custom Empty Component</div>;
 
     const getRowProps = selectedGetRowProps
         ? (row, rowIndex) => {
@@ -209,10 +212,10 @@ const ComponentDataGrid = () => {
             identifierKey="id"
             page={page}
             rowsPerPage={rowsPerPage}
-            totalRowCount={data.length}
+            totalRowCount={empty ? 0 : data.length}
             onPageChange={setPage}
             onRowsPerPage={setRowsPerPage}
-            rows={filteredRows}
+            rows={empty ? [] : filteredRows}
             definitions={finalDefinitions}
             selected={selected}
             onSelectionChange={setSelected}
@@ -232,6 +235,7 @@ const ComponentDataGrid = () => {
             onSortChange={handleSortChange}
             loading={selectedLoading}
             loadingComponent={selectedCustomLoading ? customLoadingComponent : undefined}
+            emptyComponent={selectedCustomEmpty ? customEmptyComponent : undefined}
             dontWrapWithPaper={dontWrapWithPaper}
             fillEmptyRows={fillEmptyRows}
             getRowProps={getRowProps}
@@ -443,6 +447,28 @@ const ComponentDataGrid = () => {
                             value={renderAsDiv}
                             onChange={(newValue) => {
                                 setRenderAsDiv(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'empty'}
+                            value={empty}
+                            onChange={(newValue) => {
+                                setEmpty(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enable custom emptyComponent'}
+                            value={selectedCustomEmpty}
+                            onChange={(newValue) => {
+                                setSelectedCustomEmpty(newValue);
                             }}
                         />
                     </FormGroup>
@@ -721,6 +747,12 @@ const DataGridApiInfo = [
         defaultValue: '',
         description: '',
     },
+    {
+        name: 'emptyComponent',
+        type: 'Node',
+        defaultValue: 'No data to display',
+        description: '',
+    },
 ];
 
 const DefinitionsApiInfo = [
@@ -786,7 +818,7 @@ const DefinitionsApiInfo = [
     },
     {
         name: 'filterIconBoxClassName',
-        type: 'Object',
+        type: 'String',
         defaultValue: '',
         description: '',
     },

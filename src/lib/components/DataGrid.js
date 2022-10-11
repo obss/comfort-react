@@ -340,6 +340,7 @@ const DataGrid = (props) => {
         afterTableComponent,
         loading,
         loadingComponent = DEFAULT_LOADING_COMPONENT,
+        emptyComponent,
         hideColumnFiltering = false,
         columnFilteringTitle,
         dontWrapWithPaper,
@@ -572,6 +573,22 @@ const DataGrid = (props) => {
                                     component={renderAsDiv ? 'div' : undefined}
                                 >
                                     {loadingComponent}
+                                </TableCell>
+                            </TableRow>
+                        ) : !rows || rows.length === 0 ? (
+                            <TableRow
+                                style={{
+                                    height: rowHeight * rowsPerPage,
+                                }}
+                                className="ComfortTableEmptyRow"
+                                component={renderAsDiv ? 'div' : undefined}
+                            >
+                                <TableCell
+                                    colSpan={colCount}
+                                    className="ComfortTableEmptyColumn"
+                                    component={renderAsDiv ? 'div' : undefined}
+                                >
+                                    {emptyComponent ? emptyComponent : getLocalizedMessage('TABLE_EMPTY_MESSAGE')}
                                 </TableCell>
                             </TableRow>
                         ) : (
