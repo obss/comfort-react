@@ -63,7 +63,7 @@ const TableHead = (props) => {
         onSortChange,
         enableSelection,
         tableHeadProps,
-        renderAsDiv,
+        renderAsDivAndNotEmptyAndNotLoading,
         filterDataIcon,
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -102,11 +102,15 @@ const TableHead = (props) => {
     };
 
     return (
-        <MuiTableHead className="ComfortTableHead" component={renderAsDiv ? 'div' : undefined} {...tableHeadProps}>
-            <TableRow component={renderAsDiv ? 'div' : undefined}>
+        <MuiTableHead
+            className="ComfortTableHead"
+            component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+            {...tableHeadProps}
+        >
+            <TableRow component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}>
                 {enableSelection && (
                     <TableCell
-                        component={renderAsDiv ? 'div' : undefined}
+                        component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
                         padding="checkbox"
                         className={getClassName(['ComfortTableHead__cell', 'ComfortTableHead__selectionCell'])}
                     >
@@ -196,7 +200,7 @@ const TableHead = (props) => {
                                 align={definition.align || DEFAULT_ALIGN}
                                 padding={definition.padding || DEFAULT_PADDING}
                                 sortDirection={order}
-                                component={renderAsDiv ? 'div' : undefined}
+                                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
                                 className={getClassName(['ComfortTableHead__cell', definition.className])}
                                 {...definition.tableHeaderCellProps}
                             >
@@ -371,6 +375,10 @@ const DataGrid = (props) => {
     const _tableContainerClassName = getClassName([tableContainerClassName, 'ComfortDataGrid__tableContainer']);
     const _tableClassName = getClassName([tableClassName, 'ComfortTable']);
 
+    const isEmpty = !rows || rows.length === 0;
+    const isEmptyOrLoading = isEmpty || loading;
+    const renderAsDivAndNotEmptyAndNotLoading = renderAsDiv && !isEmptyOrLoading;
+
     const getRowId = (row) => {
         return row[identifierKey];
     };
@@ -436,7 +444,10 @@ const DataGrid = (props) => {
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - totalRowCount) : 0;
-    const colCount = enableSelection ? definitions.length + 1 : definitions.length;
+
+    const filteredDefinitions = definitions.filter((d) => filteredColumns.includes(d.key));
+
+    const colCount = enableSelection ? filteredDefinitions.length + 1 : filteredDefinitions.length;
 
     const filledRowsJsx = rows.map((row, rowIndex) => {
         const rowKey = getRowId(row);
@@ -458,11 +469,11 @@ const DataGrid = (props) => {
                 tabIndex={-1}
                 key={rowKey}
                 selected={isItemSelected}
-                component={renderAsDiv ? 'div' : undefined}
+                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
                 {...rowProps}
             >
                 {enableSelection && (
-                    <TableCell padding="checkbox" component={renderAsDiv ? 'div' : undefined}>
+                    <TableCell padding="checkbox" component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}>
                         <Checkbox
                             noLabel
                             value={isItemSelected}
@@ -471,42 +482,40 @@ const DataGrid = (props) => {
                         />
                     </TableCell>
                 )}
-                {definitions
-                    .filter((d) => filteredColumns.includes(d.key))
-                    .map((definition) => {
-                        if (!definition.key) {
-                            throw new Error('comfort-react error. all Table definitions must have a key');
+                {filteredDefinitions.map((definition) => {
+                    if (!definition.key) {
+                        throw new Error('comfort-react error. all Table definitions must have a key');
+                    }
+
+                    const defKey = definition.key;
+                    const value = row[defKey];
+                    const align = definition.align || DEFAULT_ALIGN;
+                    const padding = definition.padding || DEFAULT_PADDING;
+                    const scope = definition.scope;
+                    const component = definition.component;
+
+                    let cellValue = value;
+                    if (definition.renderCell) {
+                        if (!isFunction(definition.renderCell)) {
+                            throw new Error('comfort-react error. Table definition.renderCell must be a function');
                         }
+                        cellValue = definition.renderCell(row, defKey, rowIndex);
+                    }
 
-                        const defKey = definition.key;
-                        const value = row[defKey];
-                        const align = definition.align || DEFAULT_ALIGN;
-                        const padding = definition.padding || DEFAULT_PADDING;
-                        const scope = definition.scope;
-                        const component = definition.component;
-
-                        let cellValue = value;
-                        if (definition.renderCell) {
-                            if (!isFunction(definition.renderCell)) {
-                                throw new Error('comfort-react error. Table definition.renderCell must be a function');
-                            }
-                            cellValue = definition.renderCell(row, defKey, rowIndex);
-                        }
-
-                        return (
-                            <TableCell
-                                key={defKey}
-                                component={renderAsDiv ? 'div' : component}
-                                scope={scope}
-                                padding={padding}
-                                align={align}
-                                onClick={onCellClick ? (event) => handleCellClick(row, defKey, event) : undefined}
-                                {...definition.tableCellProps}
-                            >
-                                {cellValue}
-                            </TableCell>
-                        );
-                    })}
+                    return (
+                        <TableCell
+                            key={defKey}
+                            component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : component}
+                            scope={scope}
+                            padding={padding}
+                            align={align}
+                            onClick={onCellClick ? (event) => handleCellClick(row, defKey, event) : undefined}
+                            {...definition.tableCellProps}
+                        >
+                            {cellValue}
+                        </TableCell>
+                    );
+                })}
             </TableRow>
         );
     });
@@ -517,9 +526,9 @@ const DataGrid = (props) => {
                 style={{
                     height: rowHeight * emptyRows,
                 }}
-                component={renderAsDiv ? 'div' : undefined}
+                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
             >
-                <TableCell colSpan={colCount} component={renderAsDiv ? 'div' : undefined} />
+                <TableCell colSpan={colCount} component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined} />
             </TableRow>
         ) : undefined;
 
@@ -540,7 +549,12 @@ const DataGrid = (props) => {
                 />
             )}
             <TableContainer className={_tableContainerClassName} {...tableContainerProps}>
-                <MuiTable className={_tableClassName} size={size} component={renderAsDiv ? 'div' : undefined} {...rest}>
+                <MuiTable
+                    className={_tableClassName}
+                    size={size}
+                    component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                    {...rest}
+                >
                     <TableHead
                         definitions={definitions}
                         filteredColumns={filteredColumns}
@@ -551,12 +565,12 @@ const DataGrid = (props) => {
                         rowCount={rows.length}
                         enableSelection={enableSelection}
                         tableHeadProps={tableHeadProps}
-                        renderAsDiv={renderAsDiv}
+                        renderAsDivAndNotEmptyAndNotLoading={renderAsDivAndNotEmptyAndNotLoading}
                         filterDataIcon={filterDataIcon}
                     />
                     <TableBody
                         className="ComfortTableBody"
-                        component={renderAsDiv ? 'div' : undefined}
+                        component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
                         {...tableBodyProps}
                     >
                         {loading ? (
@@ -565,29 +579,19 @@ const DataGrid = (props) => {
                                     height: rowHeight * rowsPerPage,
                                 }}
                                 className="ComfortTableLoadingRow"
-                                component={renderAsDiv ? 'div' : undefined}
                             >
-                                <TableCell
-                                    colSpan={colCount}
-                                    className="ComfortTableLoadingColumn"
-                                    component={renderAsDiv ? 'div' : undefined}
-                                >
+                                <TableCell colSpan={colCount} className="ComfortTableLoadingColumn">
                                     {loadingComponent}
                                 </TableCell>
                             </TableRow>
-                        ) : !rows || rows.length === 0 ? (
+                        ) : isEmpty ? (
                             <TableRow
                                 style={{
                                     height: rowHeight * rowsPerPage,
                                 }}
                                 className="ComfortTableEmptyRow"
-                                component={renderAsDiv ? 'div' : undefined}
                             >
-                                <TableCell
-                                    colSpan={colCount}
-                                    className="ComfortTableEmptyColumn"
-                                    component={renderAsDiv ? 'div' : undefined}
-                                >
+                                <TableCell colSpan={colCount} className="ComfortTableEmptyColumn">
                                     {emptyComponent ? emptyComponent : getLocalizedMessage('TABLE_EMPTY_MESSAGE')}
                                 </TableCell>
                             </TableRow>
