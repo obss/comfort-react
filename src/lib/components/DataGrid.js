@@ -63,7 +63,7 @@ const TableHead = (props) => {
         onSortChange,
         enableSelection,
         tableHeadProps,
-        renderAsDivAndNotEmptyAndNotLoading,
+        renderAsDiv,
         filterDataIcon,
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -102,15 +102,11 @@ const TableHead = (props) => {
     };
 
     return (
-        <MuiTableHead
-            className="ComfortTableHead"
-            component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
-            {...tableHeadProps}
-        >
-            <TableRow component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}>
+        <MuiTableHead className="ComfortTableHead" component={renderAsDiv ? 'div' : undefined} {...tableHeadProps}>
+            <TableRow component={renderAsDiv ? 'div' : undefined}>
                 {enableSelection && (
                     <TableCell
-                        component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                        component={renderAsDiv ? 'div' : undefined}
                         padding="checkbox"
                         className={getClassName(['ComfortTableHead__cell', 'ComfortTableHead__selectionCell'])}
                     >
@@ -200,7 +196,7 @@ const TableHead = (props) => {
                                 align={definition.align || DEFAULT_ALIGN}
                                 padding={definition.padding || DEFAULT_PADDING}
                                 sortDirection={order}
-                                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                                component={renderAsDiv ? 'div' : undefined}
                                 className={getClassName(['ComfortTableHead__cell', definition.className])}
                                 {...definition.tableHeaderCellProps}
                             >
@@ -353,6 +349,8 @@ const DataGrid = (props) => {
         renderAsDiv,
         filterColumnsIcon,
         filterDataIcon,
+        loadingDivProps,
+        emptyDivProps,
         ...rest
     } = props;
     const { getLocalizedMessage } = useTranslation();
@@ -377,7 +375,6 @@ const DataGrid = (props) => {
 
     const isEmpty = !rows || rows.length === 0;
     const isEmptyOrLoading = isEmpty || loading;
-    const renderAsDivAndNotEmptyAndNotLoading = renderAsDiv && !isEmptyOrLoading;
 
     const getRowId = (row) => {
         return row[identifierKey];
@@ -469,11 +466,11 @@ const DataGrid = (props) => {
                 tabIndex={-1}
                 key={rowKey}
                 selected={isItemSelected}
-                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                component={renderAsDiv ? 'div' : undefined}
                 {...rowProps}
             >
                 {enableSelection && (
-                    <TableCell padding="checkbox" component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}>
+                    <TableCell padding="checkbox" component={renderAsDiv ? 'div' : undefined}>
                         <Checkbox
                             noLabel
                             value={isItemSelected}
@@ -505,7 +502,7 @@ const DataGrid = (props) => {
                     return (
                         <TableCell
                             key={defKey}
-                            component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : component}
+                            component={renderAsDiv ? 'div' : component}
                             scope={scope}
                             padding={padding}
                             align={align}
@@ -526,9 +523,9 @@ const DataGrid = (props) => {
                 style={{
                     height: rowHeight * emptyRows,
                 }}
-                component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                component={renderAsDiv ? 'div' : undefined}
             >
-                <TableCell colSpan={colCount} component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined} />
+                <TableCell colSpan={colCount} component={renderAsDiv ? 'div' : undefined} />
             </TableRow>
         ) : undefined;
 
@@ -549,12 +546,7 @@ const DataGrid = (props) => {
                 />
             )}
             <TableContainer className={_tableContainerClassName} {...tableContainerProps}>
-                <MuiTable
-                    className={_tableClassName}
-                    size={size}
-                    component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
-                    {...rest}
-                >
+                <MuiTable className={_tableClassName} size={size} component={renderAsDiv ? 'div' : undefined} {...rest}>
                     <TableHead
                         definitions={definitions}
                         filteredColumns={filteredColumns}
@@ -565,44 +557,43 @@ const DataGrid = (props) => {
                         rowCount={rows.length}
                         enableSelection={enableSelection}
                         tableHeadProps={tableHeadProps}
-                        renderAsDivAndNotEmptyAndNotLoading={renderAsDivAndNotEmptyAndNotLoading}
+                        renderAsDiv={renderAsDiv}
                         filterDataIcon={filterDataIcon}
                     />
                     <TableBody
                         className="ComfortTableBody"
-                        component={renderAsDivAndNotEmptyAndNotLoading ? 'div' : undefined}
+                        component={renderAsDiv ? 'div' : undefined}
                         {...tableBodyProps}
                     >
-                        {loading ? (
-                            <TableRow
-                                style={{
-                                    height: rowHeight * rowsPerPage,
-                                }}
-                                className="ComfortTableLoadingRow"
-                            >
-                                <TableCell colSpan={colCount} className="ComfortTableLoadingColumn">
-                                    {loadingComponent}
-                                </TableCell>
-                            </TableRow>
-                        ) : isEmpty ? (
-                            <TableRow
-                                style={{
-                                    height: rowHeight * rowsPerPage,
-                                }}
-                                className="ComfortTableEmptyRow"
-                            >
-                                <TableCell colSpan={colCount} className="ComfortTableEmptyColumn">
-                                    {emptyComponent ? emptyComponent : getLocalizedMessage('TABLE_EMPTY_MESSAGE')}
-                                </TableCell>
-                            </TableRow>
-                        ) : (
+                        {!isEmptyOrLoading ? (
                             <>
                                 {filledRowsJsx}
                                 {emptyRowJsx}
                             </>
-                        )}
+                        ) : null}
                     </TableBody>
                 </MuiTable>
+                {loading ? (
+                    <div
+                        style={{
+                            height: rowHeight * rowsPerPage,
+                        }}
+                        className="ComfortTableLoadingComponent"
+                        {...loadingDivProps}
+                    >
+                        {loadingComponent}
+                    </div>
+                ) : isEmpty ? (
+                    <div
+                        style={{
+                            height: rowHeight * rowsPerPage,
+                        }}
+                        className="ComfortTableEmptyComponent"
+                        {...emptyDivProps}
+                    >
+                        {emptyComponent ? emptyComponent : getLocalizedMessage('TABLE_EMPTY_MESSAGE')}
+                    </div>
+                ) : null}
             </TableContainer>
             {enablePagination && (
                 <TablePagination

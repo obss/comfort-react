@@ -753,6 +753,18 @@ const DataGridApiInfo = [
         defaultValue: 'No data to display',
         description: '',
     },
+    {
+        name: 'loadingDivProps',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'emptyDivProps',
+        type: 'Object',
+        defaultValue: '',
+        description: '',
+    },
 ];
 
 const DefinitionsApiInfo = [
