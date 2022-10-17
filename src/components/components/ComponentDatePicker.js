@@ -298,7 +298,13 @@ const DateApiInfo = [
         name: 'inputFormat',
         type: 'String',
         defaultValue: '',
-        description: '',
+        description: (
+            <span className={'moreInformationLink'}>
+                <a href={'https://date-fns.org/v2.29.3/docs/format'} target="_blank" rel="noreferrer">
+                    More Information{' '}
+                </a>
+            </span>
+        ),
     },
     {
         name: 'okText',
