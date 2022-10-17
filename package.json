@@ -1,6 +1,6 @@
 {
     "name": "comfort-react",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "description": "Comfort react infrastructure",
     "keywords": [
         "comfort",
@@ -27,7 +27,6 @@
         "@mui/icons-material": "5.10.9",
         "@mui/lab": "5.0.0-alpha.103",
         "@mui/material": "5.10.9",
-        "@mui/styles": "5.10.9",
         "@mui/utils": "5.10.9",
         "@mui/x-date-pickers": "5.0.4",
         "date-fns": "2.29.3",
@@ -65,7 +64,6 @@
         "@mui/icons-material": "5.10.9",
         "@mui/lab": "5.0.0-alpha.103",
         "@mui/material": "5.10.9",
-        "@mui/styles": "5.10.9",
         "@mui/utils": "5.10.9",
         "@mui/x-date-pickers": "5.0.4",
         "@rollup/plugin-babel": "6.0.0",
