@@ -30,6 +30,7 @@ const DatePicker = ({
     RenderInputComponent,
     renderErrorMessage,
     focusedLabel,
+    renderInputPropsManipulator,
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
@@ -85,21 +86,24 @@ const DatePicker = ({
             value={getValue()}
             onChange={handleOnChange}
             inputProps={{ placeholder: placeholder, ...inputProps }}
-            renderInput={(params) => (
-                <RenderInputFinalComponent
-                    {...params}
-                    onBlur={handleOnBlur}
-                    onFocus={handleOnFocus}
-                    error={!!errorMessage}
-                    errorMessage={errorMessage}
-                    renderErrorMessage={renderErrorMessage}
-                    noHelperText={noHelperText}
-                    path={path}
-                    sx={renderedTextFieldSx || {}}
-                    fullWidth={fullWidth}
-                    variant={variant}
-                />
-            )}
+            renderInput={(params) => {
+                const newParams = renderInputPropsManipulator ? renderInputPropsManipulator(params) : { ...params };
+                return (
+                    <RenderInputFinalComponent
+                        {...newParams}
+                        onBlur={handleOnBlur}
+                        onFocus={handleOnFocus}
+                        error={!!errorMessage}
+                        errorMessage={errorMessage}
+                        renderErrorMessage={renderErrorMessage}
+                        noHelperText={noHelperText}
+                        path={path}
+                        sx={renderedTextFieldSx || {}}
+                        fullWidth={fullWidth}
+                        variant={variant}
+                    />
+                );
+            }}
             inputFormat={_inputFormat}
             okText={_okText}
             cancelText={_cancelText}
@@ -133,6 +137,7 @@ DatePicker.propTypes = {
     RenderInputComponent: PropTypes.object,
     renderErrorMessage: PropTypes.func,
     focusedLabel: PropTypes.string,
+    renderInputPropsManipulator: PropTypes.func,
 };
 
 export default memo(DatePicker);
