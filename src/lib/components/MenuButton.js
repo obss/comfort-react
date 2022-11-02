@@ -13,6 +13,7 @@ const MenuButton = ({ buttonProps, children, className = '', isIconButton, menuP
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
+        event.stopPropagation();
         setAnchorEl(event.currentTarget);
     };
 
