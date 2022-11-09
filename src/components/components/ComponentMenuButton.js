@@ -184,7 +184,7 @@ const ComponentMenuButton = () => {
                 <Grid item xs={12} sm={6}>
                     <FormGroup>
                         <Checkbox
-                            label={'icon button'}
+                            label={'isIconButton'}
                             value={selectedIconButton}
                             onChange={(newValue) => {
                                 setSelectedIconButton(newValue);

@@ -17,7 +17,8 @@ const MenuButton = ({ buttonProps, children, className = '', isIconButton, menuP
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = (event) => {
+        event.stopPropagation();
         setAnchorEl(null);
     };
 
