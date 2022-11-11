@@ -164,6 +164,7 @@ const allMenuItems = [
             {
                 title: 'tckn',
                 itemId: '/validatable-form/tckn',
+                keywords: ['tc kimlik no'],
             },
             {
                 title: 'phoneNumber',
@@ -176,6 +177,7 @@ const allMenuItems = [
             {
                 title: 'vkn',
                 itemId: '/validatable-form/vkn',
+                keywords: ['vergi kimlik no'],
             },
             {
                 title: 'useComfortForm',
@@ -302,8 +304,7 @@ export const NavSidebar = ({ menuIsHidden, toggleDrawer }) => {
             let searchInputUpper = searchInput.toUpperCase();
             if (m.subNav && m.subNav.length > 0) {
                 let subsList = [];
-                for (let i = 0; i < m.subNav.length; i++) {
-                    const subEl = m.subNav[i];
+                for (const subEl of m.subNav) {
                     const keywords = subEl.keywords || [];
                     if (
                         subEl.title.toUpperCase().includes(searchInputUpper) ||

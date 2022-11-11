@@ -6,7 +6,6 @@ import pkg from './package.json' assert { type: 'json' };
 import json from '@rollup/plugin-json';
 import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
-import { terser } from 'rollup-plugin-terser';
 import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -55,7 +54,7 @@ export default {
             globals: comfortReactGlobals,
         },
         {
-            file: pkg['main'],
+            file: pkg.main,
             format: 'umd',
             globals: comfortReactGlobals,
             name: 'index.js',
@@ -69,6 +68,7 @@ export default {
         external(),
         babel({
             babelrc: false,
+            babelHelpers: 'bundled',
             exclude: 'node_modules/**',
             plugins: ['@babel/plugin-proposal-function-bind', '@babel/plugin-proposal-class-properties'],
             presets: [['@babel/preset-env', { targets: { node: 'current' } }], '@babel/preset-react'],
@@ -105,13 +105,6 @@ export default {
         json(),
         globals(),
         builtins(),
-        PRODUCTION
-            ? terser({
-                  compress: {
-                      drop_debugger: true,
-                  },
-              })
-            : null,
         PRODUCTION ? visualizer({ gzipSize: true }) : null,
     ],
 };

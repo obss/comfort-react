@@ -24,9 +24,7 @@ export const isValidTckn = (tckn) => {
         sum += parseInt(tckn[i], 10);
     }
 
-    if (sum % 10 != tckn[10]) return false;
-
-    return true;
+    return sum % 10 == tckn[10];
 };
 
 // Ref: https://gist.github.com/ziyahan/3938729

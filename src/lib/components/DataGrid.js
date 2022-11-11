@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress, Popover } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import MenuItem from '@mui/material/MenuItem';
 import {
     Box,
+    CircularProgress,
     ListItemIcon,
     ListItemText,
     Table as MuiTable,
@@ -18,6 +18,7 @@ import {
     Toolbar as MuiToolbar,
     Typography,
     Paper,
+    Popover,
 } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { visuallyHidden } from '@mui/utils';
