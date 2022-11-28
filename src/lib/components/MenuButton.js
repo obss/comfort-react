@@ -5,7 +5,16 @@ import Button from './Button';
 import IconButton from './IconButton';
 import { getClassName } from '../utils/ClassNameUtils';
 
-const MenuButton = ({ buttonProps, children, className = '', isIconButton, menuProps, menuChildren }) => {
+const MenuButton = ({
+    buttonProps,
+    children,
+    className = '',
+    isIconButton,
+    menuProps,
+    menuChildren,
+    onOpen,
+    onClose,
+}) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const _className = getClassName([className, 'ComfortMenuButton']);
@@ -15,11 +24,17 @@ const MenuButton = ({ buttonProps, children, className = '', isIconButton, menuP
     const handleClick = (event) => {
         event.stopPropagation();
         setAnchorEl(event.currentTarget);
+        if (onOpen) {
+            onOpen(event);
+        }
     };
 
     const handleClose = (event) => {
         event.stopPropagation();
         setAnchorEl(null);
+        if (onClose) {
+            onClose(event);
+        }
     };
 
     return (
@@ -56,6 +71,8 @@ MenuButton.propTypes = {
     isIconButton: PropTypes.bool,
     menuProps: PropTypes.object,
     menuChildren: PropTypes.node,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func,
 };
 
 export default memo(MenuButton);

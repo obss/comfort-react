@@ -264,4 +264,16 @@ const MenuButtonApiInfo = [
         defaultValue: '',
         description: '',
     },
+    {
+        name: 'onOpen',
+        type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'onClose',
+        type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
 ];
