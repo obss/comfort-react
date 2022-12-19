@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useId, useState } from 'react';
 import Menu from '@mui/material/Menu';
 import PropTypes from 'prop-types';
 import Button from './Button';
@@ -14,12 +14,25 @@ const MenuButton = ({
     menuChildren,
     onOpen,
     onClose,
+    open: openProp,
+    ...rest
 }) => {
+    const buttonId = useId();
     const [anchorEl, setAnchorEl] = useState(null);
-
     const _className = getClassName([className, 'ComfortMenuButton']);
     const ButtonComponent = isIconButton ? IconButton : Button;
     const open = Boolean(anchorEl);
+
+    useEffect(() => {
+        const buttonElement = document.getElementById(buttonId);
+        if (buttonElement && openProp !== undefined && openProp !== null) {
+            if (openProp) {
+                setAnchorEl(buttonElement);
+            } else {
+                setAnchorEl(null);
+            }
+        }
+    }, [openProp, buttonId]);
 
     const handleClick = (event) => {
         event.stopPropagation();
@@ -38,8 +51,8 @@ const MenuButton = ({
     };
 
     return (
-        <div className={_className}>
-            <ButtonComponent onClick={handleClick} {...buttonProps}>
+        <div className={_className} {...rest}>
+            <ButtonComponent id={buttonId} onClick={handleClick} {...buttonProps}>
                 {children}
             </ButtonComponent>
 

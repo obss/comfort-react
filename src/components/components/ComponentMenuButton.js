@@ -39,6 +39,7 @@ const ComponentMenuButton = () => {
     const [selectedIconButton, setSelectedIconButton] = useState(false);
     const [selectedLoading, setSelectedLoading] = useState(false);
     const [selectedClassname, setSelectedClassname] = useState(false);
+    const [selectedOpen, setSelectedOpen] = useState(undefined);
 
     let menuProps = {};
     if (selectedCustomTransition) {
@@ -90,6 +91,7 @@ const ComponentMenuButton = () => {
                 disabled: selectedDisabled,
                 loading: selectedLoading,
             }}
+            open={selectedOpen}
         >
             <FilterList />
         </MenuButton>
@@ -214,6 +216,17 @@ const ComponentMenuButton = () => {
                         />
                     </FormGroup>
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'open'}
+                            value={selectedOpen}
+                            onChange={(newValue) => {
+                                setSelectedOpen(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -273,6 +286,12 @@ const MenuButtonApiInfo = [
     {
         name: 'onClose',
         type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'open',
+        type: 'Bool',
         defaultValue: '',
         description: '',
     },
