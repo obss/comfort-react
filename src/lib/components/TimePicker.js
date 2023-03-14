@@ -40,7 +40,7 @@ const TimePicker = ({
         }
     };
 
-    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, completeTimeValue });
+    const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, callback: completeTimeValue });
 
     const getValue = () => {
         const defaultValue = null;
