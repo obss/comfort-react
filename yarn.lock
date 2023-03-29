@@ -6235,7 +6235,7 @@ __metadata:
     react-phone-input-2: 2.15.1
     react-router-dom: 6.4.2
     react-scripts: 5.0.1
-    react-validatable-form: 4.0.0
+    react-validatable-form: 4.0.1
     rollup: 3.2.2
     rollup-plugin-node-builtins: 2.1.2
     rollup-plugin-node-globals: 1.4.0
@@ -15330,9 +15330,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-validatable-form@npm:4.0.0":
-  version: 4.0.0
-  resolution: "react-validatable-form@npm:4.0.0"
+"react-validatable-form@npm:4.0.1":
+  version: 4.0.1
+  resolution: "react-validatable-form@npm:4.0.1"
   dependencies:
     lodash.get: 4.4.2
     lodash.set: 4.3.2
@@ -15340,7 +15340,7 @@ __metadata:
   peerDependencies:
     react: ">=17.0.2"
     react-dom: ">=17.0.2"
-  checksum: 9caf1b8f51c3cf5145887ef8c8124644cb3c438ab2c63ff04c748f08e3bdb230727c7e08f1055cb66620e4e7fb25bdf46ebe63aff415abdaa2ea38f9f8a40afb
+  checksum: 6dbd17144bcc74dd88739ffedb8435e233cdc56f97919e588af9fed0598662ca586edf1538ce4d126dfd2d8c0f06341459709296285b0296122e44c8061301f7
   languageName: node
   linkType: hard
 
