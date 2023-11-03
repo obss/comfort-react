@@ -3359,7 +3359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:5.14.16, @mui/utils@npm:^5.14.14, @mui/utils@npm:^5.14.16, @mui/utils@npm:^5.14.3":
+"@mui/utils@npm:^5.14.14, @mui/utils@npm:^5.14.16, @mui/utils@npm:^5.14.3":
   version: 5.14.16
   resolution: "@mui/utils@npm:5.14.16"
   dependencies:
@@ -5943,7 +5943,6 @@ __metadata:
     "@mui/icons-material": "npm:5.14.16"
     "@mui/lab": "npm:5.0.0-alpha.151"
     "@mui/material": "npm:5.14.16"
-    "@mui/utils": "npm:5.14.16"
     "@mui/x-date-pickers": "npm:6.17.0"
     "@rollup/plugin-babel": "npm:6.0.4"
     "@rollup/plugin-commonjs": "npm:25.0.7"
@@ -5964,7 +5963,6 @@ __metadata:
     libphonenumber-js: "npm:1.10.49"
     miragejs: "npm:0.1.48"
     notistack: "npm:3.0.1"
-    numeral: "npm:2.0.6"
     prettier: "npm:3.0.3"
     prop-types: "npm:15.8.1"
     react: "npm:18.2.0"
@@ -5995,7 +5993,6 @@ __metadata:
     "@mui/icons-material": 5.14.16
     "@mui/lab": 5.0.0-alpha.151
     "@mui/material": 5.14.16
-    "@mui/utils": 5.14.16
     "@mui/x-date-pickers": 6.17.0
     date-fns: 2.30.0
     react: ">=18.0.0"
@@ -11499,13 +11496,6 @@ __metadata:
   dependencies:
     boolbase: "npm:^1.0.0"
   checksum: 5afc3dafcd1573b08877ca8e6148c52abd565f1d06b1eb08caf982e3fa289a82f2cae697ffb55b5021e146d60443f1590a5d6b944844e944714a5b549675bcd3
-  languageName: node
-  linkType: hard
-
-"numeral@npm:2.0.6":
-  version: 2.0.6
-  resolution: "numeral@npm:2.0.6"
-  checksum: 5d19829b5b8d6b503d3c0144fcbaf0f515f8666c87e96e9484a3742d0f6e13a14f763cad313dfaa0d968b3e1a65fc1d8162f4f0c715c3d2e1859ed27ed0834c2
   languageName: node
   linkType: hard
 

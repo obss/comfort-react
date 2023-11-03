@@ -21,7 +21,6 @@ import {
     Popover,
 } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import { visuallyHidden } from '@mui/utils';
 import Checkbox from './Checkbox';
 import MenuButton from './MenuButton';
 import { getClassName } from '../utils/ClassNameUtils';
@@ -140,11 +139,6 @@ const TableHead = (props) => {
                                 {...definition.tableSortLabelProps}
                             >
                                 {definition.header}
-                                {keySortInfo ? (
-                                    <Box component="span" sx={visuallyHidden}>
-                                        {order === 'asc' ? 'sorted ascending' : 'sorted descending'}
-                                    </Box>
-                                ) : null}
                             </TableSortLabel>
                         ) : (
                             definition.header

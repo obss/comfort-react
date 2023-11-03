@@ -33,7 +33,6 @@ const comfortReactGlobals = {
     '@mui/material/styles': '@mui/material/styles',
     '@mui/material/SvgIcon': '@mui/material/SvgIcon',
     '@mui/material/Tooltip': '@mui/material/Tooltip',
-    '@mui/utils': '@mui/utils',
     '@mui/x-date-pickers': '@mui/x-date-pickers',
     '@mui/x-date-pickers/AdapterDateFns': '@mui/x-date-pickers/AdapterDateFns',
     react: 'react',

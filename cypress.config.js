@@ -5,8 +5,8 @@ module.exports = defineConfig({
 
     component: {
         devServer: {
-            framework: 'create-react-app',
-            bundler: 'webpack',
+            framework: 'vite',
+            bundler: 'vite',
         },
     },
 });

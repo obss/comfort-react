@@ -43,3 +43,14 @@ export const isValidVkn = (vkn) => {
     let sum = v.reduce((a, b) => a + b, 0) % 10;
     return (10 - (sum % 10)) % 10 === lastDigit;
 };
+
+const BINARY_INFO = {
+    base: 1000,
+    suffixes: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+};
+
+export const getFileSize = (bytes) => {
+    if (bytes === 0) return '0 B';
+    const i = Math.floor(Math.log(bytes) / Math.log(BINARY_INFO.base));
+    return `${parseFloat((bytes / Math.pow(BINARY_INFO.base, i)).toFixed(2))} ${BINARY_INFO.suffixes[i]}`;
+};

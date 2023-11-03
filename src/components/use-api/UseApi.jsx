@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Autocomplete, Checkbox, TextField, useApi, useSnackbar } from '../../lib';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { Autocomplete, Button, Checkbox, TextField, useApi, useSnackbar } from '../../lib';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import { Grid } from '@mui/material';
 
@@ -318,9 +317,9 @@ const UseApi = () => {
                 </Grid>
             </Grid>
 
-            <LoadingButton variant="contained" color="primary" onClick={handleRetrieveUsers} loading={loading}>
+            <Button variant="contained" color="primary" onClick={handleRetrieveUsers} loading={loading}>
                 Retrieve Users
-            </LoadingButton>
+            </Button>
 
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>

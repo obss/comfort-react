@@ -1,5 +1,4 @@
 import React, { useState, memo } from 'react';
-import numeral from 'numeral';
 import { useSnackbar } from 'notistack';
 import Dropzone from 'react-dropzone';
 import {
@@ -22,10 +21,7 @@ import Switch from './Switch';
 import useTranslation from '../hooks/useTranslation';
 import useHelperText from '../hooks/useHelperText';
 import useOnBlur from '../hooks/useOnBlur';
-
-export function fData(number) {
-    return numeral(number).format('0.0 b');
-}
+import { getFileSize } from '../utils/StringUtils';
 
 const DEFAULT_LOADING_COMPONENT = <CircularProgress />;
 
@@ -254,7 +250,7 @@ const FileInput = ({
                                     className={'ComfortFileInputUploadCardPreviewHeader'}
                                     avatar={<InsertDriveFile />}
                                     title={file.name}
-                                    subheader={fData(file.size)}
+                                    subheader={getFileSize(file.size)}
                                     action={
                                         <>
                                             <IconButton
