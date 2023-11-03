@@ -96,6 +96,8 @@ ComfortReactProvider.propTypes = {
     localizationProviderLocale: PropTypes.object,
     notistackProviderProps: PropTypes.object,
     useApiProps: PropTypes.object,
+    renderErrorMessage: PropTypes.func,
+    children: PropTypes.any,
 };
 
 export default ComfortReactProvider;

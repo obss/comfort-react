@@ -19,6 +19,7 @@ const INPUT_FORMAT_OPTIONS = [
     'MM/dd/yyyy',
     'MM-dd-yyyy',
     'do MMM yyyy',
+    'dd/MM/yyyy HH:mm',
 ];
 const INPUT_STYLE = { color: 'red' };
 const PLACEHOLDER_TEXT = 'custom placeholder';
@@ -41,6 +42,9 @@ const ComponentDatePicker = () => {
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
     const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
     const [format, setFormat] = useState();
+    const [enableTime, setEnableTime] = useState(false);
+    const [okText, setOkText] = useState();
+    const [cancelText, setCancelText] = useState();
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
@@ -68,11 +72,14 @@ const ComponentDatePicker = () => {
             variant={selectedVariant}
             disabled={selectedDisabled}
             fullWidth={selectedFullWidth}
-            InputProps={{
-                style: selectedInputStyle ? INPUT_STYLE : null,
+            textFieldProps={{
+                sx: selectedInputStyle ? { input: INPUT_STYLE } : null,
             }}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             focusedLabel={selectedFocusedLabel ? 'Focused DatePicker' : null}
+            enableTime={enableTime}
+            okText={okText}
+            cancelText={cancelText}
         />
     );
 
@@ -206,6 +213,35 @@ const ComponentDatePicker = () => {
                         label={'format'}
                     />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                    <FormGroup>
+                        <Checkbox
+                            label={'enableTime'}
+                            value={enableTime}
+                            onChange={(newValue) => {
+                                setEnableTime(newValue);
+                            }}
+                        />
+                    </FormGroup>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        value={okText}
+                        onChange={(val) => {
+                            setOkText(val);
+                        }}
+                        label="okText"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        value={cancelText}
+                        onChange={(val) => {
+                            setCancelText(val);
+                        }}
+                        label="cancelText"
+                    />
+                </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
             <CurrentComponentApiInfo
@@ -293,12 +329,6 @@ const DateApiInfo = [
         description: '',
     },
     {
-        name: 'renderedTextFieldSx',
-        type: 'Object',
-        defaultValue: '',
-        description: '',
-    },
-    {
         name: 'fullWidth',
         type: 'Bool',
         defaultValue: '',
@@ -311,7 +341,7 @@ const DateApiInfo = [
         description: '',
     },
     {
-        name: 'inputProps',
+        name: 'textFieldProps',
         type: 'Object',
         defaultValue: '',
         description: '',
@@ -349,6 +379,12 @@ const DateApiInfo = [
     {
         name: 'renderErrorMessage',
         type: 'Func',
+        defaultValue: '',
+        description: '',
+    },
+    {
+        name: 'enableTime',
+        type: 'Bool',
         defaultValue: '',
         description: '',
     },

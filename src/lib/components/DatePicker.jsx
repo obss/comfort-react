@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
+import { DatePicker as MuiDatePicker, DateTimePicker as MuiDateTimePicker } from '@mui/x-date-pickers';
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
@@ -19,10 +19,9 @@ const DatePicker = ({
     setPathValue,
     errorMessage,
     noHelperText,
-    renderedTextFieldSx,
     fullWidth,
     placeholder,
-    inputProps,
+    textFieldProps,
     format,
     inputFormat,
     okText,
@@ -30,13 +29,20 @@ const DatePicker = ({
     variant,
     renderErrorMessage,
     focusedLabel,
+    onClose,
+    enableTime,
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
     const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const { getLocalizedMessage } = useTranslation();
     const _className = getClassName([className, 'ComfortDatePicker']);
-    const _format = format || inputFormat || getLocalizedMessage('DATE_PICKER_INPUT_FORMAT');
+    const _format =
+        format ||
+        inputFormat ||
+        (enableTime
+            ? getLocalizedMessage('DATE_PICKER_INPUT_FORMAT_WITH_TIME')
+            : getLocalizedMessage('DATE_PICKER_INPUT_FORMAT'));
     const _okText = okText || getLocalizedMessage('DATE_PICKER_OK_TEXT');
     const _cancelText = cancelText || getLocalizedMessage('DATE_PICKER_CANCEL_TEXT');
     const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
@@ -76,29 +82,42 @@ const DatePicker = ({
         return label;
     };
 
+    const handleOnClose = (e) => {
+        handleOnBlur(e);
+        if (onClose) {
+            onClose(e);
+        }
+    };
+
+    const MuiPickerComponent = enableTime ? MuiDateTimePicker : MuiDatePicker;
+
+    const customLocaleText = {
+        okButtonLabel: _okText,
+        cancelButtonLabel: _cancelText,
+    };
+
     return (
-        <MuiDatePicker
-            id={id || path}
+        <MuiPickerComponent
             className={_className}
             label={getLabel()}
             value={getValue()}
             onChange={handleOnChange}
-            inputProps={{ placeholder: placeholder, ...inputProps }}
             slotProps={{
                 textField: {
+                    id: id || path,
+                    placeholder: placeholder,
                     onBlur: handleOnBlur,
                     onFocus: handleOnFocus,
                     error: !!errorMessage,
                     helperText: helperText,
-                    path: path,
-                    sx: renderedTextFieldSx,
                     fullWidth: fullWidth,
                     variant: variant,
+                    ...textFieldProps,
                 },
             }}
             format={_format}
-            okText={_okText}
-            cancelText={_cancelText}
+            localeText={customLocaleText}
+            onClose={handleOnClose}
             {...rest}
         />
     );
@@ -117,10 +136,9 @@ DatePicker.propTypes = {
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     noHelperText: PropTypes.bool,
-    renderedTextFieldSx: PropTypes.object,
     fullWidth: PropTypes.bool,
     placeholder: PropTypes.string,
-    inputProps: PropTypes.object,
+    textFieldProps: PropTypes.object,
     format: PropTypes.string,
     inputFormat: PropTypes.string,
     okText: PropTypes.string,
@@ -128,6 +146,8 @@ DatePicker.propTypes = {
     variant: PropTypes.string,
     renderErrorMessage: PropTypes.func,
     focusedLabel: PropTypes.string,
+    onClose: PropTypes.func,
+    enableTime: PropTypes.bool,
 };
 
 export default memo(DatePicker);
