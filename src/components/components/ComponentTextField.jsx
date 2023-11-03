@@ -396,7 +396,7 @@ const TextFieldApiInfo = [
         description: '',
     },
     {
-        name: 'limitClassNamew',
+        name: 'limitClassName',
         type: 'String',
         defaultValue: '',
         description: '',

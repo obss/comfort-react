@@ -1,10 +1,10 @@
 import React, { memo, useState } from 'react';
 import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers';
 import PropTypes from 'prop-types';
-import TextField from './TextField';
 import { getClassName } from '../utils/ClassNameUtils';
 import useTranslation from '../hooks/useTranslation';
 import useOnBlur from '../hooks/useOnBlur';
+import useHelperText from '../hooks/useHelperText';
 
 const DatePicker = ({
     id,
@@ -23,20 +23,20 @@ const DatePicker = ({
     fullWidth,
     placeholder,
     inputProps,
+    format,
     inputFormat,
     okText,
     cancelText,
     variant,
-    RenderInputComponent,
     renderErrorMessage,
     focusedLabel,
-    renderInputPropsManipulator,
     ...rest
 }) => {
     const [focused, setFocused] = useState(false);
+    const helperText = useHelperText({ errorMessage, noHelperText, renderErrorMessage });
     const { getLocalizedMessage } = useTranslation();
     const _className = getClassName([className, 'ComfortDatePicker']);
-    const _inputFormat = inputFormat || getLocalizedMessage('DATE_PICKER_INPUT_FORMAT');
+    const _format = format || inputFormat || getLocalizedMessage('DATE_PICKER_INPUT_FORMAT');
     const _okText = okText || getLocalizedMessage('DATE_PICKER_OK_TEXT');
     const _cancelText = cancelText || getLocalizedMessage('DATE_PICKER_CANCEL_TEXT');
     const handleOnBlur = useOnBlur({ setPathIsBlurred, onBlur, id, path, setFocused });
@@ -76,8 +76,6 @@ const DatePicker = ({
         return label;
     };
 
-    const RenderInputFinalComponent = RenderInputComponent ? RenderInputComponent : TextField;
-
     return (
         <MuiDatePicker
             id={id || path}
@@ -86,28 +84,21 @@ const DatePicker = ({
             value={getValue()}
             onChange={handleOnChange}
             inputProps={{ placeholder: placeholder, ...inputProps }}
-            renderInput={(params) => {
-                const newParams = renderInputPropsManipulator ? renderInputPropsManipulator(params) : { ...params };
-                return (
-                    <RenderInputFinalComponent
-                        {...newParams}
-                        onBlur={handleOnBlur}
-                        onFocus={handleOnFocus}
-                        error={!!errorMessage}
-                        errorMessage={errorMessage}
-                        renderErrorMessage={renderErrorMessage}
-                        noHelperText={noHelperText}
-                        path={path}
-                        sx={renderedTextFieldSx || {}}
-                        fullWidth={fullWidth}
-                        variant={variant}
-                    />
-                );
+            slotProps={{
+                textField: {
+                    onBlur: handleOnBlur,
+                    onFocus: handleOnFocus,
+                    error: !!errorMessage,
+                    helperText: helperText,
+                    path: path,
+                    sx: renderedTextFieldSx,
+                    fullWidth: fullWidth,
+                    variant: variant,
+                },
             }}
-            inputFormat={_inputFormat}
+            format={_format}
             okText={_okText}
             cancelText={_cancelText}
-            key={_inputFormat} // to force re-render after language change (mui date input bug)
             {...rest}
         />
     );
@@ -130,14 +121,13 @@ DatePicker.propTypes = {
     fullWidth: PropTypes.bool,
     placeholder: PropTypes.string,
     inputProps: PropTypes.object,
+    format: PropTypes.string,
     inputFormat: PropTypes.string,
     okText: PropTypes.string,
     cancelText: PropTypes.string,
     variant: PropTypes.string,
-    RenderInputComponent: PropTypes.object,
     renderErrorMessage: PropTypes.func,
     focusedLabel: PropTypes.string,
-    renderInputPropsManipulator: PropTypes.func,
 };
 
 export default memo(DatePicker);

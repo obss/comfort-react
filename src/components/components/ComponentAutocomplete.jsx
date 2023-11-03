@@ -583,7 +583,7 @@ const AutocompleteApiInfo = [
     },
     {
         name: 'RenderInputComponent',
-        type: 'Object',
+        type: 'Func',
         defaultValue: '',
         description: '',
     },

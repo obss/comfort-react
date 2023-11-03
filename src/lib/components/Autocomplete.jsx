@@ -203,10 +203,11 @@ Autocomplete.propTypes = {
     disabled: PropTypes.bool,
     onInputChange: PropTypes.func,
     onInputRemove: PropTypes.func,
-    RenderInputComponent: PropTypes.object,
+    RenderInputComponent: PropTypes.func,
     renderErrorMessage: PropTypes.func,
     focusedLabel: PropTypes.string,
     renderInputProps: PropTypes.object,
+    isDefaultEmptyValueUndefined: PropTypes.bool,
 };
 
 export default memo(Autocomplete);

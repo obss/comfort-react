@@ -163,7 +163,7 @@ MaskField.propTypes = {
     multiline: PropTypes.bool,
     variant: PropTypes.string,
     type: PropTypes.string,
-    maskFormat: PropTypes.string.isRequired,
+    maskFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(RegExp)]).isRequired,
     definitions: PropTypes.object,
     blocks: PropTypes.object,
     renderErrorMessage: PropTypes.func,

@@ -340,7 +340,7 @@ const AppRoutes = (props) => {
                         path="/notistack/use-snackbar-api"
                         element={
                             <AppRouteWithTitle title="useSnackbar Api">
-                                <UseSnackbarApi />
+                                <UseSnackbarApi openSettingsDialog={props.openSettingsDialog} />
                             </AppRouteWithTitle>
                         }
                     />

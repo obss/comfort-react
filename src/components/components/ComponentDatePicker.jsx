@@ -2,7 +2,7 @@ import { Autocomplete, Checkbox, DatePicker, TextField, useSnackbar, useValidata
 import { Grid } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import jsxToString from 'jsx-to-string';
 import CurrentRulesInfo from '../CurrentRulesInfo';
 import CurrentComponentApiInfo from '../CurrentComponentApiInfo';
@@ -40,18 +40,10 @@ const ComponentDatePicker = () => {
     const [selectedRenderErrorMessage, setSelectedRenderErrorMessage] = useState(false);
     const [enableUseValidatableForm, setEnableUseValidatableForm] = useState(false);
     const [selectedFocusedLabel, setSelectedFocusedLabel] = useState(false);
-    const [disableMaskedInput, setDisableMaskedInput] = useState(false);
-    const [inputFormat, setInputFormat] = useState();
-    const [selectedRenderInputPropsManipulator, setSelectedRenderInputPropsManipulator] = useState(false);
+    const [format, setFormat] = useState();
     const { setPathValue, setPathIsBlurred, getValue, getError } = useValidatableForm({
         rules,
     });
-
-    useEffect(() => {
-        if (inputFormat !== 'dd/MMM/yyyy') {
-            setSelectedRenderInputPropsManipulator(false);
-        }
-    }, [inputFormat]);
 
     const handleChange = (newValue) => {
         setValue(newValue);
@@ -61,21 +53,11 @@ const ComponentDatePicker = () => {
         enqueueSnackbar('DatePicker is blurred', { variant: 'info' });
     };
 
-    const renderInputPropsManipulator = (props) => {
-        let value = props.inputProps.value;
-        if (value) {
-            value = value.length === 2 && value[value.length - 1] !== '/' ? value + '/' : value;
-            value = value.length === 6 && value[value.length - 1] !== '/' ? value + '/' : value;
-        }
-        const newProps = { ...props, inputProps: { ...props.inputProps, value: value } };
-        return newProps;
-    };
-
     const datePickerElementJsx = (
         <DatePicker
             label="DatePicker"
             path="val"
-            inputFormat={inputFormat}
+            format={format}
             placeholder={selectedPlaceholder ? PLACEHOLDER_TEXT : null}
             value={!enableUseValidatableForm ? value : getValue('val')}
             onChange={!enableUseValidatableForm ? handleChange : null}
@@ -91,8 +73,6 @@ const ComponentDatePicker = () => {
             }}
             renderErrorMessage={selectedRenderErrorMessage ? customErrorMessageRenderer : undefined}
             focusedLabel={selectedFocusedLabel ? 'Focused DatePicker' : null}
-            disableMaskedInput={disableMaskedInput}
-            renderInputPropsManipulator={selectedRenderInputPropsManipulator ? renderInputPropsManipulator : undefined}
         />
     );
 
@@ -218,36 +198,13 @@ const ComponentDatePicker = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Autocomplete
-                        value={inputFormat}
+                        value={format}
                         options={INPUT_FORMAT_OPTIONS}
                         onChange={(val) => {
-                            setInputFormat(val);
+                            setFormat(val);
                         }}
-                        label={'inputFormat'}
+                        label={'format'}
                     />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormGroup>
-                        <Checkbox
-                            label={'disableMaskedInput'}
-                            value={disableMaskedInput}
-                            onChange={(newValue) => {
-                                setDisableMaskedInput(newValue);
-                            }}
-                        />
-                    </FormGroup>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormGroup>
-                        <Checkbox
-                            label={'renderInputPropsManipulator'}
-                            value={selectedRenderInputPropsManipulator}
-                            onChange={(newValue) => {
-                                setSelectedRenderInputPropsManipulator(newValue);
-                            }}
-                            disabled={inputFormat !== 'dd/MMM/yyyy'}
-                        />
-                    </FormGroup>
                 </Grid>
             </Grid>
             <CurrentRulesInfo currentRules={currentJsx} dontStringify={true} header="Current Jsx" />
@@ -360,7 +317,7 @@ const DateApiInfo = [
         description: '',
     },
     {
-        name: 'inputFormat',
+        name: 'format',
         type: 'String',
         defaultValue: '',
         description: (
@@ -390,19 +347,7 @@ const DateApiInfo = [
         description: '',
     },
     {
-        name: 'RenderInputComponent',
-        type: 'Object',
-        defaultValue: '',
-        description: '',
-    },
-    {
         name: 'renderErrorMessage',
-        type: 'Func',
-        defaultValue: '',
-        description: '',
-    },
-    {
-        name: 'renderInputPropsManipulator',
         type: 'Func',
         defaultValue: '',
         description: '',
