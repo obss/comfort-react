@@ -94,6 +94,11 @@ const DatePicker = ({
     const customLocaleText = {
         okButtonLabel: _okText,
         cancelButtonLabel: _cancelText,
+        fieldMonthPlaceholder: (params) =>
+            params.contentType === 'letter'
+                ? getLocalizedMessage('DATE_PICKER_FIELD_MONTH_LETTER_PLACEHOLDER')
+                : getLocalizedMessage('DATE_PICKER_FIELD_MONTH_NON_LETTER_PLACEHOLDER'),
+        fieldDayPlaceholder: () => getLocalizedMessage('DATE_PICKER_FIELD_DAY_PLACEHOLDER'),
     };
 
     return (

@@ -42,6 +42,9 @@ const messages = {
         DATE_PICKER_INPUT_FORMAT_WITH_TIME: 'dd/MM/yyyy HH:mm',
         DATE_PICKER_OK_TEXT: 'Tamam',
         DATE_PICKER_CANCEL_TEXT: 'İptal',
+        DATE_PICKER_FIELD_DAY_PLACEHOLDER: 'GG',
+        DATE_PICKER_FIELD_MONTH_NON_LETTER_PLACEHOLDER: 'AA',
+        DATE_PICKER_FIELD_MONTH_LETTER_PLACEHOLDER: 'AAAA',
         TABLE_LABEL_ROWS_PER_PAGE: 'Sayfa başına satır sayısı:',
         TABLE_LABEL_DISPLAYED_ROWS: ({ from, to, count }) => `${count} sonuçtan ${from}-${to} arası`,
         TABLE_GET_ITEM_ARIA_LABEL: (type) => `${PAGE_TYPE_MAP_TR[type]} sayfaya git`,
@@ -68,6 +71,9 @@ const messages = {
         DATE_PICKER_INPUT_FORMAT_WITH_TIME: 'MM/dd/yyyy HH:mm',
         DATE_PICKER_OK_TEXT: 'OK',
         DATE_PICKER_CANCEL_TEXT: 'Cancel',
+        DATE_PICKER_FIELD_DAY_PLACEHOLDER: 'DD',
+        DATE_PICKER_FIELD_MONTH_NON_LETTER_PLACEHOLDER: 'MM',
+        DATE_PICKER_FIELD_MONTH_LETTER_PLACEHOLDER: 'MMMM',
         TABLE_LABEL_ROWS_PER_PAGE: 'Rows per page:',
         TABLE_LABEL_DISPLAYED_ROWS: ({ from, to, count }) => {
             return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
@@ -96,6 +102,9 @@ const messages = {
         DATE_PICKER_INPUT_FORMAT_WITH_TIME: 'MM/dd/yyyy HH:mm',
         DATE_PICKER_OK_TEXT: 'نعم',
         DATE_PICKER_CANCEL_TEXT: 'يلغي',
+        DATE_PICKER_FIELD_DAY_PLACEHOLDER: 'DD',
+        DATE_PICKER_FIELD_MONTH_NON_LETTER_PLACEHOLDER: 'MM',
+        DATE_PICKER_FIELD_MONTH_LETTER_PLACEHOLDER: 'MMMM',
         TABLE_LABEL_ROWS_PER_PAGE: 'عدد الصفوف في الصفحة:',
         TABLE_LABEL_DISPLAYED_ROWS: ({ from, to, count }) => {
             return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
