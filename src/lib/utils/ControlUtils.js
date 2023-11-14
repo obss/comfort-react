@@ -9,5 +9,6 @@ export const isEmptyString = (param) => {
 };
 
 export const isFunction = (functionToCheck) => {
-    return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+    const typeString = {}.toString.call(functionToCheck);
+    return typeString === '[object Function]' || typeString === '[object AsyncFunction]';
 };
