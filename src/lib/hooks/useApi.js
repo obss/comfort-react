@@ -120,11 +120,8 @@ const useApi = (props = {}) => {
         const finalHandleFinally = getFinalHandleFinally(handleFinally);
         const finalGetHeaders = getFinalGetHeaders(getHeaders);
 
-        if (!finalApiUrl) {
-            throw new Error('comfort-react error. apiUrl could not be found on makeRequest');
-        }
-        if (!url) {
-            throw new Error('comfort-react error. url could not be found on makeRequest');
+        if (!finalApiUrl && !url) {
+            throw new Error('comfort-react error. Both apiUrl & url could not be found on makeRequest');
         }
         if (!method) {
             throw new Error('comfort-react error. method could not be found on makeRequest');
@@ -133,7 +130,7 @@ const useApi = (props = {}) => {
             throw new Error('comfort-react error. getHeaders must be a function on makeRequest');
         }
 
-        let urlWithQueryParams = url;
+        let urlWithQueryParams = url || '';
         if (queryParams) {
             urlWithQueryParams = withQuery(url, queryParams);
         }
@@ -222,9 +219,6 @@ const useApi = (props = {}) => {
     const getRequest = (requestProps = {}) => {
         if (requestProps.body) {
             console.warn('comfort-react warning. getRequest does not support body. body will be ignored');
-        }
-        if (!requestProps.url) {
-            throw new Error('comfort-react error. url could not be found on getRequest');
         }
         const newProps = { ...requestProps, method: 'GET' };
         delete newProps.body;

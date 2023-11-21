@@ -30,12 +30,9 @@ const localeMap = {
     tr: trLocale,
 };
 
-const DEFAULT_CONTEXT_VALUE = {};
-const DEFAULT_REACT_VALIDATABLE_FORM_PROPS = {};
-
 const ComfortReactProvider = (props) => {
     const {
-        reactValidatableFormProps = DEFAULT_REACT_VALIDATABLE_FORM_PROPS,
+        reactValidatableFormProps = {},
         lang: langProp,
         localizationProviderLocale,
         notistackProviderProps,
@@ -43,7 +40,7 @@ const ComfortReactProvider = (props) => {
         renderErrorMessage,
     } = props;
     const { translations, customRules, ...restReactValidatableFormProps } = reactValidatableFormProps;
-    const contextValue = DEFAULT_CONTEXT_VALUE;
+    const contextValue = {};
     const lang = langProp || DEFAULT_LANGUAGE;
     contextValue.lang = lang;
     contextValue.useApiProps = useApiProps;
