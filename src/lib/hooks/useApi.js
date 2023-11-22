@@ -170,7 +170,11 @@ const useApi = (props = {}) => {
                             if (!finalSuccessMessage) {
                                 console.error('comfort-react error. successMessage could not be found on makeRequest');
                             } else {
-                                enqueueSnackbar(finalSuccessMessage, {
+                                let finalSuccessMessageString = finalSuccessMessage;
+                                if (isFunction(finalSuccessMessage)) {
+                                    finalSuccessMessageString = finalSuccessMessage(jsonResult, requestProps);
+                                }
+                                enqueueSnackbar(finalSuccessMessageString, {
                                     variant: 'success',
                                 });
                             }
@@ -194,7 +198,11 @@ const useApi = (props = {}) => {
                 } else {
                     if (!hideErrorMessage) {
                         const finalErrorMessage = errorMessage || error.message;
-                        enqueueSnackbar(finalErrorMessage, {
+                        let finalErrorMessageString = finalErrorMessage;
+                        if (isFunction(finalErrorMessage)) {
+                            finalErrorMessageString = finalErrorMessage(error, requestProps);
+                        }
+                        enqueueSnackbar(finalErrorMessageString, {
                             variant: 'error',
                         });
                     }
