@@ -1,6 +1,6 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Button, useSnackbar } from '../../lib';
-import Stack from '@mui/material/Stack';
+import { Stack } from '@mui/material';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 
 const variantList = ['success', 'error', 'warning', 'info'];

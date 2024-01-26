@@ -1,12 +1,9 @@
-import { Box, Typography } from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import { Box, Button, Tooltip, Typography } from '@mui/material';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import './Installation.css';
 import { useState } from 'react';
 import './Home.css';
-import { Link } from 'react-router-dom';
 
 const npmCommand = 'npm install comfort-react';
 const yarnCommand = 'yarn add comfort-react';

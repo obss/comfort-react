@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import LoadingButton from '@mui/lab/LoadingButton';
+import { LoadingButton } from '@mui/lab';
 import PropTypes from 'prop-types';
 import { getClassName } from '../utils/ClassNameUtils';
 

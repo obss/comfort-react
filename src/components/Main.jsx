@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppBar, Box, Dialog, DialogTitle, Toolbar } from '@mui/material';
+import { AppBar, Box, Dialog, DialogTitle, IconButton, Toolbar } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Main.css';
 import BodyWrapper from './BodyWrapper';

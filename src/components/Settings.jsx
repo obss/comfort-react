@@ -1,7 +1,6 @@
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import './Settings.css';
+import { Button, Tooltip } from '@mui/material';
 import { SettingsOutlined } from '@mui/icons-material';
+import './Settings.css';
 
 const Settings = (props) => {
     const { openSettingsDialog } = props;

@@ -1,12 +1,12 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import MenuItem from '@mui/material/MenuItem';
+import { FilterList as FilterListIcon } from '@mui/icons-material';
 import {
     Box,
     CircularProgress,
     ListItemIcon,
     ListItemText,
+    MenuItem,
     Table as MuiTable,
     TableBody,
     TableCell,
@@ -16,11 +16,11 @@ import {
     TableRow,
     TableSortLabel,
     Toolbar as MuiToolbar,
+    Tooltip,
     Typography,
     Paper,
     Popover,
 } from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
 import Checkbox from './Checkbox';
 import MenuButton from './MenuButton';
 import { getClassName } from '../utils/ClassNameUtils';

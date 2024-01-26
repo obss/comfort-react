@@ -1,10 +1,7 @@
 import React, { useState, memo } from 'react';
-import { TextField as MuiTextField, Typography } from '@mui/material';
+import { TextField as MuiTextField, InputAdornment, IconButton, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { getClassName } from '../utils/ClassNameUtils';
 import { isNullOrUndefined } from '../utils/ControlUtils';
 import useHelperText from '../hooks/useHelperText';

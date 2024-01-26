@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import { useState } from 'react';
+import { Button, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import './Installation.css';
-import { useState } from 'react';
 
 const npmCommandHeader = '// with npm';
 const npmCommand = 'npm install comfort-react';

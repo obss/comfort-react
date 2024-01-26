@@ -1,9 +1,10 @@
 import React, { memo, useEffect, useId, useState } from 'react';
-import Menu from '@mui/material/Menu';
+import { Menu } from '@mui/material';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import IconButton from './IconButton';
 import { getClassName } from '../utils/ClassNameUtils';
+import { isNullOrUndefined } from '../utils/ControlUtils';
 
 const MenuButton = ({
     buttonProps,
@@ -25,7 +26,7 @@ const MenuButton = ({
 
     useEffect(() => {
         const buttonElement = document.getElementById(buttonId);
-        if (buttonElement && openProp !== undefined && openProp !== null) {
+        if (buttonElement && !isNullOrUndefined(openProp)) {
             if (openProp) {
                 setAnchorEl(buttonElement);
             } else {
@@ -86,6 +87,7 @@ MenuButton.propTypes = {
     menuChildren: PropTypes.node,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
+    open: PropTypes.bool,
 };
 
 export default memo(MenuButton);
