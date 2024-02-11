@@ -301,18 +301,18 @@ input {
     border-color: transparent #1975d2 transparent transparent;
 }
 
-[dir='ltr'] .obssTriangle{
+[dir='ltr'] .obssTriangle {
     top: 0;
     right: 0;
 }
 
-[dir='rtl'] .obssTriangle{
+[dir='rtl'] .obssTriangle {
     top: 0;
     left: 0;
     transform: rotate(270deg);
 }
 
-.obssTriangle:hover{
+.obssTriangle:hover {
     border-color: transparent #1565c0 transparent transparent;
 }
 
@@ -325,31 +325,21 @@ input {
     writing-mode: vertical-lr;
 }
 
-[dir='ltr'] .triangleIcon{
+[dir='ltr'] .triangleIcon {
     top: 0;
     right: 5px;
 }
 
-[dir='rtl'] .triangleIcon{
+[dir='rtl'] .triangleIcon {
     top: 0;
     left: 20px;
 }
 
-
-.codesandboxIFrame {
-    padding-top: 20px;
-    width: 100%;
-    height: 500px;
-    border: 0;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.selectedSideItem{
+.selectedSideItem {
     background-color: lightgrey;
 }
 
-.generalDiv{
+.generalDiv {
     width: 100%;
 }
 
